@@ -1,0 +1,2 @@
+# ScalikeJDBC Play Plugin
+
