@@ -6,16 +6,17 @@ import play.Project._
 object ScalikeJDBCPlaySupportProjects extends Build {
 
   //lazy val _version = "2.0.0-SNAPSHOT"
-  lazy val _version = "1.7.4"
+  lazy val scalikejdbcVersion = "2.0.0-beta2"
+  lazy val _version = "2.2.0-SNAPSHOT"
 
   // published dependency version
-  lazy val _slf4jApiVersion = "1.7.6"
+  lazy val _slf4jApiVersion = "1.7.7"
   lazy val _defaultPlayVersion = "2.2.2"
   lazy val _typesafeConfigVersion = "1.2.0"
 
   // internal only
-  lazy val _logbackVersion = "1.1.1"
-  lazy val _h2Version = "1.3.175"
+  lazy val _logbackVersion = "1.1.2"
+  lazy val _h2Version = "1.4.177"
   lazy val _hibernateVersion = "4.3.1.Final"
   // TODO 2.0
   lazy val _scalatestVersion = "1.9.2"
@@ -46,7 +47,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
         (scalaVersion match {
           case "2.10.3" | "2.10.2" | "2.10.1" | "2.10.0" => {
             Seq(
-              "org.scalikejdbc"   %% "scalikejdbc"               % _version            % "compile",
+              "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "compile",
               "com.typesafe.play" %  "play_2.10"                 % _defaultPlayVersion % "provided",
               "com.typesafe.play" %  "play-test_2.10"            % _defaultPlayVersion % "test",
               "com.h2database"    %  "h2"                        % _h2Version          % "test"
@@ -85,8 +86,8 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     val appVersion      = "1.0"
 
     val appDependencies = Seq(
-      "org.scalikejdbc"      %% "scalikejdbc"               % _version,
-      "org.scalikejdbc"      %% "scalikejdbc-interpolation" % _version,
+      "org.scalikejdbc"      %% "scalikejdbc"               % scalikejdbcVersion,
+      "org.scalikejdbc"      %% "scalikejdbc-interpolation" % scalikejdbcVersion,
       "com.github.tototoshi" %% "play-flyway" % "1.0.1",
       "com.h2database"       %  "h2"          % _h2Version,
       "org.postgresql"       %  "postgresql"  % "9.3-1100-jdbc41"
