@@ -30,6 +30,8 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     publishTo <<= version { (v: String) => _publishTo(v) },
     publishMavenStyle := true,
     resolvers ++= _resolvers,
+    transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
+    incOptions := incOptions.value.withNameHashing(true),
     scalacOptions ++= _scalacOptions,
     publishMavenStyle := true,
     publishArtifact in Test := false,
