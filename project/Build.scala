@@ -140,10 +140,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
 
     play.Project(appName, appVersion, appDependencies, path = file("scalikejdbc-play-plugin/test/zentasks")).settings(
       scalaVersion in ThisBuild := "2.10.3",
-      resolvers ++= Seq(
-        "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases",
-        "sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots"
-      )
+      resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
     ).dependsOn(scalikejdbcPlayPlugin, scalikejdbcPlayFixturePlugin)
   }
 
@@ -161,10 +158,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
 
     play.Project(appName, appVersion, appDependencies, path = file("scalikejdbc-play-dbplugin-adapter/test/zentasks")).settings(
       scalaVersion in ThisBuild := "2.10.3",
-      resolvers ++= Seq(
-        "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases",
-        "sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots"
-      )
+      resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
     ).dependsOn(scalikejdbcPlayDBPluginAdapter, scalikejdbcPlayFixturePlugin)
   }
 
