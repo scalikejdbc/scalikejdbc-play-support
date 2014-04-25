@@ -39,16 +39,7 @@ class PlayPlugin(implicit app: Application) extends Plugin {
   }
 
   override def onStart(): Unit = {
-    DBs.loadGlobalSettings()
-
-    DBs.dbNames.foreach {
-      case "global" =>
-        // because "db.global" was used as "scalikejdbc.global" previously
-        Logger(classOf[PlayPlugin]).warn("Configuration with \"db.global\" is ignored. Use \"scalikejdbc.global\" instead.")
-      case name =>
-        DBs.setup(Symbol(name))
-    }
-
+    DBs.setupAll()
     opt("closeAllOnStop", "enabled")(playConfig).foreach { enabled => closeAllOnStop = enabled.toBoolean }
   }
 
