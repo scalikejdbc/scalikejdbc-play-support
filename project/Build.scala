@@ -6,7 +6,7 @@ import play.Project._
 object ScalikeJDBCPlaySupportProjects extends Build {
 
   //lazy val _version = "2.0.0-SNAPSHOT"
-  lazy val scalikejdbcVersion = "2.0.0-beta2"
+  lazy val scalikejdbcVersion = "2.0.0-beta3"
   lazy val _version = "2.2.0-SNAPSHOT"
 
   // published dependency version
@@ -50,6 +50,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
           case "2.10.3" | "2.10.2" | "2.10.1" | "2.10.0" => {
             Seq(
               "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "compile",
+              "org.scalikejdbc"   %% "scalikejdbc-config"        % scalikejdbcVersion  % "compile",
               "com.typesafe.play" %  "play_2.10"                 % _defaultPlayVersion % "provided",
               "com.typesafe.play" %  "play-test_2.10"            % _defaultPlayVersion % "test",
               "com.h2database"    %  "h2"                        % _h2Version          % "test"
