@@ -7,7 +7,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
 
   //lazy val _version = "2.0.0-SNAPSHOT"
   lazy val scalikejdbcVersion = "2.0.0-beta3"
-  lazy val _version = "2.2.0-SNAPSHOT"
+  lazy val _version = "2.2.0-beta1"
 
   // published dependency version
   lazy val _slf4jApiVersion = "1.7.7"
