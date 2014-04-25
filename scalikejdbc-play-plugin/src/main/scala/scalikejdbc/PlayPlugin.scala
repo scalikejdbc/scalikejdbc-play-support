@@ -45,8 +45,6 @@ class PlayPlugin(implicit app: Application) extends Plugin {
       case "global" =>
         // because "db.global" was used as "scalikejdbc.global" previously
         Logger(classOf[PlayPlugin]).warn("Configuration with \"db.global\" is ignored. Use \"scalikejdbc.global\" instead.")
-      case "default" =>
-        DBs.setup()
       case name =>
         DBs.setup(Symbol(name))
     }
