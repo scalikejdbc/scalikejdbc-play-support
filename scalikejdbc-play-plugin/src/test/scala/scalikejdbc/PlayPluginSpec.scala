@@ -33,7 +33,7 @@ object PlayPluginSpec extends Specification {
       "db.default.poolInitialSize" -> "1",
       "db.default.poolMaxSize" -> "2",
       "db.default.poolValidationQuery" -> "select 1",
-      "db.default.connectionTimeoutMillis" -> "2000",
+      "db.default.poolConnectionTimeoutMillis" -> "2000",
       "db.legacydb.driver" -> "org.h2.Driver",
       "db.legacydb.url" -> "jdbc:h2:mem:legacy",
       "db.legacydb.user" -> "l",
