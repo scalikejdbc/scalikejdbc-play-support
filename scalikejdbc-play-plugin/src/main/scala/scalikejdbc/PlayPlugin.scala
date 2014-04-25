@@ -34,7 +34,7 @@ class PlayPlugin(implicit app: Application) extends Plugin {
   /**
    * DBs with Play application configuration.
    */
-  private[this] val DBs = new DBs with TypesafeConfigReader with TypesafeConfig {
+  private[this] lazy val DBs = new DBs with TypesafeConfigReader with TypesafeConfig {
     override val config = app.configuration.underlying
   }
 
