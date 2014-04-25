@@ -50,6 +50,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
           case "2.10.3" | "2.10.2" | "2.10.1" | "2.10.0" => {
             Seq(
               "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "compile",
+              "org.scalikejdbc"   %% "scalikejdbc-config"        % scalikejdbcVersion  % "compile",
               "com.typesafe.play" %  "play_2.10"                 % _defaultPlayVersion % "provided",
               "com.typesafe.play" %  "play-test_2.10"            % _defaultPlayVersion % "test",
               "com.h2database"    %  "h2"                        % _h2Version          % "test"
