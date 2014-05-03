@@ -157,7 +157,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
       <developers>
         <developer>
           <id>seratch</id>
-          <name>Kazuhuiro Sera</name>
+          <name>Kazuhiro Sera</name>
           <url>http://git.io/sera</url>
         </developer>
       </developers>
