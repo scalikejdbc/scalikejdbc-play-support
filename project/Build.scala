@@ -12,7 +12,13 @@ object ScalikeJDBCPlaySupportProjects extends Build {
   // internal only
   lazy val _h2Version = "1.4.177"
 
-  lazy val baseSettings = Defaults.defaultSettings ++ Seq(
+  lazy val commonSettings = Seq(
+    scalaVersion := "2.10.4",
+    crossScalaVersions := scalaVersion.value :: "2.11.0" :: Nil,
+    scalacOptions ++= _scalacOptions
+  )
+
+  lazy val baseSettings = commonSettings ++ Seq(
     organization := "org.scalikejdbc",
     version := _version,
     publishTo <<= version { (v: String) => _publishTo(v) },
@@ -29,7 +35,6 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     // UnsupportedOperationException: The `++` operation is not supported for relations with different values of `nameHashing` flag.
     //
     // incOptions := incOptions.value.withNameHashing(true),
-    scalacOptions ++= _scalacOptions,
     publishMavenStyle := true,
     publishArtifact in Test := false,
     pomIncludeRepository := { x => false },
@@ -39,8 +44,9 @@ object ScalikeJDBCPlaySupportProjects extends Build {
   // scalikejdbc-play-plugin
   lazy val scalikejdbcPlayPlugin = Project(
     id = "play-plugin",
-    base = file("scalikejdbc-play-plugin"),
-    settings = baseSettings ++ Seq(
+    base = file("scalikejdbc-play-plugin")
+  ).settings(
+    baseSettings ++ Seq(
       name := "scalikejdbc-play-plugin",
       libraryDependencies ++= Seq(
         "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "compile",
@@ -51,14 +57,15 @@ object ScalikeJDBCPlaySupportProjects extends Build {
         "com.typesafe.play" %% "play-test"                 % _defaultPlayVersion % "test",
         "com.h2database"    %  "h2"                        % _h2Version          % "test"
       )
-    )
+    ) : _*
   )
 
   // scalikejdbc-play-dbplugin-adapter
   lazy val scalikejdbcPlayDBPluginAdapter = Project(
     id = "play-dbplugin-adapter",
-    base = file("scalikejdbc-play-dbplugin-adapter"),
-    settings = baseSettings ++ Seq(
+    base = file("scalikejdbc-play-dbplugin-adapter")
+  ).settings(
+    baseSettings ++ Seq(
       name := "scalikejdbc-play-dbplugin-adapter",
       libraryDependencies ++= Seq(
         "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "compile",
@@ -68,14 +75,15 @@ object ScalikeJDBCPlaySupportProjects extends Build {
         "com.typesafe.play" %% "play-test"                 % _defaultPlayVersion % "test",
         "com.h2database"    %  "h2"                        % _h2Version          % "test"
       )
-    )
+    ) : _*
   )
 
   // scalikejdbc-play-fixture-plugin
   lazy val scalikejdbcPlayFixturePlugin = Project(
     id = "play-fixture-plugin",
-    base = file("scalikejdbc-play-fixture-plugin"),
-    settings = baseSettings ++ Seq(
+    base = file("scalikejdbc-play-fixture-plugin")
+  ).settings(
+    baseSettings ++ Seq(
       name := "scalikejdbc-play-fixture-plugin",
       libraryDependencies ++= Seq(
         "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "compile",
@@ -84,24 +92,28 @@ object ScalikeJDBCPlaySupportProjects extends Build {
         "com.h2database"    %  "h2"                        % _h2Version          % "test"
       ),
       testOptions in Test += Tests.Argument(TestFrameworks.Specs2, "sequential", "true")
-    )
+    ) : _*
   ).dependsOn(scalikejdbcPlayPlugin % "test->test")
 
   // play plugin zentasks example
   lazy val scalikejdbcPlayPluginTestZentasks = {
     val appName         = "play-plugin-test-zentasks"
-    val appVersion      = "1.0"
 
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc"               % scalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-interpolation" % scalikejdbcVersion,
+      // TODO play-flyway for Scala2.11, play2.3
+      // https://github.com/tototoshi/play-flyway/pull/12
       "com.github.tototoshi" %% "play-flyway" % "1.0.1",
       "com.h2database"       %  "h2"          % _h2Version,
       "org.postgresql"       %  "postgresql"  % "9.3-1100-jdbc41"
     )
 
-    play.Project(appName, appVersion, appDependencies, path = file("scalikejdbc-play-plugin/test/zentasks")).settings(
-      scalaVersion in ThisBuild := "2.10.3",
+    Project(appName, file("scalikejdbc-play-plugin/test/zentasks"))
+    .enablePlugins(play.PlayScala)
+    .settings(commonSettings :_*)
+    .settings(
+      libraryDependencies ++= appDependencies,
       resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
     ).dependsOn(scalikejdbcPlayPlugin, scalikejdbcPlayFixturePlugin)
   }
@@ -109,7 +121,6 @@ object ScalikeJDBCPlaySupportProjects extends Build {
   // play dbplugin adapter zentasks example
   lazy val scalikejdbcPlayDBPluginAdapterTestZentasks = {
     val appName         = "play-dbplugin-adapter-test-zentasks"
-    val appVersion      = "1.0"
 
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc"               % scalikejdbcVersion,
@@ -118,8 +129,11 @@ object ScalikeJDBCPlaySupportProjects extends Build {
       "org.postgresql"       %  "postgresql"  % "9.3-1100-jdbc41"
     )
 
-    play.Project(appName, appVersion, appDependencies, path = file("scalikejdbc-play-dbplugin-adapter/test/zentasks")).settings(
-      scalaVersion in ThisBuild := "2.10.3",
+    Project(appName, file("scalikejdbc-play-dbplugin-adapter/test/zentasks"))
+    .enablePlugins(play.PlayScala)
+    .settings(commonSettings :_*)
+    .settings(
+      libraryDependencies ++= appDependencies,
       resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
     ).dependsOn(scalikejdbcPlayDBPluginAdapter, scalikejdbcPlayFixturePlugin)
   }
