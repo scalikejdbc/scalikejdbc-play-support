@@ -3,14 +3,14 @@ import Keys._
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
-  lazy val scalikejdbcVersion = "2.0.0-RC3"
-  lazy val _version = "2.2.0-RC"
+  lazy val scalikejdbcVersion = "2.0.0"
+  lazy val _version = "2.2.0"
 
   // published dependency version
   lazy val _defaultPlayVersion = play.core.PlayVersion.current
 
   // internal only
-  lazy val _h2Version = "1.4.177"
+  lazy val _h2Version = "1.4.178"
 
   lazy val baseSettings = Defaults.defaultSettings ++ Seq(
     organization := "org.scalikejdbc",
@@ -95,9 +95,9 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc"               % scalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-interpolation" % scalikejdbcVersion,
-      "com.github.tototoshi" %% "play-flyway" % "1.0.1",
+      "com.github.tototoshi" %% "play-flyway" % "1.0.3",
       "com.h2database"       %  "h2"          % _h2Version,
-      "org.postgresql"       %  "postgresql"  % "9.3-1100-jdbc41"
+      "org.postgresql"       %  "postgresql"  % "9.3-1101-jdbc41"
     )
 
     play.Project(appName, appVersion, appDependencies, path = file("scalikejdbc-play-plugin/test/zentasks")).settings(
@@ -135,11 +135,11 @@ object ScalikeJDBCPlaySupportProjects extends Build {
   )
   val jdbcDriverDependenciesInTestScope = Seq(
     "com.h2database"    % "h2"                   % _h2Version        % "test",
-    "org.apache.derby"  % "derby"                % "10.10.1.1"       % "test",
-    "org.xerial"        % "sqlite-jdbc"          % "3.7.15-M1"       % "test",
-    "org.hsqldb"        % "hsqldb"               % "2.3.1"           % "test",
-    "mysql"             % "mysql-connector-java" % "5.1.29"          % "test",
-    "org.postgresql"    % "postgresql"           % "9.3-1100-jdbc41" % "test"
+    "org.apache.derby"  % "derby"                % "10.10.2.0"       % "test",
+    "org.xerial"        % "sqlite-jdbc"          % "3.7.2"           % "test",
+    "org.hsqldb"        % "hsqldb"               % "2.3.2"           % "test",
+    "mysql"             % "mysql-connector-java" % "5.1.30"          % "test",
+    "org.postgresql"    % "postgresql"           % "9.3-1101-jdbc41" % "test"
   )
   val _scalacOptions = Seq("-deprecation", "-unchecked")
   val _pomExtra = <url>http://scalikejdbc.org/</url>
@@ -160,6 +160,17 @@ object ScalikeJDBCPlaySupportProjects extends Build {
           <name>Kazuhiro Sera</name>
           <url>http://git.io/sera</url>
         </developer>
+        <developer>
+          <id>xuwei-k</id>
+          <name>Kenji Yoshida</name>
+          <url>https://github.com/xuwei-k</url>
+        </developer>
+        <developer>
+          <id>tkawachi</id>
+          <name>Takashi Kawachi</name>
+          <url>https://github.com/tkawachi</url>
+        </developer>
       </developers>
+
 }
 
