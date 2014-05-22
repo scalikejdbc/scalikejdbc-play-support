@@ -8,5 +8,5 @@ script:
 
 env:
   - TEST_SCRIPT="; ++2.10.4; test"
-  - TEST_SCRIPT="; ++2.11.0; play-plugin/test; play-dbplugin-adapter/test; play-fixture-plugin/test; play-dbplugin-adapter-test-zentasks/test"
+  - TEST_SCRIPT="; ++2.11.1; play-plugin/test; play-dbplugin-adapter/test; play-fixture-plugin/test; play-dbplugin-adapter-test-zentasks/test"
 

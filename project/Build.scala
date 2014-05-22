@@ -14,7 +14,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
 
   lazy val commonSettings = Seq(
     scalaVersion := "2.10.4",
-    crossScalaVersions := scalaVersion.value :: "2.11.0" :: Nil,
+    crossScalaVersions := scalaVersion.value :: "2.11.1" :: Nil,
     scalacOptions ++= _scalacOptions
   )
 
