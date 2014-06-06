@@ -102,8 +102,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc"               % scalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-interpolation" % scalikejdbcVersion,
-      // TODO play-flyway release version
-      "com.github.tototoshi" %% "play-flyway" % "1.0.5-SNAPSHOT",
+      "com.github.tototoshi" %% "play-flyway" % "1.1.0",
       "com.h2database"       %  "h2"          % _h2Version,
       "org.postgresql"       %  "postgresql"  % "9.3-1101-jdbc41"
     )
@@ -113,7 +112,6 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     .settings(commonSettings :_*)
     .settings(
       libraryDependencies ++= appDependencies,
-      resolvers += Opts.resolver.sonatypeSnapshots, // play-flyway
       resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
     ).dependsOn(scalikejdbcPlayPlugin, scalikejdbcPlayFixturePlugin)
   }
