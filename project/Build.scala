@@ -3,8 +3,8 @@ import Keys._
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
-  lazy val scalikejdbcVersion = "2.1.0"
-  lazy val _version = "2.3.1"
+  lazy val scalikejdbcVersion = "2.1.2"
+  lazy val _version = "2.3.2"
 
   // published dependency version
   lazy val _defaultPlayVersion = play.core.PlayVersion.current
@@ -102,17 +102,16 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc"               % scalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-interpolation" % scalikejdbcVersion,
-      "com.github.tototoshi" %% "play-flyway" % "1.1.0",
+      "com.github.tototoshi" %% "play-flyway" % "1.1.2",
       "com.h2database"       %  "h2"          % _h2Version,
-      "org.postgresql"       %  "postgresql"  % "9.3-1101-jdbc41"
+      "org.postgresql"       %  "postgresql"  % "9.3-1102-jdbc41"
     )
 
     Project(appName, file("scalikejdbc-play-plugin/test/zentasks"))
     .enablePlugins(play.PlayScala)
     .settings(commonSettings :_*)
     .settings(
-      libraryDependencies ++= appDependencies,
-      resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
+      libraryDependencies ++= appDependencies
     ).dependsOn(scalikejdbcPlayPlugin, scalikejdbcPlayFixturePlugin)
   }
 
@@ -131,8 +130,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     .enablePlugins(play.PlayScala)
     .settings(commonSettings :_*)
     .settings(
-      libraryDependencies ++= appDependencies,
-      resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
+      libraryDependencies ++= appDependencies
     ).dependsOn(scalikejdbcPlayDBPluginAdapter, scalikejdbcPlayFixturePlugin)
   }
 

@@ -1,7 +1,4 @@
-resolvers ++= Seq(
-  "sonatype releases" at "http://oss.sonatype.org/content/repositories/releases",
-  "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
-)
+resolvers ++= Seq("Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-scalariform" % "1.3.0")
 
