@@ -86,6 +86,29 @@ object PlayPluginSpec extends Specification {
     )
   )
 
+  def fakeAppWithDBsWithEnv = FakeApplication(
+    withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
+    additionalPlugins = Seq("scalikejdbc.PlayPlugin"),
+    additionalConfiguration = Map(
+      "development.db.default.driver" -> "org.h2.Driver",
+      "development.db.default.url" -> "jdbc:h2:mem:default",
+      "development.db.default.user" -> "sa",
+      "development.db.default.password" -> "sa",
+      "development.db.legacydb.driver" -> "org.h2.Driver",
+      "development.db.legacydb.url" -> "jdbc:h2:mem:legacy",
+      "development.db.legacydb.user" -> "l",
+      "development.db.legacydb.password" -> "g",
+      "production.db.default.driver" -> "org.h2.Driver",
+      "production.db.default.url" -> "jdbc:h2:mem:default_prod",
+      "production.db.default.user" -> "sa_prod",
+      "production.db.default.password" -> "sa_prod",
+      "production.db.legacydb.driver" -> "org.h2.Driver",
+      "production.db.legacydb.url" -> "jdbc:h2:mem:legacy_prod",
+      "production.db.legacydb.user" -> "l_prod",
+      "production.db.legacydb.password" -> "g_prod"
+    )
+  )
+
   def plugin = fakeApp.plugin[PlayPlugin].get
 
   def simpleTest(table: String) = {
@@ -167,6 +190,38 @@ object PlayPluginSpec extends Specification {
       }
       simpleTest("user_5")
     }
+
+    "switch db when set 'development' system properties" in {
+      System.setProperty("play.db.env", "development")
+      running(fakeAppWithDBsWithEnv) {
+        {
+          val pool = ConnectionPool.get('default)
+          pool.url must_== ("jdbc:h2:mem:default")
+          pool.user must_== ("sa")
+        }
+        {
+          val pool = ConnectionPool.get('legacydb)
+          pool.url must_== ("jdbc:h2:mem:legacy")
+          pool.user must_== ("l")
+        }
+      }
+    }
+    "switch db when set 'production' system properties" in {
+      System.setProperty("play.db.env", "production")
+      running(fakeAppWithDBsWithEnv) {
+        {
+          val pool = ConnectionPool.get('default)
+          pool.url must_== ("jdbc:h2:mem:default_prod")
+          pool.user must_== ("sa_prod")
+        }
+        {
+          val pool = ConnectionPool.get('legacydb)
+          pool.url must_== ("jdbc:h2:mem:legacy_prod")
+          pool.user must_== ("l_prod")
+        }
+      }
+    }
+
   }
 
 }
