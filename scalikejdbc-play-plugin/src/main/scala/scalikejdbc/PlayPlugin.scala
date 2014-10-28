@@ -16,7 +16,7 @@
 package scalikejdbc
 
 import play.api._
-import scalikejdbc.config.{ TypesafeConfig, TypesafeConfigReader, DBs, DBsWithEnv }
+import scalikejdbc.config.{ TypesafeConfig, TypesafeConfigReader, DBs }
 
 /**
  * The Play plugin to use ScalikeJDBC
