@@ -1,16 +1,15 @@
-import sbt._
-import Keys._
+import sbt._, Keys._
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
-  lazy val scalikejdbcVersion = "2.1.4"
-  lazy val _version = "2.3.3"
+  lazy val scalikejdbcVersion = "2.2.0"
+  lazy val _version = "2.3.4"
 
   // published dependency version
   lazy val _defaultPlayVersion = play.core.PlayVersion.current
 
   // internal only
-  lazy val _h2Version = "1.4.181"
+  lazy val _h2Version = "1.4.182"
 
   lazy val commonSettings = Seq(
     scalaVersion := "2.10.4",
@@ -39,7 +38,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     publishArtifact in Test := false,
     pomIncludeRepository := { x => false },
     pomExtra := _pomExtra
-  )
+  ) ++ xerial.sbt.Sonatype.sonatypeSettings
 
   // scalikejdbc-play-plugin
   lazy val scalikejdbcPlayPlugin = Project(
@@ -123,7 +122,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
       "org.scalikejdbc"      %% "scalikejdbc"               % scalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-interpolation" % scalikejdbcVersion,
       "com.h2database"       %  "h2"          % _h2Version,
-      "org.postgresql"       %  "postgresql"  % "9.3-1100-jdbc41"
+      "org.postgresql"       %  "postgresql"  % "9.3-1102-jdbc41"
     )
 
     Project(appName, file("scalikejdbc-play-dbplugin-adapter/test/zentasks"))
@@ -148,8 +147,8 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     "org.apache.derby"  % "derby"                % "10.10.2.0"       % "test",
     "org.xerial"        % "sqlite-jdbc"          % "3.7.2"           % "test",
     "org.hsqldb"        % "hsqldb"               % "2.3.2"           % "test",
-    "mysql"             % "mysql-connector-java" % "5.1.30"          % "test",
-    "org.postgresql"    % "postgresql"           % "9.3-1101-jdbc41" % "test"
+    "mysql"             % "mysql-connector-java" % "5.1.34"          % "test",
+    "org.postgresql"    % "postgresql"           % "9.3-1102-jdbc41" % "test"
   )
   val _scalacOptions = Seq("-deprecation", "-unchecked")
   val _pomExtra = <url>http://scalikejdbc.org/</url>
