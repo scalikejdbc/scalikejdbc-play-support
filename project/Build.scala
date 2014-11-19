@@ -101,7 +101,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc"               % scalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-interpolation" % scalikejdbcVersion,
-      "com.github.tototoshi" %% "play-flyway" % "1.1.2",
+      "com.github.tototoshi" %% "play-flyway" % "1.1.3",
       "com.h2database"       %  "h2"          % _h2Version,
       "org.postgresql"       %  "postgresql"  % "9.3-1102-jdbc41"
     )
