@@ -18,8 +18,12 @@ object PlayDBPluginAdapterSpec extends Specification {
 
   def fakeAppWithDBPlugin = FakeApplication(
     withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
-    additionalPlugins = Seq("scalikejdbc.PlayDBPluginAdapter"),
     additionalConfiguration = Map(
+      "play.modules.enabled" -> List(
+        "scalikejdbc.PlayDBApiAdapterModule",
+        "play.api.db.DBModule",
+        "play.api.db.BoneCPModule"
+      ),
       "db.default.driver" -> "org.h2.Driver",
       "db.default.url" -> "jdbc:h2:mem:default",
       "db.default.user" -> "sa",
@@ -40,12 +44,12 @@ object PlayDBPluginAdapterSpec extends Specification {
 
   def fakeAppWithoutDBPlugin = FakeApplication(
     withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
-    additionalPlugins = Seq("scalikejdbc.PlayDBPluginAdapter"),
     additionalConfiguration = Map(
+      "play.modules.enabled" -> List("scalikejdbc.PlayDBApiAdapterModule"),
+      "play.modules.disabled" -> List("play.api.db.DBModule", "play.api.db.BoneCPModule"),
       "logger.root" -> "INFO",
       "logger.play" -> "INFO",
       "logger.application" -> "DEBUG",
-      "dbplugin" -> "disabled",
       "evolutionplugin" -> "disabled",
       "db.default.driver" -> "org.h2.Driver",
       "db.default.url" -> "jdbc:h2:mem:default",
@@ -127,4 +131,3 @@ object PlayDBPluginAdapterSpec extends Specification {
   }
 
 }
-

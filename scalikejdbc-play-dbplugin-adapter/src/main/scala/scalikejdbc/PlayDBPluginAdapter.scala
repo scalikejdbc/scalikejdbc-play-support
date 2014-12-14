@@ -15,36 +15,48 @@
  */
 package scalikejdbc
 
+import javax.inject._
 import play.api._
-import play.api.db.DBPlugin
+import play.api.inject._
+import play.api.db.{ DBApi, DBApiProvider, BoneConnectionPool }
 import scalikejdbc.config.{ TypesafeConfig, TypesafeConfigReader, DBs }
+
+/**
+ * Play module
+ */
+class PlayDBApiAdapterModule extends Module {
+  def bindings(env: Environment, config: Configuration) = Seq(
+    bind[PlayDBApiAdapter].toSelf.eagerly
+  )
+}
 
 /**
  * The Play plugin to use ScalikeJDBC
  */
-class PlayDBPluginAdapter(implicit app: Application) extends Plugin {
-
-  private[this] lazy val dbApi = app.plugin[DBPlugin].map(_.api)
-    .getOrElse(sys.error("there should be a database plugin registered at this point but looks like it's not available. Please make sure you register a db plugin properly"))
+@Singleton
+class PlayDBApiAdapter @Inject() (
+    dbApi: DBApi,
+    configuration: Configuration,
+    lifecycle: ApplicationLifecycle) {
 
   /**
    * DBs with Play application configuration.
    */
   private[this] lazy val DBs = new DBs with TypesafeConfigReader with TypesafeConfig {
-    override val config = app.configuration.underlying
+    override val config = configuration.underlying
   }
 
-  override def onStart(): Unit = {
+  def onStart(): Unit = {
     DBs.loadGlobalSettings()
 
-    dbApi.datasources.foreach {
-      case (dataSource, name) =>
-        ConnectionPool.add(Symbol(name), new DataSourceConnectionPool(dataSource))
+    dbApi.databases.foreach { db =>
+      scalikejdbc.ConnectionPool.add(Symbol(db.name), new DataSourceConnectionPool(db.dataSource))
     }
 
-    app.configuration.getString("scalikejdbc.play.closeAllOnStop.enabled").foreach { _ =>
+    configuration.getString("scalikejdbc.play.closeAllOnStop.enabled").foreach { _ =>
       Logger.warn(s"closeAllOnStop is ignored by PlayDBPluginAdapter")
     }
   }
-}
 
+  onStart()
+}
