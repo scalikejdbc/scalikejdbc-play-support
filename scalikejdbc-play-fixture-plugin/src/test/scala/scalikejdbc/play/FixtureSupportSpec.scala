@@ -19,6 +19,7 @@ class FixtureSupportSpec extends Specification with BeforeAfterExample {
 
   def fakeApp = FakeApplication(
     additionalConfiguration = Map(
+      "play.modules.enabled" -> List("scalikejdbc.PlayModule", "scalikejdbc.PlayFixtureModule"),
       "db.default.fixtures.test" -> List("users.sql", "project.sql").asJava,
       "db.secondary.fixtures.test" -> "a.sql",
       "db.default.driver" -> "org.h2.Driver",
@@ -29,8 +30,7 @@ class FixtureSupportSpec extends Specification with BeforeAfterExample {
       "db.secondary.url" -> "jdbc:h2:mem:secondary;DB_CLOSE_DELAY=-1",
       "db.secondary.user" -> "l",
       "db.secondary.password" -> "g"
-    ),
-    additionalPlugins = Seq("scalikejdbc.PlayPlugin", "scalikejdbc.PlayFixturePlugin")
+    )
   )
 
   "FixtureSupport" should {
@@ -44,4 +44,3 @@ class FixtureSupportSpec extends Specification with BeforeAfterExample {
   }
 
 }
-

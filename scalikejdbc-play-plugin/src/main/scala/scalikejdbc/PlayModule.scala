@@ -15,19 +15,34 @@
  */
 package scalikejdbc
 
+import javax.inject._
 import play.api._
+import play.api.inject._
 import scalikejdbc.config.{ TypesafeConfig, TypesafeConfigReader, DBs }
+import scala.concurrent.Future
+
+/**
+ * Play module
+ */
+class PlayModule extends Module {
+  def bindings(env: Environment, config: Configuration) = Seq(
+    bind[PlayInitializer].toSelf.eagerly
+  )
+}
 
 /**
  * The Play plugin to use ScalikeJDBC
  */
-class PlayPlugin(implicit app: Application) extends Plugin {
+@Singleton
+class PlayInitializer @Inject() (
+    lifecycle: ApplicationLifecycle,
+    configuration: Configuration) {
 
-  import PlayPlugin._
+  import PlayInitializer._
 
   // Play DB configuration
 
-  private[this] lazy val playConfig = app.configuration.getConfig("scalikejdbc.play").getOrElse(Configuration.empty)
+  private[this] lazy val playConfig = configuration.getConfig("scalikejdbc.play").getOrElse(Configuration.empty)
 
   private[this] var closeAllOnStop = true
 
@@ -35,24 +50,26 @@ class PlayPlugin(implicit app: Application) extends Plugin {
    * DBs with Play application configuration.
    */
   private[this] lazy val DBs = new DBs with TypesafeConfigReader with TypesafeConfig {
-    override val config = app.configuration.underlying
+    override val config = configuration.underlying
   }
 
-  override def onStart(): Unit = {
+  def onStart(): Unit = {
     DBs.setupAll()
     opt("closeAllOnStop", "enabled")(playConfig).foreach { enabled => closeAllOnStop = enabled.toBoolean }
   }
 
-  override def onStop(): Unit = {
+  def onStop(): Unit = {
     if (closeAllOnStop) {
       ConnectionPool.closeAll()
     }
   }
+
+  lifecycle.addStopHook(() => Future.successful(onStop))
+  onStart()
 }
 
-object PlayPlugin {
+object PlayInitializer {
   def opt(name: String, key: String)(implicit config: Configuration): Option[String] = {
     config.getString(name + "." + key)
   }
 }
-

@@ -3,8 +3,8 @@ import Keys._
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
-  lazy val scalikejdbcVersion = "2.1.0"
-  lazy val _version = "2.4.0-M1"
+  lazy val scalikejdbcVersion = "2.2.0"
+  lazy val _version = "2.4.0-M2-SNAPSHOT"
 
   // published dependency version
   lazy val _defaultPlayVersion = play.core.PlayVersion.current
@@ -143,7 +143,8 @@ object ScalikeJDBCPlaySupportProjects extends Build {
   }
   val _resolvers = Seq(
     "typesafe repo" at "http://repo.typesafe.com/typesafe/releases",
-    "sonatype releases" at "http://oss.sonatype.org/content/repositories/releases"
+    "sonatype releases" at "http://oss.sonatype.org/content/repositories/releases",
+    "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
   )
   val jdbcDriverDependenciesInTestScope = Seq(
     "com.h2database"    % "h2"                   % _h2Version        % "test",
@@ -185,4 +186,3 @@ object ScalikeJDBCPlaySupportProjects extends Build {
       </developers>
 
 }
-

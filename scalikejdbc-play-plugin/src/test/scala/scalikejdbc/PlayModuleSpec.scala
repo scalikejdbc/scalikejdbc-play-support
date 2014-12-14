@@ -10,38 +10,16 @@ import play.api.test._
 import play.api.test.Helpers._
 import play.api.Play.current
 
-object PlayDBPluginAdapterSpec extends Specification {
+object PlayPluginSpec extends Specification {
 
   sequential
 
   Class.forName("org.h2.Driver")
 
-  def fakeAppWithDBPlugin = FakeApplication(
+  def fakeApp = FakeApplication(
     withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
-    additionalPlugins = Seq("scalikejdbc.PlayDBPluginAdapter"),
     additionalConfiguration = Map(
-      "db.default.driver" -> "org.h2.Driver",
-      "db.default.url" -> "jdbc:h2:mem:default",
-      "db.default.user" -> "sa",
-      "db.default.password" -> "sa",
-      "db.default.schema" -> "",
-      "db.legacydb.driver" -> "org.h2.Driver",
-      "db.legacydb.url" -> "jdbc:h2:mem:legacy",
-      "db.legacydb.user" -> "l",
-      "db.legacydb.password" -> "g",
-      "db.legacydb.schema" -> "",
-      "scalikejdbc.global.loggingSQLAndTime.enabled" -> "true",
-      "scalikejdbc.global.loggingSQLAndTime.logLevel" -> "debug",
-      "scalikejdbc.global.loggingSQLAndTime.warningEnabled" -> "true",
-      "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
-      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
-    )
-  )
-
-  def fakeAppWithoutDBPlugin = FakeApplication(
-    withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
-    additionalPlugins = Seq("scalikejdbc.PlayDBPluginAdapter"),
-    additionalConfiguration = Map(
+      "play.modules.enabled" -> List("scalikejdbc.PlayModule"),
       "logger.root" -> "INFO",
       "logger.play" -> "INFO",
       "logger.application" -> "DEBUG",
@@ -70,9 +48,48 @@ object PlayDBPluginAdapterSpec extends Specification {
     )
   )
 
+  def fakeAppWithoutCloseAllOnStop = FakeApplication(
+    withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
+    additionalConfiguration = Map(
+      "play.modules.enabled" -> List("scalikejdbc.PlayModule"),
+      "db.default.driver" -> "org.h2.Driver",
+      "db.default.url" -> "jdbc:h2:mem:default",
+      "db.default.user" -> "sa",
+      "db.default.password" -> "sa",
+      "db.legacydb.driver" -> "org.h2.Driver",
+      "db.legacydb.url" -> "jdbc:h2:mem:legacy",
+      "db.legacydb.user" -> "l",
+      "db.legacydb.password" -> "g",
+      "scalikejdbc.play.closeAllOnStop.enabled" -> "false"
+    )
+  )
+
+  def fakeAppWithDBPlugin = FakeApplication(
+    withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
+    additionalConfiguration = Map(
+      "play.modules.enabled" -> List("scalikejdbc.PlayModule"),
+      "db.default.driver" -> "org.h2.Driver",
+      "db.default.url" -> "jdbc:h2:mem:default",
+      "db.default.user" -> "sa",
+      "db.default.password" -> "sa",
+      "db.default.schema" -> "",
+      "db.legacydb.driver" -> "org.h2.Driver",
+      "db.legacydb.url" -> "jdbc:h2:mem:legacy",
+      "db.legacydb.user" -> "l",
+      "db.legacydb.password" -> "g",
+      "db.legacydb.schema" -> "",
+      "scalikejdbc.global.loggingSQLAndTime.enabled" -> "true",
+      "scalikejdbc.global.loggingSQLAndTime.logLevel" -> "debug",
+      "scalikejdbc.global.loggingSQLAndTime.warningEnabled" -> "true",
+      "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
+      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
+    )
+  )
+
   def simpleTest(table: String) = {
 
     try {
+
       DB autoCommit { implicit s =>
         SQL("DROP TABLE " + table + " IF EXISTS").execute.apply()
         SQL("CREATE TABLE " + table + " (ID BIGINT PRIMARY KEY NOT NULL, NAME VARCHAR(256))").execute.apply()
@@ -112,19 +129,42 @@ object PlayDBPluginAdapterSpec extends Specification {
         SQL("DROP TABLE " + table + " IF EXISTS").execute.apply()
       }
     }
+
   }
 
-  "PlayDBPluginAdapter" should {
+  "Play plugin" should {
+
+    "be available when DB plugin is not active" in {
+      running(fakeApp) {
+        val settings = ConnectionPool.get('default).settings
+        settings.initialSize must_== (1)
+        settings.maxSize must_== (2)
+        settings.validationQuery must_== ("select 1")
+        settings.connectionTimeoutMillis must_== (2000)
+        simpleTest("user_1")
+      }
+      running(fakeApp) { simpleTest("user_2") }
+      running(fakeApp) { simpleTest("user_3") }
+    }
 
     "be available when DB plugin is also active" in {
       running(fakeAppWithDBPlugin) { simpleTest("user_withdbplugin") }
     }
 
-    "not be available when DB plugin is not active" in {
-      running(fakeAppWithoutDBPlugin) {} must throwA[RuntimeException]
+    "close connection pools after stopping Play app" in {
+      try {
+        // Play 2.0.4 throws Exception here
+        running(fakeApp) { simpleTest("user_4") }
+      } catch { case e: Exception => }
+      simpleTest("user_5") must throwA[IllegalStateException](message = "Connection pool is not yet initialized.")
     }
 
+    "skip closing connection pools after stopping Play app" in {
+      running(fakeAppWithoutCloseAllOnStop) {
+        simpleTest("user_4")
+      }
+      simpleTest("user_5")
+    }
   }
 
 }
-

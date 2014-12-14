@@ -15,24 +15,40 @@
  */
 package scalikejdbc
 
+import javax.inject._
 import _root_.play.api._
+import _root_.play.api.inject._
+import scala.concurrent.Future
+
+/**
+ *  Play Module
+ */
+class PlayFixtureModule extends Module {
+  def bindings(env: Environment, config: Configuration) = Seq(
+    bind[PlayFixture].toSelf.eagerly
+  )
+}
 
 /**
  * The Play fixture plugin
  */
-class PlayFixturePlugin(implicit app: Application) extends Plugin
-    with scalikejdbc.play.FixtureSupport {
+class PlayFixture @Inject() (
+  implicit app: Application,
+  lifecycle: ApplicationLifecycle)
+    extends scalikejdbc.play.FixtureSupport {
 
-  override def onStart(): Unit = {
+  def onStart(): Unit = {
     if (Play.isTest || Play.isDev) {
       loadFixtures()
     }
   }
 
-  override def onStop(): Unit = {
+  def onStop(): Unit = {
     if (Play.isTest || Play.isDev) {
       cleanFixtures()
     }
   }
 
+  lifecycle.addStopHook(() => Future.successful(onStop))
+  onStart()
 }
