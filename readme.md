@@ -4,6 +4,18 @@ This is a project to enable using ScalikeJDBC in Play2 apps seamlessly.
 
 http://scalikejdbc.org/
 
+### Play 2.0 - 2.3
+
+- scalikejdbc-play-plugin
+- scalikejdbc-play-dbplugin-adapter
+- scalikejdbc-play-fixture-plugin
+
+### Play 2.4 or higher
+
+- scalikejdbc-play-initializer
+- scalikejdbc-play-dbapi-adapter
+- scalikejdbc-play-fixture
+
 ## License
 
 Published binary files have the following copyright:
