@@ -1,5 +1,5 @@
 /*
-* Copyright 2013 Toshiyuki Takahashi
+* Copyright 2013 - 2014 scalikejdbc.org
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -15,12 +15,12 @@
 */
 package scalikejdbc.play
 
+import scala.io.Source
 import java.io.File
-import play.api.libs.Files
 
 case class Fixture(file: File) {
 
-  private def script: String = Files.readFile(file)
+  private def script: String = Source.fromFile(file).mkString
 
   private def isUpsMarker(s: String): Boolean = s.matches("""^#.*!Ups.*$""")
 
