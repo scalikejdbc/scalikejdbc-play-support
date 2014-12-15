@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Kazuhiro Sera
+ * Copyright 2014 scalikejdbc.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,15 @@ package scalikejdbc
 import javax.inject._
 import play.api._
 import play.api.inject._
+import play.api.db.{ DBApi, DBApiProvider, BoneConnectionPool }
 import scalikejdbc.config.{ TypesafeConfig, TypesafeConfigReader, DBs }
-import scala.concurrent.Future
 
 /**
  * Play module
  */
-class PlayModule extends Module {
+class PlayDBApiAdapterModule extends Module {
   def bindings(env: Environment, config: Configuration) = Seq(
-    bind[PlayInitializer].toSelf.eagerly
+    bind[PlayDBApiAdapter].toSelf.eagerly
   )
 }
 
@@ -34,17 +34,10 @@ class PlayModule extends Module {
  * The Play plugin to use ScalikeJDBC
  */
 @Singleton
-class PlayInitializer @Inject() (
-    lifecycle: ApplicationLifecycle,
-    configuration: Configuration) {
-
-  import PlayInitializer._
-
-  // Play DB configuration
-
-  private[this] lazy val playConfig = configuration.getConfig("scalikejdbc.play").getOrElse(Configuration.empty)
-
-  private[this] var closeAllOnStop = true
+class PlayDBApiAdapter @Inject() (
+    dbApi: DBApi,
+    configuration: Configuration,
+    lifecycle: ApplicationLifecycle) {
 
   /**
    * DBs with Play application configuration.
@@ -54,22 +47,16 @@ class PlayInitializer @Inject() (
   }
 
   def onStart(): Unit = {
-    DBs.setupAll()
-    opt("closeAllOnStop", "enabled")(playConfig).foreach { enabled => closeAllOnStop = enabled.toBoolean }
-  }
+    DBs.loadGlobalSettings()
 
-  def onStop(): Unit = {
-    if (closeAllOnStop) {
-      ConnectionPool.closeAll()
+    dbApi.databases.foreach { db =>
+      scalikejdbc.ConnectionPool.add(Symbol(db.name), new DataSourceConnectionPool(db.dataSource))
+    }
+
+    configuration.getString("scalikejdbc.play.closeAllOnStop.enabled").foreach { _ =>
+      Logger.warn(s"closeAllOnStop is ignored by PlayDBPluginAdapter")
     }
   }
 
-  lifecycle.addStopHook(() => Future.successful(onStop))
   onStart()
-}
-
-object PlayInitializer {
-  def opt(name: String, key: String)(implicit config: Configuration): Option[String] = {
-    config.getString(name + "." + key)
-  }
 }
