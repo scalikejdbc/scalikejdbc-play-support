@@ -88,7 +88,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
 
   // play plugin zentasks example
   lazy val scalikejdbcPlayInitializerTestZentasks = {
-    val appName         = "play-plugin-test-zentasks"
+    val appName         = "play-initializer-test-zentasks"
 
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc" % scalikejdbcVersion,
