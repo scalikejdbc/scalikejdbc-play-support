@@ -40,8 +40,8 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     baseSettings ++ Seq(
       name := "scalikejdbc-play-initializer",
       libraryDependencies ++= Seq(
-        "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "compile",
-        "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "compile",
+        "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "provided",
+        "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "provided",
         "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
         // play-jdbc is needed to test with DBApi
         "com.typesafe.play" %% "play-jdbc"          % defaultPlayVersion  % "test",
@@ -59,8 +59,8 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     baseSettings ++ Seq(
       name := "scalikejdbc-play-dbapi-adapter",
       libraryDependencies ++= Seq(
-        "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "compile",
-        "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "compile",
+        "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "provided",
+        "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "provided",
         "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
         "com.typesafe.play" %% "play-jdbc"          % defaultPlayVersion  % "compile",
         "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
@@ -77,7 +77,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     baseSettings ++ Seq(
       name := "scalikejdbc-play-fixture",
       libraryDependencies ++= Seq(
-        "org.scalikejdbc"   %% "scalikejdbc"   % scalikejdbcVersion  % "compile",
+        "org.scalikejdbc"   %% "scalikejdbc"   % scalikejdbcVersion  % "provided",
         "com.typesafe.play" %% "play"          % defaultPlayVersion  % "provided",
         "com.typesafe.play" %% "play-test"     % defaultPlayVersion  % "test",
         "com.h2database"    %  "h2"            % h2Version           % "test"
