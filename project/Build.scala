@@ -4,7 +4,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
 
   lazy val scalikejdbcVersion = "2.2.0"
   lazy val latestScalikejdbcVersion = "2.2.+"
-  lazy val _version = "2.3.5-SNAPSHOT"
+  lazy val _version = "2.3.5"
 
   // published dependency version
   lazy val _defaultPlayVersion = play.core.PlayVersion.current
