@@ -10,11 +10,11 @@ object ScalikeJDBCPlaySupportProjects extends Build {
   lazy val _defaultPlayVersion = play.core.PlayVersion.current
 
   // internal only
-  lazy val _h2Version = "1.4.182"
+  lazy val _h2Version = "1.4.184"
 
   lazy val commonSettings = Seq(
     scalaVersion := "2.10.4",
-    crossScalaVersions := scalaVersion.value :: "2.11.4" :: Nil,
+    crossScalaVersions := scalaVersion.value :: "2.11.5" :: Nil,
     scalacOptions ++= _scalacOptions
   )
 
