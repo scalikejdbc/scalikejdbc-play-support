@@ -3,7 +3,8 @@ import sbt._, Keys._
 object ScalikeJDBCPlaySupportProjects extends Build {
 
   lazy val scalikejdbcVersion = "2.2.0"
-  lazy val _version = "2.3.4"
+  lazy val latestScalikejdbcVersion = "2.2.+"
+  lazy val _version = "2.3.5-SNAPSHOT"
 
   // published dependency version
   lazy val _defaultPlayVersion = play.core.PlayVersion.current
@@ -48,8 +49,8 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     baseSettings ++ Seq(
       name := "scalikejdbc-play-plugin",
       libraryDependencies ++= Seq(
-        "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "compile",
-        "org.scalikejdbc"   %% "scalikejdbc-config"        % scalikejdbcVersion  % "compile",
+        "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "provided",
+        "org.scalikejdbc"   %% "scalikejdbc-config"        % scalikejdbcVersion  % "provided",
         "com.typesafe.play" %%  "play"                     % _defaultPlayVersion % "provided",
         // play-jdbc is needed to test with DBPlugin
         "com.typesafe.play" %% "play-jdbc"                 % _defaultPlayVersion % "test",
@@ -67,8 +68,8 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     baseSettings ++ Seq(
       name := "scalikejdbc-play-dbplugin-adapter",
       libraryDependencies ++= Seq(
-        "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "compile",
-        "org.scalikejdbc"   %% "scalikejdbc-config"        % scalikejdbcVersion  % "compile",
+        "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "provided",
+        "org.scalikejdbc"   %% "scalikejdbc-config"        % scalikejdbcVersion  % "provided",
         "com.typesafe.play" %% "play"                      % _defaultPlayVersion % "provided",
         "com.typesafe.play" %% "play-jdbc"                 % _defaultPlayVersion % "compile",
         "com.typesafe.play" %% "play-test"                 % _defaultPlayVersion % "test",
@@ -85,7 +86,8 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     baseSettings ++ Seq(
       name := "scalikejdbc-play-fixture-plugin",
       libraryDependencies ++= Seq(
-        "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "compile",
+        "org.scalikejdbc"   %% "scalikejdbc"               % scalikejdbcVersion  % "provided",
+        "org.scalikejdbc"   %% "scalikejdbc-config"        % scalikejdbcVersion  % "provided",
         "com.typesafe.play" %% "play"                      % _defaultPlayVersion % "provided",
         "com.typesafe.play" %% "play-test"                 % _defaultPlayVersion % "test",
         "com.h2database"    %  "h2"                        % _h2Version          % "test"
@@ -99,8 +101,9 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     val appName         = "play-plugin-test-zentasks"
 
     val appDependencies = Seq(
-      "org.scalikejdbc"      %% "scalikejdbc"               % scalikejdbcVersion,
-      "org.scalikejdbc"      %% "scalikejdbc-interpolation" % scalikejdbcVersion,
+      "org.scalikejdbc"      %% "scalikejdbc"               % latestScalikejdbcVersion,
+      "org.scalikejdbc"      %% "scalikejdbc-config"        % latestScalikejdbcVersion,
+      "org.scalikejdbc"      %% "scalikejdbc-interpolation" % latestScalikejdbcVersion,
       "com.github.tototoshi" %% "play-flyway" % "1.1.3",
       "com.h2database"       %  "h2"          % _h2Version,
       "org.postgresql"       %  "postgresql"  % "9.3-1102-jdbc41"
@@ -119,8 +122,9 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     val appName         = "play-dbplugin-adapter-test-zentasks"
 
     val appDependencies = Seq(
-      "org.scalikejdbc"      %% "scalikejdbc"               % scalikejdbcVersion,
-      "org.scalikejdbc"      %% "scalikejdbc-interpolation" % scalikejdbcVersion,
+      "org.scalikejdbc"      %% "scalikejdbc"               % latestScalikejdbcVersion,
+      "org.scalikejdbc"      %% "scalikejdbc-config"        % latestScalikejdbcVersion,
+      "org.scalikejdbc"      %% "scalikejdbc-interpolation" % latestScalikejdbcVersion,
       "com.h2database"       %  "h2"          % _h2Version,
       "org.postgresql"       %  "postgresql"  % "9.3-1102-jdbc41"
     )
