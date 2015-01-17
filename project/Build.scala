@@ -77,10 +77,11 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     baseSettings ++ Seq(
       name := "scalikejdbc-play-fixture",
       libraryDependencies ++= Seq(
-        "org.scalikejdbc"   %% "scalikejdbc"   % scalikejdbcVersion  % "provided",
-        "com.typesafe.play" %% "play"          % defaultPlayVersion  % "provided",
-        "com.typesafe.play" %% "play-test"     % defaultPlayVersion  % "test",
-        "com.h2database"    %  "h2"            % h2Version           % "test"
+        "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "provided",
+        "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
+        "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
+        "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "test",
+        "com.h2database"    %  "h2"                 % h2Version           % "test"
       ),
       testOptions in Test += Tests.Argument(TestFrameworks.Specs2, "sequential", "true")
     ) : _*
