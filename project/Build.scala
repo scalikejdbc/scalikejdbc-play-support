@@ -3,14 +3,14 @@ import Keys._
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
-  lazy val scalikejdbcVersion = "2.2.2"
+  lazy val scalikejdbcVersion = "2.2.3"
   lazy val _version = "2.4.0-M2-20141215"
 
   // published dependency version
   lazy val defaultPlayVersion = play.core.PlayVersion.current
 
   // internal only
-  lazy val h2Version = "1.4.184"
+  lazy val h2Version = "1.4.185"
   lazy val postgresqlVersion = "9.3-1102-jdbc41"
 
   lazy val commonSettings = Seq(
@@ -93,7 +93,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
 
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc" % scalikejdbcVersion,
-      "com.github.tototoshi" %% "play-flyway" % "1.2.0",
+      "com.github.tototoshi" %% "play-flyway" % "1.2.+",
       "com.h2database"       %  "h2"          % h2Version,
       "org.postgresql"       %  "postgresql"  % postgresqlVersion
     )
@@ -138,10 +138,10 @@ object ScalikeJDBCPlaySupportProjects extends Build {
   )
   val jdbcDriverDependenciesInTestScope = Seq(
     "com.h2database"    % "h2"                   % h2Version         % "test",
-    "org.apache.derby"  % "derby"                % "10.10.2.0"       % "test",
-    "org.xerial"        % "sqlite-jdbc"          % "3.7.2"           % "test",
-    "org.hsqldb"        % "hsqldb"               % "2.3.2"           % "test",
-    "mysql"             % "mysql-connector-java" % "5.1.32"          % "test",
+    "org.apache.derby"  % "derby"                % "10.10.2.+"       % "test",
+    "org.xerial"        % "sqlite-jdbc"          % "3.7.+"           % "test",
+    "org.hsqldb"        % "hsqldb"               % "2.3.+"           % "test",
+    "mysql"             % "mysql-connector-java" % "5.1.+"           % "test",
     "org.postgresql"    % "postgresql"           % postgresqlVersion % "test"
   )
   val _scalacOptions = Seq("-deprecation", "-unchecked")
