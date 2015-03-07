@@ -2,19 +2,19 @@ import sbt._, Keys._
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
-  lazy val scalikejdbcVersion = "2.2.0"
+  lazy val scalikejdbcVersion = "2.2.4"
   lazy val latestScalikejdbcVersion = "2.2.+"
-  lazy val _version = "2.3.5"
+  lazy val _version = "2.3.6"
 
   // published dependency version
   lazy val _defaultPlayVersion = play.core.PlayVersion.current
 
   // internal only
-  lazy val _h2Version = "1.4.184"
+  lazy val _h2Version = "1.4.186"
 
   lazy val commonSettings = Seq(
     scalaVersion := "2.10.4",
-    crossScalaVersions := scalaVersion.value :: "2.11.5" :: Nil,
+    crossScalaVersions := scalaVersion.value :: "2.11.6" :: Nil,
     scalacOptions ++= _scalacOptions
   )
 
@@ -106,7 +106,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
       "org.scalikejdbc"      %% "scalikejdbc-interpolation" % latestScalikejdbcVersion,
       "com.github.tototoshi" %% "play-flyway" % "1.1.3",
       "com.h2database"       %  "h2"          % _h2Version,
-      "org.postgresql"       %  "postgresql"  % "9.3-1102-jdbc41"
+      "org.postgresql"       %  "postgresql"  % "9.4-1201-jdbc41"
     )
 
     Project(appName, file("scalikejdbc-play-plugin/test/zentasks"))
@@ -126,7 +126,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
       "org.scalikejdbc"      %% "scalikejdbc-config"        % latestScalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-interpolation" % latestScalikejdbcVersion,
       "com.h2database"       %  "h2"          % _h2Version,
-      "org.postgresql"       %  "postgresql"  % "9.3-1102-jdbc41"
+      "org.postgresql"       %  "postgresql"  % "9.4-1201-jdbc41"
     )
 
     Project(appName, file("scalikejdbc-play-dbplugin-adapter/test/zentasks"))
@@ -152,7 +152,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     "org.xerial"        % "sqlite-jdbc"          % "3.7.2"           % "test",
     "org.hsqldb"        % "hsqldb"               % "2.3.2"           % "test",
     "mysql"             % "mysql-connector-java" % "5.1.34"          % "test",
-    "org.postgresql"    % "postgresql"           % "9.3-1102-jdbc41" % "test"
+    "org.postgresql"    % "postgresql"           % "9.4-1201-jdbc41" % "test"
   )
   val _scalacOptions = Seq("-deprecation", "-unchecked")
   val _pomExtra = <url>http://scalikejdbc.org/</url>
