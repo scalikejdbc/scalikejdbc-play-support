@@ -22,7 +22,6 @@ object ScalikeJDBCPlaySupportProjects extends Build {
   lazy val baseSettings = commonSettings ++ Seq(
     organization := "org.scalikejdbc",
     version := _version,
-    publishTo <<= version { (v: String) => _publishTo(v) },
     publishMavenStyle := true,
     resolvers ++= _resolvers,
     libraryDependencies += "org.specs2" %% "specs2-core" % "3.6" % "test",
@@ -127,11 +126,6 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     ).dependsOn(scalikejdbcPlayDBApiAdapter, scalikejdbcPlayFixture)
   }
 
-  def _publishTo(v: String) = {
-    val nexus = "https://oss.sonatype.org/"
-    if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
-    else Some("releases" at nexus + "service/local/staging/deploy/maven2")
-  }
   val _resolvers = Seq(
     "typesafe repo" at "http://repo.typesafe.com/typesafe/releases",
     "sonatype releases" at "http://oss.sonatype.org/content/repositories/releases",
