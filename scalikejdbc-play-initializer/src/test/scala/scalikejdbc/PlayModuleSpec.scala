@@ -19,7 +19,10 @@ object PlayPluginSpec extends Specification {
   def fakeApp = FakeApplication(
     withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
     additionalConfiguration = Map(
-      "play.modules.enabled" -> List("scalikejdbc.PlayModule"),
+      "play.modules.enabled" -> List(
+        "scalikejdbc.PlayModule",
+        "play.api.inject.BuiltinModule"
+      ),
       "logger.root" -> "INFO",
       "logger.play" -> "INFO",
       "logger.application" -> "DEBUG",
@@ -51,7 +54,10 @@ object PlayPluginSpec extends Specification {
   def fakeAppWithoutCloseAllOnStop = FakeApplication(
     withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
     additionalConfiguration = Map(
-      "play.modules.enabled" -> List("scalikejdbc.PlayModule"),
+      "play.modules.enabled" -> List(
+        "scalikejdbc.PlayModule",
+        "play.api.inject.BuiltinModule"
+      ),
       "db.default.driver" -> "org.h2.Driver",
       "db.default.url" -> "jdbc:h2:mem:default",
       "db.default.user" -> "sa",
@@ -67,7 +73,10 @@ object PlayPluginSpec extends Specification {
   def fakeAppWithDBPlugin = FakeApplication(
     withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
     additionalConfiguration = Map(
-      "play.modules.enabled" -> List("scalikejdbc.PlayModule"),
+      "play.modules.enabled" -> List(
+        "scalikejdbc.PlayModule",
+        "play.api.inject.BuiltinModule"
+      ),
       "db.default.driver" -> "org.h2.Driver",
       "db.default.url" -> "jdbc:h2:mem:default",
       "db.default.user" -> "sa",

@@ -6,6 +6,7 @@ import play.api.data._
 import play.api.data.Forms._
 
 import models._
+import play.api.routing.JavaScriptReverseRouter
 import views._
 
 object Application extends Controller {
@@ -52,7 +53,7 @@ object Application extends Controller {
   def javascriptRoutes = Action { implicit request =>
     import routes.javascript._
     Ok(
-      Routes.javascriptRouter("jsRoutes")(
+      JavaScriptReverseRouter("jsRoutes")(
         Projects.add, Projects.delete, Projects.rename,
         Projects.addGroup, Projects.deleteGroup, Projects.renameGroup,
         Projects.addUser, Projects.removeUser, Tasks.addFolder, 

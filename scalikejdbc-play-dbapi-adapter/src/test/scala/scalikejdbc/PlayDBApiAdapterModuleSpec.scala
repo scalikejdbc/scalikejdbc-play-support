@@ -22,7 +22,8 @@ object PlayDBPluginAdapterSpec extends Specification {
       "play.modules.enabled" -> List(
         "scalikejdbc.PlayDBApiAdapterModule",
         "play.api.db.DBModule",
-        "play.api.db.BoneCPModule"
+        "play.api.db.BoneCPModule",
+        "play.api.inject.BuiltinModule"
       ),
       "db.default.driver" -> "org.h2.Driver",
       "db.default.url" -> "jdbc:h2:mem:default",
@@ -46,7 +47,11 @@ object PlayDBPluginAdapterSpec extends Specification {
     withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
     additionalConfiguration = Map(
       "play.modules.enabled" -> List("scalikejdbc.PlayDBApiAdapterModule"),
-      "play.modules.disabled" -> List("play.api.db.DBModule", "play.api.db.BoneCPModule"),
+      "play.modules.disabled" -> List(
+        "play.api.db.DBModule",
+        "play.api.db.BoneCPModule",
+        "play.api.inject.BuiltinModule"
+      ),
       "logger.root" -> "INFO",
       "logger.play" -> "INFO",
       "logger.application" -> "DEBUG",
