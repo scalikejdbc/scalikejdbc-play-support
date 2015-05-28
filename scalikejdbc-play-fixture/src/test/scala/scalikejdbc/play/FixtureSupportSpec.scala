@@ -3,11 +3,11 @@ package scalikejdbc.play
 import play.api.test._
 import play.api.test.Helpers._
 import org.specs2.mutable._
-import org.specs2.specification.BeforeAfterExample
+import org.specs2.specification.BeforeAfterEach
 import play.api.Play.current
 import scala.collection.JavaConverters._
 
-class FixtureSupportSpec extends Specification with BeforeAfterExample {
+class FixtureSupportSpec extends Specification with BeforeAfterEach {
 
   def before = {
   }
@@ -19,7 +19,11 @@ class FixtureSupportSpec extends Specification with BeforeAfterExample {
 
   def fakeApp = FakeApplication(
     additionalConfiguration = Map(
-      "play.modules.enabled" -> List("scalikejdbc.PlayModule", "scalikejdbc.PlayFixtureModule"),
+      "play.modules.enabled" -> List(
+        "scalikejdbc.PlayModule",
+        "scalikejdbc.PlayFixtureModule",
+        "play.api.inject.BuiltinModule"
+      ),
       "db.default.fixtures.test" -> List("users.sql", "project.sql").asJava,
       "db.secondary.fixtures.test" -> "a.sql",
       "db.default.driver" -> "org.h2.Driver",

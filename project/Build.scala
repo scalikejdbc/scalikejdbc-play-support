@@ -100,7 +100,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     )
 
     Project(appName, file("scalikejdbc-play-initializer/test/zentasks"))
-    .enablePlugins(play.sbt.Play)
+    .enablePlugins(play.sbt.PlayScala)
     .settings(commonSettings :_*)
     .settings(
       libraryDependencies ++= appDependencies,
@@ -119,7 +119,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     )
 
     Project(appName, file("scalikejdbc-play-dbapi-adapter/test/zentasks"))
-    .enablePlugins(play.sbt.Play)
+    .enablePlugins(play.sbt.PlayScala)
     .settings(commonSettings :_*)
     .settings(
       libraryDependencies ++= appDependencies,
