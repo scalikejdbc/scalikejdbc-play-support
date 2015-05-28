@@ -3,19 +3,19 @@ import Keys._
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
-  lazy val scalikejdbcVersion = "2.2.3"
-  lazy val _version = "2.4.0-M2-20141215"
+  lazy val scalikejdbcVersion = "2.2.6"
+  lazy val _version = "2.4.0.RC1"
 
   // published dependency version
   lazy val defaultPlayVersion = play.core.PlayVersion.current
 
   // internal only
-  lazy val h2Version = "1.4.185"
-  lazy val postgresqlVersion = "9.3-1102-jdbc41"
+  lazy val h2Version = "1.4.187"
+  lazy val postgresqlVersion = "9.4-1201-jdbc41"
 
   lazy val commonSettings = Seq(
-    scalaVersion := "2.11.5",
-    crossScalaVersions := Seq("2.11.5", "2.10.4"),
+    scalaVersion := "2.11.6",
+    crossScalaVersions := Seq("2.11.6", "2.10.5"),
     scalacOptions ++= _scalacOptions
   )
 
@@ -25,6 +25,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     publishTo <<= version { (v: String) => _publishTo(v) },
     publishMavenStyle := true,
     resolvers ++= _resolvers,
+    libraryDependencies += "org.specs2" %% "specs2-core" % "3.6" % "test",
     transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
     publishMavenStyle := true,
     publishArtifact in Test := false,
@@ -99,7 +100,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     )
 
     Project(appName, file("scalikejdbc-play-initializer/test/zentasks"))
-    .enablePlugins(play.PlayScala)
+    .enablePlugins(play.sbt.Play)
     .settings(commonSettings :_*)
     .settings(
       libraryDependencies ++= appDependencies,
@@ -118,7 +119,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     )
 
     Project(appName, file("scalikejdbc-play-dbapi-adapter/test/zentasks"))
-    .enablePlugins(play.PlayScala)
+    .enablePlugins(play.sbt.Play)
     .settings(commonSettings :_*)
     .settings(
       libraryDependencies ++= appDependencies,
