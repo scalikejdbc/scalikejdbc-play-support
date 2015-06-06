@@ -127,7 +127,6 @@ object ScalikeJDBCPlaySupportProjects extends Build {
   }
 
   val _resolvers = Seq(
-    "typesafe repo" at "https://repo.typesafe.com/typesafe/releases",
     "sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
     "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
   )
