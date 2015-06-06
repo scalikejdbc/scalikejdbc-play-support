@@ -29,7 +29,7 @@ libraryDependencies ++= Seq(
   "com.h2database"  %  "h2"                           % "1.4.187", // your jdbc driver here
   "org.scalikejdbc" %% "scalikejdbc"                  % "2.2.6",
   "org.scalikejdbc" %% "scalikejdbc-config"           % "2.2.6",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.4.0.RC1"
+  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.4.0"
 )
 ```
 
@@ -42,9 +42,8 @@ libraryDependencies ++= Seq(
 # By convention, the default datasource is named `default`
 db.default.driver=org.h2.Driver
 db.default.url="jdbc:h2:mem:play;DB_CLOSE_DELAY=-1"
-db.default.user=sa
-# NOTICE: sclaikejdbc-config 2.2.6 doesn't support username yet
-#db.default.username=sa
+# NOTE: sclaikejdbc-config 2.2.6 doesn't support username, use 2.2.7 or higher
+db.default.username=sa
 db.default.password=sa
 
 # ScalikeJDBC original configuration
@@ -84,7 +83,7 @@ class Application extends Controller {
         Seq("Alice", "Bob", "Chris").foreach { name =>
           sql"insert into accounts values ($name)".update.apply()
         }
-       sql"select * from accounts".toMap.list.apply()
+        sql"select * from accounts".toMap.list.apply()
       }
     }
     Ok(accounts.toString)
