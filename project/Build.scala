@@ -78,6 +78,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
       name := "scalikejdbc-play-fixture",
       libraryDependencies ++= Seq(
         "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "provided",
+        "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "provided",
         "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
         "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
         "com.h2database"    %  "h2"                 % h2Version           % "test"
