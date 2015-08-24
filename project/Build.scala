@@ -85,7 +85,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
       ),
       testOptions in Test += Tests.Argument(TestFrameworks.Specs2, "sequential", "true")
     ) : _*
-  ).dependsOn(scalikejdbcPlayInitializer % "test->test")
+  ).dependsOn(scalikejdbcPlayInitializer)
 
   // play plugin zentasks example
   lazy val scalikejdbcPlayInitializerTestZentasks = {
