@@ -32,6 +32,7 @@ class PlayFixtureModule extends Module {
 /**
  * The Play fixture plugin
  */
+@Singleton
 class PlayFixture @Inject() (
   implicit app: Application,
   lifecycle: ApplicationLifecycle)
