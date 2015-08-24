@@ -80,7 +80,6 @@ object ScalikeJDBCPlaySupportProjects extends Build {
         "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "provided",
         "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
         "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
-        "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "test",
         "com.h2database"    %  "h2"                 % h2Version           % "test"
       ),
       testOptions in Test += Tests.Argument(TestFrameworks.Specs2, "sequential", "true")
