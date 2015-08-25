@@ -24,34 +24,34 @@ trait FixtureSupport {
 
   val fixturesRootPath: String = "db/fixtures"
 
-  private def fixtureConfigKey(dbName: String)(implicit app: Application): String =
-    if (Play.isDev) {
+  private def fixtureConfigKey(dbName: String)(implicit environment: Environment): String =
+    if (environment.mode == Mode.Dev) {
       "db." + dbName + ".fixtures.dev"
-    } else if (Play.isTest) {
+    } else if (environment.mode == Mode.Test) {
       "db." + dbName + ".fixtures.test"
     } else {
       throw new UnsupportedOperationException("Fixture feature is only provided for dev mode and test mode.")
     }
 
-  def fixtures(implicit app: Application): Map[String, Seq[Fixture]] = {
+  def fixtures(implicit environment: Environment, configuration: Configuration): Map[String, Seq[Fixture]] = {
     (for {
-      dbConfig <- app.configuration.getConfig("db").toList
+      dbConfig <- configuration.getConfig("db").toList
       subKey <- dbConfig.subKeys
     } yield {
       val dbName = subKey
       val fixtureNames: Seq[String] = try {
-        app.configuration.getStringList(fixtureConfigKey(subKey))
+        configuration.getStringList(fixtureConfigKey(subKey))
           .map(_.asScala)
           .getOrElse(Nil)
       } catch {
         case e: PlayException => {
-          app.configuration.getString(fixtureConfigKey(subKey)).toSeq
+          configuration.getString(fixtureConfigKey(subKey)).toSeq
         }
       }
 
       val fixtureFiles = fixtureNames.map { fixtureName =>
         val resourceName = List(fixturesRootPath, dbName, fixtureName).mkString("/")
-        app.resource(resourceName) match {
+        environment.resource(resourceName) match {
           case Some(resource) => Fixture(new File(resource.getPath))
           case None => throw new FixtureNotFoundException(
             "Fixture not found (%s)".format(resourceName)
@@ -63,7 +63,7 @@ trait FixtureSupport {
     }).toMap
   }
 
-  def loadFixtures()(implicit app: Application): Unit = {
+  def loadFixtures()(implicit environment: Environment, configuration: Configuration): Unit = {
     for {
       (dbName, fs) <- fixtures
       f <- fs
@@ -72,7 +72,7 @@ trait FixtureSupport {
     }
   }
 
-  def cleanFixtures()(implicit app: Application): Unit = {
+  def cleanFixtures()(implicit environment: Environment, configuration: Configuration): Unit = {
     for {
       (dbName, fs) <- fixtures
       f <- fs.reverse

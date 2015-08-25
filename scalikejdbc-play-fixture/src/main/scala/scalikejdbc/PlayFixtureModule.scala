@@ -25,6 +25,7 @@ import scala.concurrent.Future
  */
 class PlayFixtureModule extends Module {
   def bindings(env: Environment, config: Configuration) = Seq(
+    bind[PlayInitializer].toSelf.eagerly,
     bind[PlayFixture].toSelf.eagerly
   )
 }
@@ -32,20 +33,27 @@ class PlayFixtureModule extends Module {
 /**
  * The Play fixture plugin
  */
+@Singleton
 class PlayFixture @Inject() (
-  implicit app: Application,
+  configuration: Configuration,
+  environment: Environment,
+  playInitializer: PlayInitializer,
   lifecycle: ApplicationLifecycle)
     extends scalikejdbc.play.FixtureSupport {
 
+  private def isTest = environment.mode == Mode.Test
+
+  private def isDev = environment.mode == Mode.Dev
+
   def onStart(): Unit = {
-    if (Play.isTest || Play.isDev) {
-      loadFixtures()
+    if (isTest || isDev) {
+      loadFixtures()(environment, configuration)
     }
   }
 
   def onStop(): Unit = {
-    if (Play.isTest || Play.isDev) {
-      cleanFixtures()
+    if (isTest || isDev) {
+      cleanFixtures()(environment, configuration)
     }
   }
 
