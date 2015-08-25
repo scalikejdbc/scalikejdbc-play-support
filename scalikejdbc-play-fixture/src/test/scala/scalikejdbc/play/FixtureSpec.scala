@@ -5,9 +5,9 @@ import play.api.test._
 import play.api.test.Helpers._
 import play.api.libs.Files
 import org.specs2.mutable._
-import org.specs2.specification.BeforeAfterExample
+import org.specs2.specification.BeforeAfterEach
 
-class FixtureSpec extends Specification with BeforeAfterExample {
+class FixtureSpec extends Specification with BeforeAfterEach {
 
   def before = {
   }
