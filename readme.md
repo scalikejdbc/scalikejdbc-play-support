@@ -14,7 +14,7 @@ Unfortunately, Play 2.4 is basically incompatible with Play plugins. Since Play 
 - scalikejdbc-play-dbplugin-adapter
 - scalikejdbc-play-fixture-plugin
 
-#### ScalikeJDBC interation with Play 2.4 or higher
+#### ScalikeJDBC integration with Play 2.4 or higher
 
 - scalikejdbc-play-initializer
 - scalikejdbc-play-dbapi-adapter
