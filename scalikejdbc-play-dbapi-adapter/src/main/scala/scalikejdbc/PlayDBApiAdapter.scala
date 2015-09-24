@@ -20,6 +20,7 @@ import play.api._
 import play.api.inject._
 import play.api.db.{ DBApi, DBApiProvider, BoneConnectionPool }
 import scalikejdbc.config.{ TypesafeConfig, TypesafeConfigReader, DBs }
+import scala.concurrent.Future
 
 /**
  * The Play plugin to use ScalikeJDBC
@@ -49,5 +50,11 @@ class PlayDBApiAdapter @Inject() (
     }
   }
 
+  def onStop(): Unit = {
+    val cache = SQLSyntaxSupportFeature.SQLSyntaxSupportLoadedColumns
+    cache.clear()
+  }
+
+  lifecycle.addStopHook(() => Future.successful(onStop))
   onStart()
 }

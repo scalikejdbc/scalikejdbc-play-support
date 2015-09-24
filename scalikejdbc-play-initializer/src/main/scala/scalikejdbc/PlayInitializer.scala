@@ -53,6 +53,9 @@ class PlayInitializer @Inject() (
     if (closeAllOnStop) {
       ConnectionPool.closeAll()
     }
+
+    val cache = SQLSyntaxSupportFeature.SQLSyntaxSupportLoadedColumns
+    cache.clear()
   }
 
   lifecycle.addStopHook(() => Future.successful(onStop))
