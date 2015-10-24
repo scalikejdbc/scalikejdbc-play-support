@@ -3,8 +3,8 @@ import Keys._
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
-  lazy val scalikejdbcVersion = "2.2.8"
-  lazy val _version = "2.4.2"
+  lazy val scalikejdbcVersion = "2.2.9"
+  lazy val _version = "2.4.3"
 
   // published dependency version
   lazy val defaultPlayVersion = play.core.PlayVersion.current
@@ -15,7 +15,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
 
   lazy val commonSettings = Seq(
     scalaVersion := "2.11.7",
-    crossScalaVersions := Seq("2.11.7", "2.10.5"),
+    crossScalaVersions := Seq("2.11.7", "2.10.6"),
     scalacOptions ++= _scalacOptions
   )
 
@@ -24,7 +24,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     version := _version,
     publishMavenStyle := true,
     resolvers ++= _resolvers,
-    libraryDependencies += "org.specs2" %% "specs2-core" % "3.6" % "test",
+    libraryDependencies += "org.specs2" %% "specs2-core" % "3.6.5" % "test",
     transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
     publishMavenStyle := true,
     publishArtifact in Test := false,

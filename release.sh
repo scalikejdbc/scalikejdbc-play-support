@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sbt ++2.10.5 \
+sbt ++2.10.6 \
     play-initializer/publishSigned \
     play-dbapi-adapter/publishSigned \
     play-fixture/publishSigned \
