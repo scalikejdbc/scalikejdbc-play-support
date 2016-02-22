@@ -3,14 +3,14 @@ import Keys._
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
-  lazy val scalikejdbcVersion = "2.2.9"
-  lazy val _version = "2.4.4-SNAPSHOT"
+  lazy val scalikejdbcVersion = "2.3.5"
+  lazy val _version = "2.4.4"
 
   // published dependency version
   lazy val defaultPlayVersion = play.core.PlayVersion.current
 
   // internal only
-  lazy val h2Version = "1.4.189"
+  lazy val h2Version = "1.4.191"
   lazy val postgresqlVersion = "9.4-1201-jdbc41"
 
   lazy val commonSettings = Seq(

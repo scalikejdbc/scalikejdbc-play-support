@@ -29,7 +29,8 @@ import scala.concurrent.Future
 class PlayDBApiAdapter @Inject() (
     dbApi: DBApi,
     configuration: Configuration,
-    lifecycle: ApplicationLifecycle) {
+    lifecycle: ApplicationLifecycle
+) {
 
   /**
    * DBs with Play application configuration.

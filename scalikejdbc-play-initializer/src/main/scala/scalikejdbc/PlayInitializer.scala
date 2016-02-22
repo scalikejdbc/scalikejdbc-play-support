@@ -27,7 +27,8 @@ import scala.concurrent.Future
 @Singleton
 class PlayInitializer @Inject() (
     lifecycle: ApplicationLifecycle,
-    configuration: Configuration) {
+    configuration: Configuration
+) {
 
   import PlayInitializer._
 

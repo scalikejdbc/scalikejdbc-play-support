@@ -38,7 +38,8 @@ class PlayFixture @Inject() (
   configuration: Configuration,
   environment: Environment,
   playInitializer: PlayInitializer,
-  lifecycle: ApplicationLifecycle)
+  lifecycle: ApplicationLifecycle
+)
     extends scalikejdbc.play.FixtureSupport {
 
   private def isTest = environment.mode == Mode.Test
