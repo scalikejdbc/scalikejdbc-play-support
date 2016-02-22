@@ -38,8 +38,11 @@ class PlayDBApiAdapter @Inject() (
     override val config = configuration.underlying
   }
 
+  private[this] lazy val loggingSQLErrors = configuration.getBoolean("scalikejdbc.global.loggingSQLErrors").getOrElse(true)
+
   def onStart(): Unit = {
     DBs.loadGlobalSettings()
+    GlobalSettings.loggingSQLErrors = loggingSQLErrors
 
     dbApi.databases.foreach { db =>
       scalikejdbc.ConnectionPool.add(Symbol(db.name), new DataSourceConnectionPool(db.dataSource))

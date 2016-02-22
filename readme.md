@@ -51,6 +51,7 @@ db.default.password=sa
 #db.default.poolMaxSize=10
 #db.default.poolValidationQuery=
 
+scalikejdbc.global.loggingSQLErrors=true
 scalikejdbc.global.loggingSQLAndTime.enabled=true
 scalikejdbc.global.loggingSQLAndTime.singleLineMode=false
 scalikejdbc.global.loggingSQLAndTime.logLevel=debug
