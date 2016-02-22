@@ -38,6 +38,8 @@ class PlayInitializer @Inject() (
 
   private[this] var closeAllOnStop = true
 
+  private[this] lazy val loggingSQLErrors = configuration.getBoolean("scalikejdbc.global.loggingSQLErrors").getOrElse(true)
+
   /**
    * DBs with Play application configuration.
    */
@@ -47,6 +49,7 @@ class PlayInitializer @Inject() (
 
   def onStart(): Unit = {
     DBs.setupAll()
+    GlobalSettings.loggingSQLErrors = loggingSQLErrors
     opt("closeAllOnStop", "enabled")(playConfig).foreach { enabled => closeAllOnStop = enabled.toBoolean }
   }
 
