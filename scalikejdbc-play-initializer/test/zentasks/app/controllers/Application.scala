@@ -18,8 +18,8 @@ object Application extends Controller {
       "email" -> text,
       "password" -> text
     ) verifying ("Invalid email or password", result => result match {
-      case (email, password) => User.authenticate(email, password).isDefined
-    })
+        case (email, password) => User.authenticate(email, password).isDefined
+      })
   )
 
   /**
@@ -56,11 +56,11 @@ object Application extends Controller {
       JavaScriptReverseRouter("jsRoutes")(
         Projects.add, Projects.delete, Projects.rename,
         Projects.addGroup, Projects.deleteGroup, Projects.renameGroup,
-        Projects.addUser, Projects.removeUser, Tasks.addFolder, 
+        Projects.addUser, Projects.removeUser, Tasks.addFolder,
         Tasks.renameFolder, Tasks.deleteFolder, Tasks.index,
         Tasks.add, Tasks.update, Tasks.delete
       )
-    ).as("text/javascript") 
+    ).as("text/javascript")
   }
 
 }
@@ -69,7 +69,7 @@ object Application extends Controller {
  * Provide security features
  */
 trait Secured {
-  
+
   /**
    * Retrieve the connected user email.
    */
@@ -79,10 +79,10 @@ trait Secured {
    * Redirect to login if the user in not authorized.
    */
   private def onUnauthorized(request: RequestHeader) = Results.Redirect(routes.Application.login)
-  
+
   // --
-  
-  /** 
+
+  /**
    * Action for authenticated users.
    */
   def IsAuthenticated(f: => String => Request[AnyContent] => Result) = Security.Authenticated(username, onUnauthorized) { user =>
@@ -93,7 +93,7 @@ trait Secured {
    * Check if the connected user is a member of this project.
    */
   def IsMemberOf(project: Long)(f: => String => Request[AnyContent] => Result) = IsAuthenticated { user => request =>
-    if(Project.isMember(project, user)) {
+    if (Project.isMember(project, user)) {
       f(user)(request)
     } else {
       Results.Forbidden
@@ -104,7 +104,7 @@ trait Secured {
    * Check if the connected user is a owner of this task.
    */
   def IsOwnerOf(task: Long)(f: => String => Request[AnyContent] => Result) = IsAuthenticated { user => request =>
-    if(Task.isOwner(task, user)) {
+    if (Task.isOwner(task, user)) {
       f(user)(request)
     } else {
       Results.Forbidden

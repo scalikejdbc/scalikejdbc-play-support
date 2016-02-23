@@ -5,7 +5,7 @@ import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
 
-import java.util.{Date}
+import java.util.{ Date }
 import models._
 import views._
 
@@ -37,13 +37,13 @@ object Tasks extends Controller with Secured {
 
   /**
    * Create a task in this project.
-   */  
-  def add(project: Long, folder: String) =  IsMemberOf(project) { _ => implicit request =>
+   */
+  def add(project: Long, folder: String) = IsMemberOf(project) { _ => implicit request =>
     taskForm.bindFromRequest.fold(
       errors => BadRequest,
       {
-        case (title, dueDate, assignedTo) => 
-          val task =  Task.create(
+        case (title, dueDate, assignedTo) =>
+          val task = Task.create(
             NewTask(folder, project, title, false, dueDate, assignedTo)
           )
           Ok(html.tasks.item(task))
@@ -57,9 +57,9 @@ object Tasks extends Controller with Secured {
   def update(task: Long) = IsOwnerOf(task) { _ => implicit request =>
     Form("done" -> boolean).bindFromRequest.fold(
       errors => BadRequest,
-      isDone => { 
+      isDone => {
         Task.markAsDone(task, isDone)
-        Ok 
+        Ok
       }
     )
   }
@@ -95,9 +95,9 @@ object Tasks extends Controller with Secured {
   def renameFolder(project: Long, folder: String) = IsMemberOf(project) { _ => implicit request =>
     Form("name" -> nonEmptyText).bindFromRequest.fold(
       errors => BadRequest,
-      newName => { 
-        Task.renameFolder(project, folder, newName) 
-        Ok(newName) 
+      newName => {
+        Task.renameFolder(project, folder, newName)
+        Ok(newName)
       }
     )
   }
