@@ -4,7 +4,7 @@ import Keys._
 object ScalikeJDBCPlaySupportProjects extends Build {
 
   lazy val scalikejdbcVersion = "2.3.5"
-  lazy val _version = "2.4.5-SNAPSHOT"
+  lazy val _version = "2.4.5"
 
   // published dependency version
   lazy val defaultPlayVersion = play.core.PlayVersion.current
@@ -24,7 +24,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     version := _version,
     publishMavenStyle := true,
     resolvers ++= _resolvers,
-    libraryDependencies += "org.specs2" %% "specs2-core" % "3.6.5" % "test",
+    libraryDependencies += "org.specs2" %% "specs2-core" % "3.7.1" % "test",
     transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
     publishMavenStyle := true,
     publishArtifact in Test := false,
