@@ -4,7 +4,7 @@ resolvers ++= Seq(
 )
 
 addSbtPlugin("org.scalariform"   % "sbt-scalariform" % "1.6.0")
-addSbtPlugin("com.typesafe.play" % "sbt-plugin"      % "2.4.6")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin"      % "2.5.0")
 addSbtPlugin("com.timushev.sbt"  % "sbt-updates"     % "0.1.10")
 addSbtPlugin("com.jsuereth"      % "sbt-pgp"         % "1.0.0")
 addSbtPlugin("org.xerial.sbt"    % "sbt-sonatype"    % "1.0")

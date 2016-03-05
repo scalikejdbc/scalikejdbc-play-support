@@ -17,7 +17,6 @@ object PlayPluginSpec extends Specification {
   Class.forName("org.h2.Driver")
 
   def fakeApp = FakeApplication(
-    withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
     additionalConfiguration = Map(
       "play.modules.enabled" -> List(
         "scalikejdbc.PlayModule",
@@ -52,7 +51,6 @@ object PlayPluginSpec extends Specification {
   )
 
   def fakeAppWithoutCloseAllOnStop = FakeApplication(
-    withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
     additionalConfiguration = Map(
       "play.modules.enabled" -> List(
         "scalikejdbc.PlayModule",
@@ -71,7 +69,6 @@ object PlayPluginSpec extends Specification {
   )
 
   def fakeAppWithDBPlugin = FakeApplication(
-    withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
     additionalConfiguration = Map(
       "play.modules.enabled" -> List(
         "scalikejdbc.PlayModule",
