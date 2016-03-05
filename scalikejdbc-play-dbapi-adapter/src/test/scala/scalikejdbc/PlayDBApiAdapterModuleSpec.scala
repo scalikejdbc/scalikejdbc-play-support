@@ -17,7 +17,6 @@ object PlayDBPluginAdapterSpec extends Specification {
   Class.forName("org.h2.Driver")
 
   def fakeAppWithDBPlugin = FakeApplication(
-    withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
     additionalConfiguration = Map(
       "play.modules.enabled" -> List(
         "scalikejdbc.PlayDBApiAdapterModule",
@@ -44,7 +43,6 @@ object PlayDBPluginAdapterSpec extends Specification {
   )
 
   def fakeAppWithoutDBPlugin = FakeApplication(
-    withoutPlugins = Seq("play.api.cache.EhCachePlugin"),
     additionalConfiguration = Map(
       "play.modules.enabled" -> List("scalikejdbc.PlayDBApiAdapterModule"),
       "play.modules.disabled" -> List(

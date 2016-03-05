@@ -1,5 +1,7 @@
 import sbt._
 import Keys._
+import play.sbt.routes.RoutesKeys.routesGenerator
+import play.routes.compiler.StaticRoutesGenerator
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
@@ -93,7 +95,8 @@ object ScalikeJDBCPlaySupportProjects extends Build {
 
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc" % scalikejdbcVersion,
-      "com.github.tototoshi" %% "play-flyway" % "1.2.+",
+      "org.scalikejdbc"      %% "scalikejdbc-config" % scalikejdbcVersion,
+      "org.flywaydb"         %% "flyway-play" % "2.3.0",
       "com.h2database"       %  "h2"          % h2Version,
       "org.postgresql"       %  "postgresql"  % postgresqlVersion
     )
@@ -103,6 +106,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     .settings(commonSettings :_*)
     .settings(
       libraryDependencies ++= appDependencies,
+      routesGenerator := StaticRoutesGenerator,
       resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
     ).dependsOn(scalikejdbcPlayInitializer, scalikejdbcPlayFixture)
   }
@@ -113,6 +117,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
 
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc" % scalikejdbcVersion,
+      "org.scalikejdbc"      %% "scalikejdbc-config" % scalikejdbcVersion,
       "com.h2database"       %  "h2"          % h2Version,
       "org.postgresql"       %  "postgresql"  % postgresqlVersion
     )
@@ -122,6 +127,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     .settings(commonSettings :_*)
     .settings(
       libraryDependencies ++= appDependencies,
+      routesGenerator := StaticRoutesGenerator,
       resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
     ).dependsOn(scalikejdbcPlayDBApiAdapter, scalikejdbcPlayFixture)
   }
