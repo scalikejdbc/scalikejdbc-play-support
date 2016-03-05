@@ -6,7 +6,7 @@ import play.routes.compiler.StaticRoutesGenerator
 object ScalikeJDBCPlaySupportProjects extends Build {
 
   lazy val scalikejdbcVersion = "2.3.5"
-  lazy val _version = "2.4.6-SNAPSHOT"
+  lazy val _version = "2.5.0"
 
   // published dependency version
   lazy val defaultPlayVersion = play.core.PlayVersion.current
@@ -17,7 +17,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
 
   lazy val commonSettings = Seq(
     scalaVersion := "2.11.7",
-    crossScalaVersions := Seq("2.11.7", "2.10.6"),
+    crossScalaVersions := Seq("2.11.7"),
     scalacOptions ++= _scalacOptions
   )
 
