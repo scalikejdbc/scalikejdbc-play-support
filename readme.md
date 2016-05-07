@@ -1,4 +1,4 @@
-# ScalikeJDBC Play Support [![Build Status](https://travis-ci.org/scalikejdbc/scalikejdbc-play-support.svg?branch=2.4)](https://travis-ci.org/scalikejdbc/scalikejdbc-play-support)
+# ScalikeJDBC Play Support [![Build Status](https://travis-ci.org/scalikejdbc/scalikejdbc-play-support.svg?branch=2.5)](https://travis-ci.org/scalikejdbc/scalikejdbc-play-support)
 
 This is a project to enable using ScalikeJDBC in Play2 apps seamlessly. If you're working with Play 2.3, see the [2.3 branch](https://github.com/scalikejdbc/scalikejdbc-play-support/tree/2.3) instead.
 
@@ -27,9 +27,9 @@ Unfortunately, Play 2.4 is basically incompatible with Play plugins. Since Play 
 ```
 libraryDependencies ++= Seq(
   "com.h2database"  %  "h2"                           % "1.4.191", // your jdbc driver here
-  "org.scalikejdbc" %% "scalikejdbc"                  % "2.3.5",
-  "org.scalikejdbc" %% "scalikejdbc-config"           % "2.3.5",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.0"
+  "org.scalikejdbc" %% "scalikejdbc"                  % "2.4.0",
+  "org.scalikejdbc" %% "scalikejdbc-config"           % "2.4.0",
+  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.1"
 )
 ```
 

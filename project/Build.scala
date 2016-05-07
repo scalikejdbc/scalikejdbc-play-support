@@ -5,8 +5,8 @@ import play.routes.compiler.StaticRoutesGenerator
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
-  lazy val scalikejdbcVersion = "2.3.5"
-  lazy val _version = "2.5.1-SNAPSHOT"
+  lazy val scalikejdbcVersion = "2.4.0"
+  lazy val _version = "2.5.1"
 
   // published dependency version
   lazy val defaultPlayVersion = play.core.PlayVersion.current
@@ -16,8 +16,8 @@ object ScalikeJDBCPlaySupportProjects extends Build {
   lazy val postgresqlVersion = "9.4-1201-jdbc41"
 
   lazy val commonSettings = Seq(
-    scalaVersion := "2.11.7",
-    crossScalaVersions := Seq("2.11.7"),
+    scalaVersion := "2.11.8",
+    crossScalaVersions := Seq("2.11.8"),
     scalacOptions ++= _scalacOptions
   )
 
@@ -26,7 +26,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     version := _version,
     publishMavenStyle := true,
     resolvers ++= _resolvers,
-    libraryDependencies += "org.specs2" %% "specs2-core" % "3.7.1" % "test",
+    libraryDependencies += "org.specs2" %% "specs2-core" % "3.8" % "test",
     transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
     publishMavenStyle := true,
     publishArtifact in Test := false,
@@ -96,7 +96,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc" % scalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-config" % scalikejdbcVersion,
-      "org.flywaydb"         %% "flyway-play" % "2.3.0",
+      "org.flywaydb"         %% "flyway-play" % "3.0.0",
       "com.h2database"       %  "h2"          % h2Version,
       "org.postgresql"       %  "postgresql"  % postgresqlVersion
     )
