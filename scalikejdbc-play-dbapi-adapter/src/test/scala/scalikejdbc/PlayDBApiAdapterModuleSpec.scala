@@ -10,7 +10,7 @@ import play.api.test._
 import play.api.test.Helpers._
 import play.api.Play.current
 
-object PlayDBPluginAdapterSpec extends Specification {
+object PlayDBApiAdapterModuleSpec extends Specification {
 
   sequential
 
