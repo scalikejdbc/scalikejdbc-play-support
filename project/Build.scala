@@ -5,14 +5,14 @@ import play.routes.compiler.StaticRoutesGenerator
 
 object ScalikeJDBCPlaySupportProjects extends Build {
 
-  lazy val scalikejdbcVersion = "2.4.0"
-  lazy val _version = "2.5.2-SNAPSHOT"
+  lazy val scalikejdbcVersion = "2.5.2"
+  lazy val _version = "2.5.3"
 
   // published dependency version
   lazy val defaultPlayVersion = play.core.PlayVersion.current
 
   // internal only
-  lazy val h2Version = "1.4.191"
+  lazy val h2Version = "1.4.195"
   lazy val postgresqlVersion = "9.4-1201-jdbc41"
 
   lazy val commonSettings = Seq(
@@ -26,6 +26,12 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     version := _version,
     publishMavenStyle := true,
     resolvers ++= _resolvers,
+    // NOTE: don't bump the version, somehow tests fail
+// [info] Play plugin should
+// [error]   ! be available when DB plugin is not active
+// [error]    java.lang.NoClassDefFoundError: Fatal execution error, caused by Could not initialize class play.api.Play$ (Helpers.scala:59)
+// [error] play.api.test.PlayRunners$class.running(Helpers.scala:59)
+// [error] play.api.test.Helpers$.running(Helpers.scala:382)
     libraryDependencies += "org.specs2" %% "specs2-core" % "3.8" % "test",
     transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
     publishMavenStyle := true,
@@ -96,7 +102,7 @@ object ScalikeJDBCPlaySupportProjects extends Build {
     val appDependencies = Seq(
       "org.scalikejdbc"      %% "scalikejdbc" % scalikejdbcVersion,
       "org.scalikejdbc"      %% "scalikejdbc-config" % scalikejdbcVersion,
-      "org.flywaydb"         %% "flyway-play" % "3.0.0",
+      "org.flywaydb"         %% "flyway-play" % "3.1.0",
       "com.h2database"       %  "h2"          % h2Version,
       "org.postgresql"       %  "postgresql"  % postgresqlVersion
     )
