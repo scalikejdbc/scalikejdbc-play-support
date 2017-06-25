@@ -16,9 +16,9 @@
 package scalikejdbc
 
 import javax.inject._
-import play.api._
-import play.api.inject._
-import play.api.db.{ DBApi, DBApiProvider, BoneConnectionPool }
+import _root_.play.api._
+import _root_.play.api.inject._
+import _root_.play.api.db.{ DBApi, DBApiProvider, BoneConnectionPool }
 import scalikejdbc.config.{ TypesafeConfig, TypesafeConfigReader, DBs }
 import scala.concurrent.Future
 
@@ -39,7 +39,7 @@ class PlayDBApiAdapter @Inject() (
     override val config = configuration.underlying
   }
 
-  private[this] lazy val loggingSQLErrors = configuration.getBoolean("scalikejdbc.global.loggingSQLErrors").getOrElse(true)
+  private[this] lazy val loggingSQLErrors = configuration.getOptional[Boolean]("scalikejdbc.global.loggingSQLErrors").getOrElse(true)
 
   def onStart(): Unit = {
     DBs.loadGlobalSettings()
@@ -49,7 +49,7 @@ class PlayDBApiAdapter @Inject() (
       scalikejdbc.ConnectionPool.add(Symbol(db.name), new DataSourceConnectionPool(db.dataSource))
     }
 
-    configuration.getString("scalikejdbc.play.closeAllOnStop.enabled").foreach { _ =>
+    configuration.getOptional[String]("scalikejdbc.play.closeAllOnStop.enabled").foreach { _ =>
       Logger.warn(s"closeAllOnStop is ignored by PlayDBPluginAdapter")
     }
   }

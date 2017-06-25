@@ -1,18 +1,20 @@
 package controllers
 
-import play.api._
-import play.api.mvc._
-import play.api.data._
-import play.api.data.Forms._
+import javax.inject.{ Inject, Singleton }
 
-import java.util.{ Date }
 import models._
+import play.api.data.Forms._
+import play.api.data._
+import play.api.mvc._
 import views._
 
 /**
  * Manage tasks related operations.
  */
-object Tasks extends Controller with Secured {
+@Singleton
+class Tasks @Inject() (controllerComponents: ControllerComponents)
+    extends AbstractController(controllerComponents)
+    with Secured {
 
   /**
    * Display the tasks panel for this project.

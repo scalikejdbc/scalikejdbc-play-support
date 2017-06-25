@@ -35,17 +35,16 @@ trait FixtureSupport {
 
   def fixtures(implicit environment: Environment, configuration: Configuration): Map[String, Seq[Fixture]] = {
     (for {
-      dbConfig <- configuration.getConfig("db").toList
+      dbConfig <- configuration.getOptional[Configuration]("db").toList
       subKey <- dbConfig.subKeys
     } yield {
       val dbName = subKey
       val fixtureNames: Seq[String] = try {
-        configuration.getStringList(fixtureConfigKey(subKey))
-          .map(_.asScala)
+        configuration.getOptional[Seq[String]](fixtureConfigKey(subKey))
           .getOrElse(Nil)
       } catch {
         case e: PlayException => {
-          configuration.getString(fixtureConfigKey(subKey)).toSeq
+          configuration.getOptional[String](fixtureConfigKey(subKey)).toSeq
         }
       }
 

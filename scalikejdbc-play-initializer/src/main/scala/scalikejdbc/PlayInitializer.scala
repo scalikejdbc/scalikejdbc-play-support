@@ -16,8 +16,8 @@
 package scalikejdbc
 
 import javax.inject._
-import play.api._
-import play.api.inject._
+import _root_.play.api._
+import _root_.play.api.inject._
 import scalikejdbc.config.{ TypesafeConfig, TypesafeConfigReader, DBs }
 import scala.concurrent.Future
 
@@ -34,11 +34,15 @@ class PlayInitializer @Inject() (
 
   // Play DB configuration
 
-  private[this] lazy val playConfig = configuration.getConfig("scalikejdbc.play").getOrElse(Configuration.empty)
+  private[this] lazy val playConfig = configuration
+    .getOptional[Configuration]("scalikejdbc.play")
+    .getOrElse(Configuration.empty)
 
   private[this] var closeAllOnStop = true
 
-  private[this] lazy val loggingSQLErrors = configuration.getBoolean("scalikejdbc.global.loggingSQLErrors").getOrElse(true)
+  private[this] lazy val loggingSQLErrors = configuration
+    .getOptional[Boolean]("scalikejdbc.global.loggingSQLErrors")
+    .getOrElse(true)
 
   /**
    * DBs with Play application configuration.
@@ -68,6 +72,6 @@ class PlayInitializer @Inject() (
 
 object PlayInitializer {
   def opt(name: String, key: String)(implicit config: Configuration): Option[String] = {
-    config.getString(name + "." + key)
+    config.getOptional[String](name + "." + key)
   }
 }

@@ -46,7 +46,8 @@ lazy val scalikejdbcPlayInitializer = Project(
     // play-jdbc is needed to test with DBApi
     "com.typesafe.play" %% "play-jdbc"          % defaultPlayVersion  % "test",
     "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
-    "com.h2database"    %  "h2"                 % h2Version           % "test"
+    "com.h2database"    %  "h2"                 % h2Version           % "test",
+    guice                                                             % "test"
   )
 )
 
@@ -63,7 +64,8 @@ lazy val scalikejdbcPlayDBApiAdapter = Project(
     "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
     "com.typesafe.play" %% "play-jdbc"          % defaultPlayVersion  % "compile",
     "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
-    "com.h2database"    %  "h2"                 % h2Version           % "test"
+    "com.h2database"    %  "h2"                 % h2Version           % "test",
+    guice                                                             % "test"
   )
 )
 
@@ -101,7 +103,6 @@ lazy val scalikejdbcPlayInitializerTestZentasks = {
   .settings(
     commonSettings,
     libraryDependencies ++= appDependencies,
-    routesGenerator := StaticRoutesGenerator,
     resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
   ).dependsOn(scalikejdbcPlayInitializer, scalikejdbcPlayFixture)
 }
@@ -122,7 +123,6 @@ lazy val scalikejdbcPlayDBApiAdapterTestZentasks = {
   .settings(
     commonSettings,
     libraryDependencies ++= appDependencies,
-    routesGenerator := StaticRoutesGenerator,
     resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
   ).dependsOn(scalikejdbcPlayDBApiAdapter, scalikejdbcPlayFixture)
 }

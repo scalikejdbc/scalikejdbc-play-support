@@ -15,8 +15,8 @@
  */
 package scalikejdbc
 
-import play.api._
-import play.api.inject._
+import _root_.play.api._
+import _root_.play.api.inject._
 
 /**
  * Play module
