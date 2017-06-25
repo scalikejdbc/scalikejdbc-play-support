@@ -23,8 +23,7 @@ class FixtureSupportSpec extends Specification with BeforeAfterEach {
       val configuration = Configuration(
         "play.modules.enabled" -> List(
           "scalikejdbc.PlayModule",
-          "scalikejdbc.PlayFixtureModule",
-          "play.api.inject.BuiltinModule"
+          "scalikejdbc.PlayFixtureModule"
         ),
         "db.default.fixtures.test" -> List("users.sql", "project.sql").asJava,
         "db.secondary.fixtures.test" -> "a.sql",

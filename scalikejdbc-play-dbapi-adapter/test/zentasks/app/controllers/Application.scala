@@ -1,15 +1,17 @@
 package controllers
 
-import play.api._
-import play.api.mvc._
-import play.api.data._
+import javax.inject.{ Inject, Singleton }
+
+import models.{ Project, User, Task }
+import play.api.data.Form
 import play.api.data.Forms._
-
-import models._
+import play.api.mvc._
 import play.api.routing.JavaScriptReverseRouter
-import views._
+import views.html
 
-object Application extends Controller {
+@Singleton
+class Application @Inject() (controllerComponents: ControllerComponents)
+    extends AbstractController(controllerComponents) {
 
   // -- Authentication
 
@@ -68,7 +70,7 @@ object Application extends Controller {
 /**
  * Provide security features
  */
-trait Secured {
+trait Secured { self: BaseController =>
 
   /**
    * Retrieve the connected user email.

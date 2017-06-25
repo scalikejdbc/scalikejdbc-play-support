@@ -1,14 +1,9 @@
 package scalikejdbc
 
-import scalikejdbc._
-
+import _root_.play.api.db.DBModule
+import _root_.play.api.inject.guice.GuiceApplicationBuilder
+import _root_.play.api.test.Helpers._
 import org.specs2.mutable.Specification
-
-import play.api._
-import play.api.mvc._
-import play.api.test._
-import play.api.test.Helpers._
-import play.api.Play.current
 
 object PlayDBApiAdapterModuleSpec extends Specification {
 
@@ -16,14 +11,8 @@ object PlayDBApiAdapterModuleSpec extends Specification {
 
   Class.forName("org.h2.Driver")
 
-  def fakeAppWithDBPlugin = FakeApplication(
-    additionalConfiguration = Map(
-      "play.modules.enabled" -> List(
-        "scalikejdbc.PlayDBApiAdapterModule",
-        "play.api.db.DBModule",
-        "play.api.db.BoneCPModule",
-        "play.api.inject.BuiltinModule"
-      ),
+  def fakeAppWithDBModule = {
+    val additionalConfiguration = Map(
       "db.default.driver" -> "org.h2.Driver",
       "db.default.url" -> "jdbc:h2:mem:default",
       "db.default.user" -> "sa",
@@ -40,16 +29,14 @@ object PlayDBApiAdapterModuleSpec extends Specification {
       "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
       "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
     )
-  )
+    new GuiceApplicationBuilder()
+      .configure(additionalConfiguration)
+      .bindings(new PlayDBApiAdapterModule)
+      .build()
+  }
 
-  def fakeAppWithoutDBPlugin = FakeApplication(
-    additionalConfiguration = Map(
-      "play.modules.enabled" -> List("scalikejdbc.PlayDBApiAdapterModule"),
-      "play.modules.disabled" -> List(
-        "play.api.db.DBModule",
-        "play.api.db.BoneCPModule",
-        "play.api.inject.BuiltinModule"
-      ),
+  def fakeAppWithoutDBModule = {
+    val additionalConfiguration = Map(
       "logger.root" -> "INFO",
       "logger.play" -> "INFO",
       "logger.application" -> "DEBUG",
@@ -75,7 +62,12 @@ object PlayDBApiAdapterModuleSpec extends Specification {
       "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
       "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
     )
-  )
+    new GuiceApplicationBuilder()
+      .configure(additionalConfiguration)
+      .bindings(new PlayDBApiAdapterModule)
+      .disable(classOf[DBModule])
+      .build()
+  }
 
   def simpleTest(table: String) = {
 
@@ -121,14 +113,14 @@ object PlayDBApiAdapterModuleSpec extends Specification {
     }
   }
 
-  "PlayDBPluginAdapter" should {
+  "PlayDBApiAdapterModule" should {
 
     "be available when DB plugin is also active" in {
-      running(fakeAppWithDBPlugin) { simpleTest("user_withdbplugin") }
+      running(fakeAppWithDBModule) { simpleTest("user_withdbplugin") }
     }
 
     "not be available when DB plugin is not active" in {
-      running(fakeAppWithoutDBPlugin) {} must throwA[RuntimeException]
+      running(fakeAppWithoutDBModule) {} must throwA[RuntimeException]
     }
 
   }

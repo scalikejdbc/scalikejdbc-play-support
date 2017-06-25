@@ -1,27 +1,17 @@
 package scalikejdbc
 
-import scalikejdbc._
-
+import _root_.play.api.inject.guice.GuiceApplicationBuilder
+import _root_.play.api.test.Helpers._
 import org.specs2.mutable.Specification
 
-import play.api._
-import play.api.mvc._
-import play.api.test._
-import play.api.test.Helpers._
-import play.api.Play.current
-
-object PlayPluginSpec extends Specification {
+object PlayModuleSpec extends Specification {
 
   sequential
 
   Class.forName("org.h2.Driver")
 
-  def fakeApp = FakeApplication(
-    additionalConfiguration = Map(
-      "play.modules.enabled" -> List(
-        "scalikejdbc.PlayModule",
-        "play.api.inject.BuiltinModule"
-      ),
+  def fakeApp = {
+    val additionalConfiguration = Map(
       "logger.root" -> "INFO",
       "logger.play" -> "INFO",
       "logger.application" -> "DEBUG",
@@ -48,14 +38,14 @@ object PlayPluginSpec extends Specification {
       "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
       "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
     )
-  )
+    new GuiceApplicationBuilder()
+      .configure(additionalConfiguration)
+      .bindings(new scalikejdbc.PlayModule)
+      .build
+  }
 
-  def fakeAppWithoutCloseAllOnStop = FakeApplication(
-    additionalConfiguration = Map(
-      "play.modules.enabled" -> List(
-        "scalikejdbc.PlayModule",
-        "play.api.inject.BuiltinModule"
-      ),
+  def fakeAppWithoutCloseAllOnStop = {
+    val additionalConfiguration = Map(
       "db.default.driver" -> "org.h2.Driver",
       "db.default.url" -> "jdbc:h2:mem:default",
       "db.default.user" -> "sa",
@@ -66,14 +56,14 @@ object PlayPluginSpec extends Specification {
       "db.legacydb.password" -> "g",
       "scalikejdbc.play.closeAllOnStop.enabled" -> "false"
     )
-  )
+    new GuiceApplicationBuilder()
+      .configure(additionalConfiguration)
+      .bindings(new scalikejdbc.PlayModule)
+      .build()
+  }
 
-  def fakeAppWithDBPlugin = FakeApplication(
-    additionalConfiguration = Map(
-      "play.modules.enabled" -> List(
-        "scalikejdbc.PlayModule",
-        "play.api.inject.BuiltinModule"
-      ),
+  def fakeAppWithDBPlugin = {
+    val additionalConfiguration = Map(
       "db.default.driver" -> "org.h2.Driver",
       "db.default.url" -> "jdbc:h2:mem:default",
       "db.default.user" -> "sa",
@@ -90,7 +80,11 @@ object PlayPluginSpec extends Specification {
       "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
       "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
     )
-  )
+    new GuiceApplicationBuilder()
+      .configure(additionalConfiguration)
+      .bindings(new scalikejdbc.PlayModule)
+      .build()
+  }
 
   def simpleTest(table: String) = {
 
