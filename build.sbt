@@ -8,23 +8,17 @@ lazy val h2Version = "1.4.195"
 lazy val postgresqlVersion = "9.4-1201-jdbc41"
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.11.8",
-  crossScalaVersions := Seq("2.11.8"),
+  scalaVersion := "2.11.11",
+  crossScalaVersions := Seq("2.11.11"),
   scalacOptions ++= Seq("-deprecation", "-unchecked")
 )
 
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
-  version := "2.5.3",
+  version := "2.6.0",
   publishMavenStyle := true,
   resolvers += "sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
-    // NOTE: don't bump the version, somehow tests fail
-// [info] Play plugin should
-// [error]   ! be available when DB plugin is not active
-// [error]    java.lang.NoClassDefFoundError: Fatal execution error, caused by Could not initialize class play.api.Play$ (Helpers.scala:59)
-// [error] play.api.test.PlayRunners$class.running(Helpers.scala:59)
-// [error] play.api.test.Helpers$.running(Helpers.scala:382)
-  libraryDependencies += "org.specs2" %% "specs2-core" % "3.8" % "test",
+  libraryDependencies += "org.specs2" %% "specs2-core" % "3.9.1" % "test",
   transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
   publishMavenStyle := true,
   publishArtifact in Test := false,
