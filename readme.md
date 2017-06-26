@@ -20,16 +20,16 @@ Unfortunately, Play 2.4 is basically incompatible with Play plugins. Since Play 
 - scalikejdbc-play-dbapi-adapter
 - scalikejdbc-play-fixture
 
-### Getting Started with Play 2.4
+### Getting Started with Play 2.6
 
 #### build.sbt
 
 ```
 libraryDependencies ++= Seq(
-  "com.h2database"  %  "h2"                           % "1.4.191", // your jdbc driver here
-  "org.scalikejdbc" %% "scalikejdbc"                  % "2.4.0",
-  "org.scalikejdbc" %% "scalikejdbc-config"           % "2.4.0",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.1"
+  "com.h2database"  %  "h2"                           % "1.4.195", // your jdbc driver here
+  "org.scalikejdbc" %% "scalikejdbc"                  % "2.5.1",
+  "org.scalikejdbc" %% "scalikejdbc-config"           % "2.5.1",
+  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.6.0",
 )
 ```
 
@@ -69,11 +69,13 @@ Now you can access ScalikeJDBC everywhere in your Play app!
 ```scala
 package controllers
 
+import javax.inject._
 import play.api._
 import play.api.mvc._
 import scalikejdbc._
 
-class Application extends Controller {
+@Singleton
+class Application @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
   implicit val session = AutoSession
 
   def index = Action {
@@ -99,4 +101,3 @@ Copyright ScalikeJDBC committers
 Apache License, Version 2.0
 http://www.apache.org/licenses/LICENSE-2.0.html
 ```
-
