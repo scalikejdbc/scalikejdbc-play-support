@@ -4,7 +4,7 @@ sbt ++2.11.11 \
     play-initializer/publishSigned \
     play-dbapi-adapter/publishSigned \
     play-fixture/publishSigned \
-    ++2.12.2 \
+    ++2.12.3 \
     play-initializer/publishSigned \
     play-dbapi-adapter/publishSigned \
     play-fixture/publishSigned \
