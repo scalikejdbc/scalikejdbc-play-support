@@ -1,4 +1,4 @@
-lazy val scalikejdbcVersion = "3.0.2"
+lazy val scalikejdbcVersion = "3.1.0"
 
 // published dependency version
 lazy val defaultPlayVersion = play.core.PlayVersion.current
@@ -15,7 +15,7 @@ lazy val commonSettings = Seq(
 
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
-  version := "2.6.0-scalikejdbc-3.0",
+  version := "2.6.0-scalikejdbc-3.1",
   publishMavenStyle := true,
   resolvers += "sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
   libraryDependencies += "org.specs2" %% "specs2-core" % "3.9.1" % "test",
@@ -95,8 +95,7 @@ lazy val scalikejdbcPlayInitializerTestZentasks = {
   Project(appName, file("scalikejdbc-play-initializer/test/zentasks"))
   .enablePlugins(play.sbt.PlayScala)
   .settings(
-    commonSettings,
-    libraryDependencies ++= appDependencies,
+    commonSettings, libraryDependencies ++= appDependencies,
     resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
   ).dependsOn(scalikejdbcPlayInitializer, scalikejdbcPlayFixture)
 }
