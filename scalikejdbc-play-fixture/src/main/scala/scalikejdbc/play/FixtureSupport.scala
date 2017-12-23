@@ -53,8 +53,7 @@ trait FixtureSupport {
         environment.resource(resourceName) match {
           case Some(resource) => Fixture(new File(resource.getPath))
           case None => throw new FixtureNotFoundException(
-            "Fixture not found (%s)".format(resourceName)
-          )
+            "Fixture not found (%s)".format(resourceName))
         }
       }
 

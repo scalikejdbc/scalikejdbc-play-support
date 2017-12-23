@@ -36,8 +36,7 @@ object PlayModuleSpec extends Specification {
       "scalikejdbc.global.loggingSQLAndTime.logLevel" -> "debug",
       "scalikejdbc.global.loggingSQLAndTime.warningEnabled" -> "true",
       "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
-      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
-    )
+      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn")
     new GuiceApplicationBuilder()
       .configure(additionalConfiguration)
       .bindings(new scalikejdbc.PlayModule)
@@ -54,8 +53,7 @@ object PlayModuleSpec extends Specification {
       "db.legacydb.url" -> "jdbc:h2:mem:legacy",
       "db.legacydb.user" -> "l",
       "db.legacydb.password" -> "g",
-      "scalikejdbc.play.closeAllOnStop.enabled" -> "false"
-    )
+      "scalikejdbc.play.closeAllOnStop.enabled" -> "false")
     new GuiceApplicationBuilder()
       .configure(additionalConfiguration)
       .bindings(new scalikejdbc.PlayModule)
@@ -78,8 +76,7 @@ object PlayModuleSpec extends Specification {
       "scalikejdbc.global.loggingSQLAndTime.logLevel" -> "debug",
       "scalikejdbc.global.loggingSQLAndTime.warningEnabled" -> "true",
       "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
-      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
-    )
+      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn")
     new GuiceApplicationBuilder()
       .configure(additionalConfiguration)
       .bindings(new scalikejdbc.PlayModule)

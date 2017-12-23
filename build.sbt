@@ -16,6 +16,12 @@ lazy val commonSettings = Seq(
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
   version := "2.6.0-scalikejdbc-3.1",
+  publishTo := Some(
+    if (isSnapshot.value)
+      Opts.resolver.sonatypeSnapshots
+    else
+      Opts.resolver.sonatypeStaging
+  ),
   publishMavenStyle := true,
   resolvers += "sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
   libraryDependencies += "org.specs2" %% "specs2-core" % "3.9.1" % "test",
