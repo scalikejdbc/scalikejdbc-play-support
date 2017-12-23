@@ -13,8 +13,8 @@ import views._
  */
 @Singleton
 class Tasks @Inject() (controllerComponents: ControllerComponents)
-    extends AbstractController(controllerComponents)
-    with Secured {
+  extends AbstractController(controllerComponents)
+  with Secured {
 
   /**
    * Display the tasks panel for this project.
@@ -31,9 +31,7 @@ class Tasks @Inject() (controllerComponents: ControllerComponents)
     tuple(
       "title" -> nonEmptyText,
       "dueDate" -> optional(date("MM/dd/yy")),
-      "assignedTo" -> optional(text)
-    )
-  )
+      "assignedTo" -> optional(text)))
 
   // -- Tasks
 
@@ -46,11 +44,9 @@ class Tasks @Inject() (controllerComponents: ControllerComponents)
       {
         case (title, dueDate, assignedTo) =>
           val task = Task.create(
-            NewTask(folder, project, title, false, dueDate, assignedTo)
-          )
+            NewTask(folder, project, title, false, dueDate, assignedTo))
           Ok(html.tasks.item(task))
-      }
-    )
+      })
   }
 
   /**
@@ -62,8 +58,7 @@ class Tasks @Inject() (controllerComponents: ControllerComponents)
       isDone => {
         Task.markAsDone(task, isDone)
         Ok
-      }
-    )
+      })
   }
 
   /**
@@ -100,8 +95,7 @@ class Tasks @Inject() (controllerComponents: ControllerComponents)
       newName => {
         Task.renameFolder(project, folder, newName)
         Ok(newName)
-      }
-    )
+      })
   }
 
 }

@@ -27,8 +27,7 @@ object PlayDBApiAdapterModuleSpec extends Specification {
       "scalikejdbc.global.loggingSQLAndTime.logLevel" -> "debug",
       "scalikejdbc.global.loggingSQLAndTime.warningEnabled" -> "true",
       "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
-      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
-    )
+      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn")
     new GuiceApplicationBuilder()
       .configure(additionalConfiguration)
       .bindings(new PlayDBApiAdapterModule)
@@ -60,8 +59,7 @@ object PlayDBApiAdapterModuleSpec extends Specification {
       "scalikejdbc.global.loggingSQLAndTime.logLevel" -> "debug",
       "scalikejdbc.global.loggingSQLAndTime.warningEnabled" -> "true",
       "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
-      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
-    )
+      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn")
     new GuiceApplicationBuilder()
       .configure(additionalConfiguration)
       .bindings(new PlayDBApiAdapterModule)

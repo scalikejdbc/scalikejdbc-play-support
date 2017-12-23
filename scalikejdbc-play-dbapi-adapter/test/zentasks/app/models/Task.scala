@@ -11,8 +11,7 @@ case class NewTask(
   title: String,
   done: Boolean,
   dueDate: Option[Date],
-  assignedTo: Option[String]
-)
+  assignedTo: Option[String])
 
 case class Task(
   id: Long,
@@ -21,8 +20,7 @@ case class Task(
   title: String,
   done: Boolean,
   dueDate: Option[Date],
-  assignedTo: Option[String]
-)
+  assignedTo: Option[String])
 
 object Task extends SQLSyntaxSupport[Task] {
 
@@ -35,8 +33,7 @@ object Task extends SQLSyntaxSupport[Task] {
       title = rs.string(t.title),
       done = rs.boolean(t.done),
       dueDate = rs.timestampOpt(t.dueDate),
-      assignedTo = rs.stringOpt(t.assignedTo)
-    )
+      assignedTo = rs.stringOpt(t.assignedTo))
   }
 
   def apply(t: SyntaxProvider[Task], p: SyntaxProvider[Project])(rs: WrappedResultSet): (Task, Project) = (Task(t)(rs), Project(p)(rs))
@@ -102,8 +99,7 @@ object Task extends SQLSyntaxSupport[Task] {
       title = task.title,
       done = task.done,
       dueDate = task.dueDate,
-      assignedTo = task.assignedTo
-    )
+      assignedTo = task.assignedTo)
   }
 
 }

@@ -23,8 +23,7 @@ class FixtureSupportSpec extends Specification with BeforeAfterEach {
       val configuration = Configuration(
         "play.modules.enabled" -> List(
           "scalikejdbc.PlayModule",
-          "scalikejdbc.PlayFixtureModule"
-        ),
+          "scalikejdbc.PlayFixtureModule"),
         "db.default.fixtures.test" -> List("users.sql", "project.sql").asJava,
         "db.secondary.fixtures.test" -> "a.sql",
         "db.default.driver" -> "org.h2.Driver",
@@ -34,8 +33,7 @@ class FixtureSupportSpec extends Specification with BeforeAfterEach {
         "db.secondary.driver" -> "org.h2.Driver",
         "db.secondary.url" -> "jdbc:h2:mem:secondary;DB_CLOSE_DELAY=-1",
         "db.secondary.user" -> "l",
-        "db.secondary.password" -> "g"
-      )
+        "db.secondary.password" -> "g")
       fixtureSupport.fixtures(environment, configuration) must have size 2
     }
 

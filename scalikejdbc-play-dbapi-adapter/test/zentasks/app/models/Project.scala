@@ -10,8 +10,7 @@ object ProjectMember extends SQLSyntaxSupport[ProjectMember] {
     val p = syntax.resultName
     new ProjectMember(
       projectId = rs.long(p.projectId),
-      userEmail = rs.string(p.userEmail)
-    )
+      userEmail = rs.string(p.userEmail))
   }
 }
 
@@ -26,8 +25,7 @@ object Project extends SQLSyntaxSupport[Project] {
     new Project(
       id = rs.long(p.id),
       folder = rs.string(p.folder),
-      name = rs.string(p.name)
-    )
+      name = rs.string(p.name))
   }
 
   private val p = Project.syntax("p")

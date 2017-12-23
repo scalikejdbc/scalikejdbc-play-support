@@ -13,18 +13,16 @@ import scala.concurrent.{ ExecutionContext, Future }
 
 @Singleton
 class Application @Inject() (controllerComponents: ControllerComponents)
-    extends AbstractController(controllerComponents) {
+  extends AbstractController(controllerComponents) {
 
   // -- Authentication
 
   val loginForm = Form(
     tuple(
       "email" -> text,
-      "password" -> text
-    ) verifying ("Invalid email or password", result => result match {
+      "password" -> text) verifying ("Invalid email or password", result => result match {
         case (email, password) => User.authenticate(email, password).isDefined
-      })
-  )
+      }))
 
   /**
    * Login page.
@@ -39,8 +37,7 @@ class Application @Inject() (controllerComponents: ControllerComponents)
   def authenticate = Action { implicit request =>
     loginForm.bindFromRequest.fold(
       formWithErrors => BadRequest(html.login(formWithErrors)),
-      user => Redirect(routes.Projects.index).withSession("email" -> user._1)
-    )
+      user => Redirect(routes.Projects.index).withSession("email" -> user._1))
   }
 
   /**
@@ -48,8 +45,7 @@ class Application @Inject() (controllerComponents: ControllerComponents)
    */
   def logout = Action {
     Redirect(routes.Application.login).withNewSession.flashing(
-      "success" -> "You've been logged out"
-    )
+      "success" -> "You've been logged out")
   }
 
   // -- Javascript routing
@@ -62,9 +58,7 @@ class Application @Inject() (controllerComponents: ControllerComponents)
         Projects.addGroup, Projects.deleteGroup, Projects.renameGroup,
         Projects.addUser, Projects.removeUser, Tasks.addFolder,
         Tasks.renameFolder, Tasks.deleteFolder, Tasks.index,
-        Tasks.add, Tasks.update, Tasks.delete
-      )
-    ).as("text/javascript")
+        Tasks.add, Tasks.update, Tasks.delete)).as("text/javascript")
   }
 
 }
