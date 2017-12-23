@@ -26,7 +26,6 @@ lazy val baseSettings = commonSettings ++ Seq(
   resolvers += "sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
   libraryDependencies += "org.specs2" %% "specs2-core" % "3.9.1" % "test",
   transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
-  publishMavenStyle := true,
   publishArtifact in Test := false,
   pomIncludeRepository := { x => false },
   pomExtra := _pomExtra
