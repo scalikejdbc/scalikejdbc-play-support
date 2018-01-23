@@ -4,9 +4,8 @@ resolvers ++= Seq(
 )
 
 addSbtPlugin("org.scalariform"   % "sbt-scalariform" % "1.8.2")
-addSbtPlugin("com.typesafe.play" % "sbt-plugin"      % "2.6.10")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin"      % "2.6.11")
 addSbtPlugin("com.timushev.sbt"  % "sbt-updates"     % "0.3.3")
 addSbtPlugin("com.jsuereth"      % "sbt-pgp"         % "1.1.0")
-addSbtPlugin("org.xerial.sbt"    % "sbt-sonatype"    % "2.0")
 
 scalacOptions ++= Seq("-deprecation", "-unchecked", "-language:_")
