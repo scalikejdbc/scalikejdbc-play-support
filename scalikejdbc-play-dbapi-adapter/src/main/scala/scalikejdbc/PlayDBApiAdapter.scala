@@ -18,7 +18,7 @@ package scalikejdbc
 import javax.inject._
 import _root_.play.api._
 import _root_.play.api.inject._
-import _root_.play.api.db.{ DBApi, DBApiProvider, BoneConnectionPool }
+import _root_.play.api.db.{ DBApi, DBApiProvider }
 import scalikejdbc.config.{ TypesafeConfig, TypesafeConfigReader, DBs }
 import scala.concurrent.Future
 
