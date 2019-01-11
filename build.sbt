@@ -8,8 +8,8 @@ lazy val h2Version = "1.4.197"
 lazy val postgresqlVersion = "9.4-1201-jdbc41"
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.11.12",
-  crossScalaVersions := Seq("2.11.12", "2.12.4"),
+  scalaVersion := "2.12.7",
+  crossScalaVersions := Seq("2.11.12", "2.12.7"),
   scalacOptions ++= Seq("-deprecation", "-unchecked")
 )
 
