@@ -16,6 +16,7 @@
 package scalikejdbc
 
 import javax.inject._
+import org.slf4j.LoggerFactory
 import _root_.play.api._
 import _root_.play.api.inject._
 import _root_.play.api.db.{ DBApi, DBApiProvider }
@@ -30,6 +31,8 @@ class PlayDBApiAdapter @Inject() (
   dbApi: DBApi,
   configuration: Configuration,
   lifecycle: ApplicationLifecycle) {
+
+  val logger = LoggerFactory.getLogger(this.getClass)
 
   /**
    * DBs with Play application configuration.
@@ -49,7 +52,7 @@ class PlayDBApiAdapter @Inject() (
     }
 
     configuration.getOptional[String]("scalikejdbc.play.closeAllOnStop.enabled").foreach { _ =>
-      Logger.warn(s"closeAllOnStop is ignored by PlayDBPluginAdapter")
+      logger.warn(s"closeAllOnStop is ignored by PlayDBPluginAdapter")
     }
   }
 

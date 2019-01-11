@@ -11,7 +11,7 @@ cache:
     - $HOME/.sbt/boot/scala-$TRAVIS_SCALA_VERSION
 
 scala:
-  - 2.12.7
+  - 2.12.8
   - 2.11.12
 
 script:
