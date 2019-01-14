@@ -28,7 +28,7 @@ case class Fixture(file: File) {
 
   def upScript: String =
     script
-      .lines
+      .linesIterator
       .dropWhile { line => !isUpsMarker(line) }
       .dropWhile { line => isUpsMarker(line) }
       .takeWhile { line => !isDownsMarker(line) }
@@ -36,7 +36,7 @@ case class Fixture(file: File) {
 
   def downScript: String =
     script
-      .lines
+      .linesIterator
       .dropWhile { line => !isDownsMarker(line) }
       .dropWhile { line => isDownsMarker(line) }
       .mkString("\n")
