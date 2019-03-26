@@ -1,10 +1,10 @@
-lazy val scalikejdbcVersion = "3.3.2"
+lazy val scalikejdbcVersion = "3.3.3"
 
 // published dependency version
 lazy val defaultPlayVersion = play.core.PlayVersion.current
 
 // internal only
-lazy val h2Version = "1.4.197"
+lazy val h2Version = "1.4.199"
 lazy val postgresqlVersion = "9.4-1201-jdbc41"
 
 lazy val commonSettings = Seq(
@@ -24,7 +24,7 @@ lazy val baseSettings = commonSettings ++ Seq(
   ),
   publishMavenStyle := true,
   resolvers += "sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
-  libraryDependencies += "org.specs2" %% "specs2-core" % "4.3.6" % "test",
+  libraryDependencies += "org.specs2" %% "specs2-core" % "4.5.1" % "test",
   transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
   publishArtifact in Test := false,
   pomIncludeRepository := { x => false },
@@ -92,7 +92,7 @@ lazy val scalikejdbcPlayInitializerTestZentasks = {
   val appDependencies = Seq(
     "org.scalikejdbc"      %% "scalikejdbc" % scalikejdbcVersion,
     "org.scalikejdbc"      %% "scalikejdbc-config" % scalikejdbcVersion,
-    "org.flywaydb"         %% "flyway-play" % "5.2.0",
+    "org.flywaydb"         %% "flyway-play" % "5.3.0",
     "com.h2database"       %  "h2"          % h2Version,
     "org.postgresql"       %  "postgresql"  % postgresqlVersion
   )
