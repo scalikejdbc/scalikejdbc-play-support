@@ -1,4 +1,4 @@
-lazy val scalikejdbcVersion = "3.3.3"
+lazy val scalikejdbcVersion = "3.3.4"
 
 // published dependency version
 lazy val defaultPlayVersion = play.core.PlayVersion.current
@@ -92,7 +92,7 @@ lazy val scalikejdbcPlayInitializerTestZentasks = {
   val appDependencies = Seq(
     "org.scalikejdbc"      %% "scalikejdbc" % scalikejdbcVersion,
     "org.scalikejdbc"      %% "scalikejdbc-config" % scalikejdbcVersion,
-    "org.flywaydb"         %% "flyway-play" % "5.3.0",
+    "org.flywaydb"         %% "flyway-play" % "5.3.1",
     "com.h2database"       %  "h2"          % h2Version,
     "org.postgresql"       %  "postgresql"  % postgresqlVersion
   )
