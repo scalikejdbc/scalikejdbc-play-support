@@ -1,8 +1,10 @@
 language: scala
 
-jdk:
-  - oraclejdk8
-  - openjdk11
+matrix:
+  include:
+  - jdk: oraclejdk8
+  - jdk: openjdk11
+    dist: xenial
 
 sudo: false
 
