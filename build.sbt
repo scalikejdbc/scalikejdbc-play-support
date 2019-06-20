@@ -10,6 +10,7 @@ lazy val postgresqlVersion = "9.4-1201-jdbc41"
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.8",
   crossScalaVersions := Seq("2.11.12", "2.12.8"),
+  fork in Test := true,
   scalacOptions ++= Seq("-deprecation", "-unchecked")
 )
 
