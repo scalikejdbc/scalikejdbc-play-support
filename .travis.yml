@@ -8,6 +8,12 @@ matrix:
   include:
   - jdk: openjdk11
     scala: 2.12.8
+  - scala: 2.13.0
+    script:
+    # TODO play-flyway for Scala 2.13
+    - sbt
+      "++${TRAVIS_SCALA_VERSION}"
+      "all play-dbapi-adapter/test play-dbapi-adapter-test-zentasks/test play-fixture/test play-initializer/test"
 
 sudo: false
 
