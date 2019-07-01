@@ -1,4 +1,4 @@
-# ScalikeJDBC Play Support [![Build Status](https://travis-ci.org/scalikejdbc/scalikejdbc-play-support.svg?branch=2.5)](https://travis-ci.org/scalikejdbc/scalikejdbc-play-support)
+# ScalikeJDBC Play Support [![Build Status](https://travis-ci.org/scalikejdbc/scalikejdbc-play-support.svg)](https://travis-ci.org/scalikejdbc/scalikejdbc-play-support)
 
 This is a project to enable using ScalikeJDBC in Play2 apps seamlessly. If you're working with Play 2.3, see the [2.3 branch](https://github.com/scalikejdbc/scalikejdbc-play-support/tree/2.3) instead.
 
