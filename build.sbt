@@ -24,7 +24,6 @@ lazy val baseSettings = commonSettings ++ Seq(
       Opts.resolver.sonatypeStaging
   ),
   publishMavenStyle := true,
-  resolvers += "sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
   libraryDependencies += "org.specs2" %% "specs2-core" % "4.6.0" % "test",
   transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
   publishArtifact in Test := false,
@@ -102,7 +101,6 @@ lazy val scalikejdbcPlayInitializerTestZentasks = {
   .enablePlugins(play.sbt.PlayScala)
   .settings(
     commonSettings, libraryDependencies ++= appDependencies,
-    resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
   ).dependsOn(scalikejdbcPlayInitializer, scalikejdbcPlayFixture)
 }
 
@@ -122,7 +120,6 @@ lazy val scalikejdbcPlayDBApiAdapterTestZentasks = {
   .settings(
     commonSettings,
     libraryDependencies ++= appDependencies,
-    resolvers += "sonatype releases"  at "http://oss.sonatype.org/content/repositories/releases"
   ).dependsOn(scalikejdbcPlayDBApiAdapter, scalikejdbcPlayFixture)
 }
 
