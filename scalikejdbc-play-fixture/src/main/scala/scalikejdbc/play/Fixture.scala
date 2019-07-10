@@ -32,12 +32,12 @@ case class Fixture(file: File) {
       .dropWhile { line => !isUpsMarker(line) }
       .dropWhile { line => isUpsMarker(line) }
       .takeWhile { line => !isDownsMarker(line) }
-      .mkString("\n")
+      .mkString(System.lineSeparator())
 
   def downScript: String =
     script
       .linesIterator
       .dropWhile { line => !isDownsMarker(line) }
       .dropWhile { line => isDownsMarker(line) }
-      .mkString("\n")
+      .mkString(System.lineSeparator())
 }
