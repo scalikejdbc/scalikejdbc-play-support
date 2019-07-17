@@ -11,6 +11,13 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.12.8",
   crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0"),
   fork in Test := true,
+  javaOptions ++= {
+    if (scala.util.Properties.isWin) {
+      Seq("-Dfile.encoding=Windows-31J")
+    } else {
+      Nil
+    }
+  },
   scalacOptions ++= Seq("-deprecation", "-unchecked")
 )
 
