@@ -16,11 +16,12 @@
 package scalikejdbc.play
 
 import scala.io.Source
+import scala.io.Codec
 import java.io.File
 
 case class Fixture(file: File) {
 
-  private def script: String = Source.fromFile(file).mkString
+  private def script: String = Source.fromFile(file)(Codec.UTF8).mkString
 
   private def isUpsMarker(s: String): Boolean = s.matches("""^#.*!Ups.*$""")
 
