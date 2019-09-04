@@ -16,7 +16,7 @@ matrix:
     - source .install-jdk-travis.sh
     - wget https://raw.githubusercontent.com/paulp/sbt-extras/0ee2dae2eba72efb4a464a5ad255e348696ecda7/sbt && chmod +x ./sbt
     script:
-    - ./sbt "++ 2.12.8" test
+    - ./sbt -J-Dfile.encoding=Windows-31J "++ 2.12.8" test
 
 sudo: false
 
