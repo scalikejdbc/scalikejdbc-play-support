@@ -8,8 +8,8 @@ lazy val h2Version = "1.4.199"
 lazy val postgresqlVersion = "9.4-1201-jdbc41"
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.8",
-  crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0"),
+  scalaVersion := "2.12.10",
+  crossScalaVersions := Seq("2.11.12", "2.12.10", "2.13.1"),
   fork in Test := true,
   javaOptions ++= {
     if (scala.util.Properties.isWin) {
