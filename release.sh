@@ -15,4 +15,4 @@ sbt  ++2.13.1 \
     play-dbapi-adapter/publishSigned \
     play-fixture/publishSigned
 
-sbt sonatypeRelease # FIXME: doesn't work.. java.lang.IllegalStateException: No staging repository is found. Run publishSigned first
+# sbt sonatypeRelease # FIXME: doesn't work.. java.lang.IllegalStateException: No staging repository is found. Run publishSigned first
