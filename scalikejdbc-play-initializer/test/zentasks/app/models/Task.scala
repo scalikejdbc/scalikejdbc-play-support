@@ -3,7 +3,6 @@ package models
 import java.util.Date
 
 import scalikejdbc._
-import scalikejdbc.SQLInterpolation._
 
 case class NewTask(
   folder: String,
