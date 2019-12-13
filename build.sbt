@@ -9,7 +9,7 @@ lazy val postgresqlVersion = "9.4-1201-jdbc41"
 
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.10",
-  crossScalaVersions := Seq("2.11.12", "2.12.10", "2.13.1"),
+  crossScalaVersions := Seq("2.12.10", "2.13.1"),
   fork in Test := true,
   javaOptions ++= {
     if (scala.util.Properties.isWin) {
@@ -23,7 +23,7 @@ lazy val commonSettings = Seq(
 
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
-  version := "2.7.1-scalikejdbc-3.4",
+  version := "2.8.0-scalikejdbc-3.4",
   publishTo := Some(
     if (isSnapshot.value)
       Opts.resolver.sonatypeSnapshots
