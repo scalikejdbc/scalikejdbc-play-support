@@ -20,7 +20,7 @@ Unfortunately, Play 2.4 is basically incompatible with Play plugins. Since Play 
 - scalikejdbc-play-dbapi-adapter
 - scalikejdbc-play-fixture
 
-### Getting Started with Play 2.7
+### Getting Started with Play 2.8
 
 #### build.sbt
 
@@ -29,7 +29,7 @@ libraryDependencies ++= Seq(
   "com.h2database"  %  "h2"                           % "1.4.200", // your jdbc driver here
   "org.scalikejdbc" %% "scalikejdbc"                  % "3.4.0",
   "org.scalikejdbc" %% "scalikejdbc-config"           % "3.4.0",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.7.0-scalikejdbc-3.4"
+  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.8.0-scalikejdbc-3.4"
 )
 ```
 
