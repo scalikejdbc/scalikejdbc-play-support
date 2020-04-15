@@ -31,7 +31,7 @@ lazy val baseSettings = commonSettings ++ Seq(
       Opts.resolver.sonatypeStaging
   ),
   publishMavenStyle := true,
-  libraryDependencies += "org.specs2" %% "specs2-core" % "4.9.2" % "test",
+  libraryDependencies += "org.specs2" %% "specs2-core" % "4.9.3" % "test",
   transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
   publishArtifact in Test := false,
   pomIncludeRepository := { x => false },
