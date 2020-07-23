@@ -1,4 +1,4 @@
-lazy val scalikejdbcVersion = "3.4.2"
+lazy val scalikejdbcVersion = "3.5.0"
 
 // published dependency version
 lazy val defaultPlayVersion = play.core.PlayVersion.current
@@ -23,7 +23,7 @@ lazy val commonSettings = Seq(
 
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
-  version := "2.8.0-scalikejdbc-3.4",
+  version := "2.8.0-scalikejdbc-3.5",
   publishTo := Some(
     if (isSnapshot.value)
       Opts.resolver.sonatypeSnapshots
@@ -47,8 +47,7 @@ lazy val scalikejdbcPlayInitializer = Project(
   name := "scalikejdbc-play-initializer",
   libraryDependencies ++= Seq(
     "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "provided",
-    "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "provided",
-    "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
+    "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "provided", "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
     // play-jdbc is needed to test with DBApi
     "com.typesafe.play" %% "play-jdbc"          % defaultPlayVersion  % "test",
     "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
