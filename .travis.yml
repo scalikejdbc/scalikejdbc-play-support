@@ -7,7 +7,7 @@ jdk: openjdk8
 matrix:
   include:
   - jdk: openjdk11
-    scala: 2.12.11
+    scala: 2.12.12
   - os: windows
     language: bash
     env: JDK="adopt@1.8.0-222"
@@ -16,7 +16,7 @@ matrix:
     - source .install-jdk-travis.sh
     - wget https://raw.githubusercontent.com/paulp/sbt-extras/0ee2dae2eba72efb4a464a5ad255e348696ecda7/sbt && chmod +x ./sbt
     script:
-    - ./sbt -J-Dfile.encoding=Windows-31J "++ 2.12.11" test
+    - ./sbt -J-Dfile.encoding=Windows-31J "++ 2.12.12" test
 
 sudo: false
 
@@ -26,8 +26,8 @@ cache:
     - $HOME/.sbt/launchers
 
 scala:
-  - 2.12.11
-  - 2.13.1
+  - 2.12.12
+  - 2.13.3
 
 script:
   - sbt ++${TRAVIS_SCALA_VERSION} test
