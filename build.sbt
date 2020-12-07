@@ -47,7 +47,8 @@ lazy val scalikejdbcPlayInitializer = Project(
   name := "scalikejdbc-play-initializer",
   libraryDependencies ++= Seq(
     "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "provided",
-    "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "provided", "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
+    "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "provided",
+    "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
     // play-jdbc is needed to test with DBApi
     "com.typesafe.play" %% "play-jdbc"          % defaultPlayVersion  % "test",
     "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
