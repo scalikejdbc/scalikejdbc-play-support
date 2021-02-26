@@ -4,7 +4,7 @@ val excludeTestsIfWindows = Set(
   "scalikejdbc.play.FixtureSpec",
 )
 
-testOptions in Test in ThisBuild ++= {
+ThisBuild / Test / testOptions ++= {
   if (scala.util.Properties.isWin) {
     Seq(Tests.Exclude(excludeTestsIfWindows))
   } else {

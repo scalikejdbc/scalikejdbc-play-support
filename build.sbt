@@ -10,7 +10,7 @@ lazy val postgresqlVersion = "42.2.19"
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.13",
   crossScalaVersions := Seq("2.12.13", "2.13.4"),
-  fork in Test := true,
+  Test / fork := true,
   javaOptions ++= {
     if (scala.util.Properties.isWin) {
       Seq("-Dfile.encoding=Windows-31J")
@@ -32,8 +32,8 @@ lazy val baseSettings = commonSettings ++ Seq(
   ),
   publishMavenStyle := true,
   libraryDependencies += "org.specs2" %% "specs2-core" % "4.10.6" % "test",
-  transitiveClassifiers in Global := Seq(Artifact.SourceClassifier),
-  publishArtifact in Test := false,
+  Global / transitiveClassifiers := Seq(Artifact.SourceClassifier),
+  Test / publishArtifact := false,
   pomIncludeRepository := { x => false },
   pomExtra := _pomExtra
 )
@@ -89,7 +89,7 @@ lazy val scalikejdbcPlayFixture = Project(
     "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
     "com.h2database"    %  "h2"                 % h2Version           % "test"
   ),
-  testOptions in Test += Tests.Argument(TestFrameworks.Specs2, "sequential", "true")
+  Test / testOptions += Tests.Argument(TestFrameworks.Specs2, "sequential", "true")
 ).dependsOn(scalikejdbcPlayInitializer)
 
 // play plugin zentasks example
