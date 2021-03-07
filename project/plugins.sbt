@@ -1,7 +1,3 @@
-resolvers ++= Seq(
-  "Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"
-)
-
 addSbtPlugin("org.scalariform"   % "sbt-scalariform" % "1.8.3")
 addSbtPlugin("com.typesafe.play" % "sbt-plugin"      % "2.8.7")
 addSbtPlugin("com.timushev.sbt"  % "sbt-updates"     % "0.5.1")
