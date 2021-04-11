@@ -65,7 +65,7 @@ class PlayInitializer @Inject() (
     cache.clear()
   }
 
-  lifecycle.addStopHook(() => Future.successful(onStop))
+  lifecycle.addStopHook(() => Future.successful(onStop()))
   onStart()
 }
 
