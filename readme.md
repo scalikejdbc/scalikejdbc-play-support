@@ -76,7 +76,7 @@ import scalikejdbc._
 
 @Singleton
 class Application @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-  implicit val session = AutoSession
+  implicit val session: DBSession = AutoSession
 
   def index = Action {
     val accounts = {
