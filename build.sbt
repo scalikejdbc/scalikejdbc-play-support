@@ -99,7 +99,7 @@ lazy val scalikejdbcPlayInitializerTestZentasks = {
   val appDependencies = Seq(
     "org.scalikejdbc"      %% "scalikejdbc" % scalikejdbcVersion,
     "org.scalikejdbc"      %% "scalikejdbc-config" % scalikejdbcVersion,
-    "org.flywaydb"         %% "flyway-play" % "7.7.0",
+    "org.flywaydb"         %% "flyway-play" % "7.8.0",
     "com.h2database"       %  "h2"          % h2Version,
     "org.postgresql"       %  "postgresql"  % postgresqlVersion
   )
