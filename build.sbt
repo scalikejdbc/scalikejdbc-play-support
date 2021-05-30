@@ -9,7 +9,7 @@ lazy val postgresqlVersion = "42.2.20"
 
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.14",
-  crossScalaVersions := Seq("2.12.14", "2.13.5"),
+  crossScalaVersions := Seq("2.12.14", "2.13.6"),
   Test / fork := true,
   javaOptions ++= {
     if (scala.util.Properties.isWin) {
