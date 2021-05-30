@@ -27,6 +27,6 @@ jobs:
             sbt -v -J-Dfile.encoding=Windows-31J "+test"
             ;;
           *)
-            sbt -v "+test"
+            sbt -v "+test" "++ 3.0.0!" update
         esac
     - run: git diff --exit-code # check scalariform
