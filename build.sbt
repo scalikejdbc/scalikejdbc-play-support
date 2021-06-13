@@ -1,4 +1,4 @@
-lazy val scalikejdbcVersion = "3.5.0"
+lazy val scalikejdbcVersion = "4.0.0-RC1"
 
 // published dependency version
 lazy val defaultPlayVersion = play.core.PlayVersion.current
@@ -10,6 +10,7 @@ lazy val postgresqlVersion = "42.2.21"
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.14",
   crossScalaVersions := Seq("2.12.14", "2.13.6"),
+  libraryDependencySchemes += "org.scala-lang.modules" %% "scala-parser-combinators" % "always",
   Test / fork := true,
   javaOptions ++= {
     if (scala.util.Properties.isWin) {
@@ -34,7 +35,6 @@ lazy val scala3settings = Def.settings(
   libraryDependencies := {
     val organizations = Set(
       "com.typesafe.play",
-      "org.scalikejdbc",
       "org.specs2",
       "org.flywaydb",
     )
@@ -50,7 +50,7 @@ lazy val scala3settings = Def.settings(
 
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
-  version := "2.8.0-scalikejdbc-3.5",
+  version := "2.8.0-scalikejdbc-4.0-SNAPSHOT",
   publishTo := Some(
     if (isSnapshot.value)
       Opts.resolver.sonatypeSnapshots
