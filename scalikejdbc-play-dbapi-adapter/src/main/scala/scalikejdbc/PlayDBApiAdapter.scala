@@ -48,7 +48,7 @@ class PlayDBApiAdapter @Inject() (
     GlobalSettings.loggingSQLErrors = loggingSQLErrors
 
     dbApi.databases.foreach { db =>
-      scalikejdbc.ConnectionPool.add(Symbol(db.name), new DataSourceConnectionPool(db.dataSource))
+      scalikejdbc.ConnectionPool.add(db.name, new DataSourceConnectionPool(db.dataSource))
     }
 
     configuration.getOptional[String]("scalikejdbc.play.closeAllOnStop.enabled").foreach { _ =>

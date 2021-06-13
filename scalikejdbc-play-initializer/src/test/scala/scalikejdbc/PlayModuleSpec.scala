@@ -91,19 +91,19 @@ object PlayModuleSpec extends Specification {
         SQL("DROP TABLE " + table + " IF EXISTS").execute.apply()
         SQL("CREATE TABLE " + table + " (ID BIGINT PRIMARY KEY NOT NULL, NAME VARCHAR(256))").execute.apply()
         val insert = SQL("INSERT INTO " + table + " (ID, NAME) VALUES (/*'id*/123, /*'name*/'Alice')")
-        insert.bindByName(Symbol("id") -> 1, Symbol("name") -> "Alice").update.apply()
-        insert.bindByName(Symbol("id") -> 2, Symbol("name") -> "Bob").update.apply()
-        insert.bindByName(Symbol("id") -> 3, Symbol("name") -> "Eve").update.apply()
+        insert.bindByName("id" -> 1, "name" -> "Alice").update.apply()
+        insert.bindByName("id" -> 2, "name" -> "Bob").update.apply()
+        insert.bindByName("id" -> 3, "name" -> "Eve").update.apply()
       }
 
-      NamedDB(Symbol("legacydb")) autoCommit { implicit s =>
+      NamedDB("legacydb") autoCommit { implicit s =>
         SQL("DROP TABLE " + table + " IF EXISTS").execute.apply()
         SQL("CREATE TABLE " + table + " (ID BIGINT PRIMARY KEY NOT NULL, NAME VARCHAR(256))").execute.apply()
         val insert = SQL("INSERT INTO " + table + " (ID, NAME) VALUES (/*'id*/123, /*'name*/'Alice')")
-        insert.bindByName(Symbol("id") -> 1, Symbol("name") -> "Alice").update.apply()
-        insert.bindByName(Symbol("id") -> 2, Symbol("name") -> "Bob").update.apply()
-        insert.bindByName(Symbol("id") -> 3, Symbol("name") -> "Eve").update.apply()
-        insert.bindByName(Symbol("id") -> 4, Symbol("name") -> "Fred").update.apply()
+        insert.bindByName("id" -> 1, "name" -> "Alice").update.apply()
+        insert.bindByName("id" -> 2, "name" -> "Bob").update.apply()
+        insert.bindByName("id" -> 3, "name" -> "Eve").update.apply()
+        insert.bindByName("id" -> 4, "name" -> "Fred").update.apply()
       }
 
       case class User(id: Long, name: Option[String])
@@ -113,7 +113,7 @@ object PlayModuleSpec extends Specification {
       }
       users.size must_== (3)
 
-      val usersInLegacy = NamedDB(Symbol("legacydb")) readOnly { implicit s =>
+      val usersInLegacy = NamedDB("legacydb") readOnly { implicit s =>
         SQL("SELECT * FROM " + table).map(rs => User(rs.long("id"), Option(rs.string("name")))).list.apply()
       }
       usersInLegacy.size must_== (4)
@@ -122,7 +122,7 @@ object PlayModuleSpec extends Specification {
       DB autoCommit { implicit s =>
         SQL("DROP TABLE " + table + " IF EXISTS").execute.apply()
       }
-      NamedDB(Symbol("legacydb")) autoCommit { implicit s =>
+      NamedDB("legacydb") autoCommit { implicit s =>
         SQL("DROP TABLE " + table + " IF EXISTS").execute.apply()
       }
     }
@@ -133,7 +133,7 @@ object PlayModuleSpec extends Specification {
 
     "be available when DB plugin is not active" in {
       running(fakeApp) {
-        val settings = ConnectionPool.get(Symbol("default")).settings
+        val settings = ConnectionPool.get("default").settings
         settings.initialSize must_== (1)
         settings.maxSize must_== (2)
         settings.validationQuery must_== ("select 1")

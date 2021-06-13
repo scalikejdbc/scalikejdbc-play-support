@@ -80,7 +80,7 @@ trait FixtureSupport {
   }
 
   private def execute(dbName: String, script: String): Unit = {
-    NamedDB(Symbol(dbName)) localTx { implicit session =>
+    NamedDB(dbName) localTx { implicit session =>
       SQL(script).update.apply()
     }
   }
