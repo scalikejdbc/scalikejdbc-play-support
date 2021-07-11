@@ -9,7 +9,7 @@ lazy val postgresqlVersion = "42.2.23"
 
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.14",
-  crossScalaVersions := Seq("2.12.14", "2.13.6"),
+  crossScalaVersions := Seq("2.12.14", "2.13.6", "3.0.1"),
   libraryDependencySchemes += "org.scala-lang.modules" %% "scala-parser-combinators" % "always",
   Test / fork := true,
   javaOptions ++= {
@@ -23,15 +23,6 @@ lazy val commonSettings = Seq(
 )
 
 lazy val scala3settings = Def.settings(
-  scalacOptions ++= {
-    if (scalaBinaryVersion.value == "3") {
-      Seq(
-        "-Xignore-scala2-macros"
-      )
-    } else {
-      Nil
-    }
-  },
   libraryDependencies := {
     val organizations = Set(
       "com.typesafe.play",

@@ -27,9 +27,6 @@ jobs:
             sbt -v -J-Dfile.encoding=Windows-31J "+test"
             ;;
           *)
-            sbt -v "+test" \
-            "++ 3.0.1!" \
-            update \
-            "all play-dbapi-adapter/test play-fixture/test play-initializer/test"
+            sbt -v "+test"
         esac
     - run: git diff --exit-code # check scalariform

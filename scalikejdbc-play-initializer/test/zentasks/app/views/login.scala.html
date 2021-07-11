@@ -9,10 +9,10 @@
     <body>
         
         <header>
-            <a href="@routes.Projects.index" id="logo"><span>Zen</span>tasks</a>
+            <a href="@routes.Projects.index()" id="logo"><span>Zen</span>tasks</a>
         </header>
         
-        @helper.form(routes.Application.authenticate) {
+        @helper.form(routes.Application.authenticate()) {
             
             <h1>Sign in</h1>
             

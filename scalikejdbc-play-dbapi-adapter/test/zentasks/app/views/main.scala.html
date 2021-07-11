@@ -10,11 +10,11 @@
         <script type="text/javascript" src="@routes.Assets.at("javascripts/underscore-min.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/backbone-min.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/main.js")"></script>
-        <script type="text/javascript" src="@routes.Application.javascriptRoutes"></script>
+        <script type="text/javascript" src="@routes.Application.javascriptRoutes()"></script>
     </head>
     <body>
         <header>
-            <a href="@routes.Projects.index" id="logo"><span>Zen</span>tasks</a>
+            <a href="@routes.Projects.index()" id="logo"><span>Zen</span>tasks</a>
             <dl id="user">
                 <dt>@user.name <span>(@user.email)</span></dt>
                 <dd>

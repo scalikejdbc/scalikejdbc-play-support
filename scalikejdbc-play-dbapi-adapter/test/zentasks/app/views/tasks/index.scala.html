@@ -20,7 +20,7 @@
                 </div>
                 <h3>Add a team mate</h3>
                 <div class="addUserList">
-                    @User.findAll.diff(team).map { user =>
+                    @User.findAll().diff(team).map { user =>
                         <dl data-user-id="@user.email">
                             <dt>@user.name <span>(@user.email)</span></dt>
                             <dd class="action">Action</dd>
