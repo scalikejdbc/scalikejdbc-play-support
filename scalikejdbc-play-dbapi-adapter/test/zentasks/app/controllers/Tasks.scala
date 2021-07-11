@@ -7,6 +7,7 @@ import play.api.data.Forms._
 import play.api.data._
 import play.api.mvc.{ AbstractController, ControllerComponents }
 import views._
+import scala.concurrent.Future
 
 /**
  * Manage tasks related operations.
@@ -74,8 +75,8 @@ class Tasks @Inject() (controllerComponents: ControllerComponents)
   /**
    * Add a new folder.
    */
-  def addFolder = Action {
-    Ok(html.tasks.folder("New folder"))
+  def addFolder = Action.async {
+    Future.successful(Ok(html.tasks.folder("New folder")))
   }
 
   /**
