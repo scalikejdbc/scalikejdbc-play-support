@@ -28,7 +28,7 @@ jobs:
             ;;
           *)
             sbt -v "+test" \
-            "++ 3.0.1-RC1!" \
+            "++ 3.0.1!" \
             update \
             "all play-dbapi-adapter/test play-fixture/test play-initializer/test"
         esac
