@@ -23,6 +23,14 @@ lazy val commonSettings = Seq(
 )
 
 lazy val scala3settings = Def.settings(
+  conflictWarning := {
+    if (scalaBinaryVersion.value == "3") {
+      // TODO
+      ConflictWarning("warn", Level.Warn, false)
+    } else {
+      conflictWarning.value
+    }
+  },
   libraryDependencies := {
     val organizations = Set(
       "com.typesafe.play",
