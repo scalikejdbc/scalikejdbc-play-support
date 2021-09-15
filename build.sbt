@@ -8,8 +8,8 @@ lazy val h2Version = "1.4.200"
 lazy val postgresqlVersion = "42.2.23"
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.14",
-  crossScalaVersions := Seq("2.12.14", "2.13.6", "3.0.2"),
+  scalaVersion := "2.12.15",
+  crossScalaVersions := Seq("2.12.15", "2.13.6", "3.0.2"),
   libraryDependencySchemes += "org.scala-lang.modules" %% "scala-parser-combinators" % "always",
   Test / fork := true,
   javaOptions ++= {
