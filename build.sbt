@@ -4,7 +4,7 @@ lazy val scalikejdbcVersion = "4.0.0"
 lazy val defaultPlayVersion = play.core.PlayVersion.current
 
 // internal only
-lazy val h2Version = "2.1.212"
+lazy val h2Version = "2.1.214"
 lazy val postgresqlVersion = "42.4.0"
 
 lazy val commonSettings = Seq(
