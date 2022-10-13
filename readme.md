@@ -27,9 +27,9 @@ Unfortunately, Play 2.4 is basically incompatible with Play plugins. Since Play 
 ```scala
 libraryDependencies ++= Seq(
   "com.h2database"  %  "h2"                           % "1.4.200", // your jdbc driver here
-  "org.scalikejdbc" %% "scalikejdbc"                  % "3.5.0",
-  "org.scalikejdbc" %% "scalikejdbc-config"           % "3.5.0",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.8.0-scalikejdbc-3.5"
+  "org.scalikejdbc" %% "scalikejdbc"                  % "4.0.0",
+  "org.scalikejdbc" %% "scalikejdbc-config"           % "4.0.0",
+  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.8.0-scalikejdbc-4.0"
 )
 ```
 
