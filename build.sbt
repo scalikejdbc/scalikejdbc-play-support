@@ -49,7 +49,7 @@ lazy val scala3settings = Def.settings(
 
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
-  version := "2.8.0-scalikejdbc-4.0",
+  version := "2.8.1-scalikejdbc-4.0-SNAPSHOT",
   publishTo := Some(
     if (isSnapshot.value)
       Opts.resolver.sonatypeSnapshots
