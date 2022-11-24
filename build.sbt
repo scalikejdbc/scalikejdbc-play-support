@@ -5,7 +5,7 @@ lazy val defaultPlayVersion = play.core.PlayVersion.current
 
 // internal only
 lazy val h2Version = "2.1.214"
-lazy val postgresqlVersion = "42.5.0"
+lazy val postgresqlVersion = "42.5.1"
 
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.17",
