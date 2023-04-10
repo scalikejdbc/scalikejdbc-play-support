@@ -30,30 +30,40 @@ import scala.concurrent.Future
 class PlayDBApiAdapter @Inject() (
   dbApi: DBApi,
   configuration: Configuration,
-  lifecycle: ApplicationLifecycle) {
+  lifecycle: ApplicationLifecycle
+) {
 
   val logger = LoggerFactory.getLogger(this.getClass)
 
   /**
    * DBs with Play application configuration.
    */
-  private[this] lazy val DBs = new DBs with TypesafeConfigReader with TypesafeConfig {
+  private[this] lazy val DBs = new DBs
+    with TypesafeConfigReader
+    with TypesafeConfig {
     override val config = configuration.underlying
   }
 
-  private[this] lazy val loggingSQLErrors = configuration.getOptional[Boolean]("scalikejdbc.global.loggingSQLErrors").getOrElse(true)
+  private[this] lazy val loggingSQLErrors = configuration
+    .getOptional[Boolean]("scalikejdbc.global.loggingSQLErrors")
+    .getOrElse(true)
 
   def onStart(): Unit = {
     DBs.loadGlobalSettings()
     GlobalSettings.loggingSQLErrors = loggingSQLErrors
 
     dbApi.databases.foreach { db =>
-      scalikejdbc.ConnectionPool.add(db.name, new DataSourceConnectionPool(db.dataSource))
+      scalikejdbc.ConnectionPool.add(
+        db.name,
+        new DataSourceConnectionPool(db.dataSource)
+      )
     }
 
-    configuration.getOptional[String]("scalikejdbc.play.closeAllOnStop.enabled").foreach { _ =>
-      logger.warn(s"closeAllOnStop is ignored by PlayDBPluginAdapter")
-    }
+    configuration
+      .getOptional[String]("scalikejdbc.play.closeAllOnStop.enabled")
+      .foreach { _ =>
+        logger.warn(s"closeAllOnStop is ignored by PlayDBPluginAdapter")
+      }
   }
 
   def onStop(): Unit = {

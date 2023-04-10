@@ -9,7 +9,7 @@
 
 - Send pull requests toward "develop" or "feature/xxx" branches
 - Compatibility always must be kept as far as possible
-- scalariform must be applied to all Scala source code
+- scalafmt must be applied to all Scala source code
 - Prefer creating scala source code for each class/object/trait (of course, except for sealed trait)
 
 #### Testing your pull request

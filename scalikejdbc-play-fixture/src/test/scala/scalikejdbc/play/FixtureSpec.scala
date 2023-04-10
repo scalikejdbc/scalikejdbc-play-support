@@ -9,11 +9,9 @@ import org.specs2.specification.BeforeAfterEach
 
 class FixtureSpec extends Specification with BeforeAfterEach {
 
-  def before = {
-  }
+  def before = {}
 
-  def after = {
-  }
+  def after = {}
 
   def fixture = {
     val script = """
