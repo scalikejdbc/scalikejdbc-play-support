@@ -138,7 +138,8 @@ lazy val scalikejdbcPlayInitializerTestZentasks = {
   )
 
   Project(appName, file("scalikejdbc-play-initializer/test/zentasks"))
-    .enablePlugins(play.sbt.PlayScala)
+    .enablePlugins(play.sbt.PlayScala, PlayNettyServer)
+    .disablePlugins(PlayAkkaHttpServer)
     .settings(
       commonSettings,
       libraryDependencies ++= appDependencies,
@@ -159,7 +160,8 @@ lazy val scalikejdbcPlayDBApiAdapterTestZentasks = {
   )
 
   Project(appName, file("scalikejdbc-play-dbapi-adapter/test/zentasks"))
-    .enablePlugins(play.sbt.PlayScala)
+    .enablePlugins(play.sbt.PlayScala, PlayNettyServer)
+    .disablePlugins(PlayAkkaHttpServer)
     .settings(
       commonSettings,
       libraryDependencies ++= appDependencies,

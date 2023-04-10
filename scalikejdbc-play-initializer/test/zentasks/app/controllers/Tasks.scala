@@ -46,28 +46,32 @@ class Tasks @Inject() (controllerComponents: ControllerComponents)
    */
   def add(project: Long, folder: String) = IsMemberOf(project) {
     _ => implicit request =>
-      taskForm.bindFromRequest.fold(
-        errors => BadRequest,
-        { case (title, dueDate, assignedTo) =>
-          val task = Task.create(
-            NewTask(folder, project, title, false, dueDate, assignedTo)
-          )
-          Ok(html.tasks.item(task))
-        }
-      )
+      taskForm
+        .bindFromRequest()
+        .fold(
+          errors => BadRequest,
+          { case (title, dueDate, assignedTo) =>
+            val task = Task.create(
+              NewTask(folder, project, title, false, dueDate, assignedTo)
+            )
+            Ok(html.tasks.item(task))
+          }
+        )
   }
 
   /**
    * Update a task
    */
   def update(task: Long) = IsOwnerOf(task) { _ => implicit request =>
-    Form("done" -> boolean).bindFromRequest.fold(
-      errors => BadRequest,
-      isDone => {
-        Task.markAsDone(task, isDone)
-        Ok
-      }
-    )
+    Form("done" -> boolean)
+      .bindFromRequest()
+      .fold(
+        errors => BadRequest,
+        isDone => {
+          Task.markAsDone(task, isDone)
+          Ok
+        }
+      )
   }
 
   /**
@@ -101,13 +105,15 @@ class Tasks @Inject() (controllerComponents: ControllerComponents)
    */
   def renameFolder(project: Long, folder: String) = IsMemberOf(project) {
     _ => implicit request =>
-      Form("name" -> nonEmptyText).bindFromRequest.fold(
-        errors => BadRequest,
-        newName => {
-          Task.renameFolder(project, folder, newName)
-          Ok(newName)
-        }
-      )
+      Form("name" -> nonEmptyText)
+        .bindFromRequest()
+        .fold(
+          errors => BadRequest,
+          newName => {
+            Task.renameFolder(project, folder, newName)
+            Ok(newName)
+          }
+        )
   }
 
 }

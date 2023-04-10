@@ -4,7 +4,7 @@ import org.specs2.mutable._
 import org.specs2.specification.BeforeAfterEach
 import play.api.{ Configuration, Environment }
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class FixtureSupportSpec extends Specification with BeforeAfterEach {
 

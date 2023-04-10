@@ -17,7 +17,7 @@ package scalikejdbc.play
 
 import _root_.play.api._
 import java.io.File
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scalikejdbc._
 
 trait FixtureSupport {

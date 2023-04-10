@@ -24,6 +24,6 @@ import _root_.play.api.inject._
  */
 class PlayModule extends Module {
   def bindings(env: Environment, config: Configuration) = Seq(
-    bind[PlayInitializer].toSelf.eagerly
+    bind[PlayInitializer].toSelf.eagerly()
   )
 }

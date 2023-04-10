@@ -39,11 +39,13 @@ class Application @Inject() (controllerComponents: ControllerComponents)
    */
   def authenticate = Action.async { implicit request =>
     Future.successful(
-      loginForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(html.login(formWithErrors)),
-        user =>
-          Redirect(routes.Projects.index()).withSession("email" -> user._1)
-      )
+      loginForm
+        .bindFromRequest()
+        .fold(
+          formWithErrors => BadRequest(html.login(formWithErrors)),
+          user =>
+            Redirect(routes.Projects.index()).withSession("email" -> user._1)
+        )
     )
   }
 

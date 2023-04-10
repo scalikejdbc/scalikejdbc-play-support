@@ -41,7 +41,7 @@ object PlayModuleSpec extends Specification {
     new GuiceApplicationBuilder()
       .configure(additionalConfiguration)
       .bindings(new scalikejdbc.PlayModule)
-      .build
+      .build()
   }
 
   def fakeAppWithoutCloseAllOnStop = {
