@@ -52,7 +52,7 @@ class PlayDBApiAdapter @Inject() (
     DBs.loadGlobalSettings()
     GlobalSettings.loggingSQLErrors = loggingSQLErrors
 
-    dbApi.databases.foreach { db =>
+    dbApi.databases().foreach { db =>
       scalikejdbc.ConnectionPool.add(
         db.name,
         new DataSourceConnectionPool(db.dataSource)

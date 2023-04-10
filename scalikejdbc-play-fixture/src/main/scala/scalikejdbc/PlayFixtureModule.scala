@@ -25,7 +25,10 @@ import scala.concurrent.Future
  */
 class PlayFixtureModule extends Module {
   def bindings(env: Environment, config: Configuration) =
-    Seq(bind[PlayInitializer].toSelf.eagerly, bind[PlayFixture].toSelf.eagerly)
+    Seq(
+      bind[PlayInitializer].toSelf.eagerly(),
+      bind[PlayFixture].toSelf.eagerly()
+    )
 }
 
 /**
