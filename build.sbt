@@ -38,7 +38,10 @@ lazy val scala3settings = Def.settings(
       "org.flywaydb",
     )
     libraryDependencies.value.map { x =>
-      if (organizations(x.organization) && x.crossVersion.isInstanceOf[CrossVersion.Binary]) {
+      if (
+        organizations(x.organization) && x.crossVersion
+          .isInstanceOf[CrossVersion.Binary]
+      ) {
         x cross CrossVersion.for3Use2_13
       } else {
         x
@@ -72,14 +75,14 @@ lazy val scalikejdbcPlayInitializer = Project(
   baseSettings,
   name := "scalikejdbc-play-initializer",
   libraryDependencies ++= Seq(
-    "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "provided",
-    "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "provided",
-    "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
+    "org.scalikejdbc" %% "scalikejdbc" % scalikejdbcVersion % "provided",
+    "org.scalikejdbc" %% "scalikejdbc-config" % scalikejdbcVersion % "provided",
+    "com.typesafe.play" %% "play" % defaultPlayVersion % "provided",
     // play-jdbc is needed to test with DBApi
-    "com.typesafe.play" %% "play-jdbc"          % defaultPlayVersion  % "test",
-    "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
-    "com.h2database"    %  "h2"                 % h2Version           % "test",
-    guice                                                             % "test"
+    "com.typesafe.play" %% "play-jdbc" % defaultPlayVersion % "test",
+    "com.typesafe.play" %% "play-test" % defaultPlayVersion % "test",
+    "com.h2database" % "h2" % h2Version % "test",
+    guice % "test"
   ),
   scala3settings,
 )
@@ -92,13 +95,13 @@ lazy val scalikejdbcPlayDBApiAdapter = Project(
   baseSettings,
   name := "scalikejdbc-play-dbapi-adapter",
   libraryDependencies ++= Seq(
-    "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "provided",
-    "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "provided",
-    "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
-    "com.typesafe.play" %% "play-jdbc"          % defaultPlayVersion  % "compile",
-    "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
-    "com.h2database"    %  "h2"                 % h2Version           % "test",
-    guice                                                             % "test"
+    "org.scalikejdbc" %% "scalikejdbc" % scalikejdbcVersion % "provided",
+    "org.scalikejdbc" %% "scalikejdbc-config" % scalikejdbcVersion % "provided",
+    "com.typesafe.play" %% "play" % defaultPlayVersion % "provided",
+    "com.typesafe.play" %% "play-jdbc" % defaultPlayVersion % "compile",
+    "com.typesafe.play" %% "play-test" % defaultPlayVersion % "test",
+    "com.h2database" % "h2" % h2Version % "test",
+    guice % "test"
   ),
   scala3settings,
 )
@@ -111,64 +114,67 @@ lazy val scalikejdbcPlayFixture = Project(
   baseSettings,
   name := "scalikejdbc-play-fixture",
   libraryDependencies ++= Seq(
-    "org.scalikejdbc"   %% "scalikejdbc"        % scalikejdbcVersion  % "provided",
-    "org.scalikejdbc"   %% "scalikejdbc-config" % scalikejdbcVersion  % "provided",
-    "com.typesafe.play" %% "play"               % defaultPlayVersion  % "provided",
-    "com.typesafe.play" %% "play-test"          % defaultPlayVersion  % "test",
-    "com.h2database"    %  "h2"                 % h2Version           % "test"
+    "org.scalikejdbc" %% "scalikejdbc" % scalikejdbcVersion % "provided",
+    "org.scalikejdbc" %% "scalikejdbc-config" % scalikejdbcVersion % "provided",
+    "com.typesafe.play" %% "play" % defaultPlayVersion % "provided",
+    "com.typesafe.play" %% "play-test" % defaultPlayVersion % "test",
+    "com.h2database" % "h2" % h2Version % "test"
   ),
-  Test / testOptions += Tests.Argument(TestFrameworks.Specs2, "sequential", "true"),
+  Test / testOptions += Tests
+    .Argument(TestFrameworks.Specs2, "sequential", "true"),
   scala3settings,
 ).dependsOn(scalikejdbcPlayInitializer)
 
 // play plugin zentasks example
 lazy val scalikejdbcPlayInitializerTestZentasks = {
-  val appName         = "play-initializer-test-zentasks"
+  val appName = "play-initializer-test-zentasks"
 
   val appDependencies = Seq(
-    "org.scalikejdbc"      %% "scalikejdbc" % scalikejdbcVersion,
-    "org.scalikejdbc"      %% "scalikejdbc-config" % scalikejdbcVersion,
-    "org.flywaydb"         %% "flyway-play" % "7.38.0",
-    "com.h2database"       %  "h2"          % h2Version,
-    "org.postgresql"       %  "postgresql"  % postgresqlVersion
+    "org.scalikejdbc" %% "scalikejdbc" % scalikejdbcVersion,
+    "org.scalikejdbc" %% "scalikejdbc-config" % scalikejdbcVersion,
+    "org.flywaydb" %% "flyway-play" % "7.38.0",
+    "com.h2database" % "h2" % h2Version,
+    "org.postgresql" % "postgresql" % postgresqlVersion
   )
 
   Project(appName, file("scalikejdbc-play-initializer/test/zentasks"))
-  .enablePlugins(play.sbt.PlayScala)
-  .settings(
-    commonSettings,
-    libraryDependencies ++= appDependencies,
-    scala3settings,
-  ).dependsOn(scalikejdbcPlayInitializer, scalikejdbcPlayFixture)
+    .enablePlugins(play.sbt.PlayScala)
+    .settings(
+      commonSettings,
+      libraryDependencies ++= appDependencies,
+      scala3settings,
+    )
+    .dependsOn(scalikejdbcPlayInitializer, scalikejdbcPlayFixture)
 }
 
 // play dbapi adapter zentasks example
 lazy val scalikejdbcPlayDBApiAdapterTestZentasks = {
-  val appName         = "play-dbapi-adapter-test-zentasks"
+  val appName = "play-dbapi-adapter-test-zentasks"
 
   val appDependencies = Seq(
-    "org.scalikejdbc"      %% "scalikejdbc" % scalikejdbcVersion,
-    "org.scalikejdbc"      %% "scalikejdbc-config" % scalikejdbcVersion,
-    "com.h2database"       %  "h2"          % h2Version,
-    "org.postgresql"       %  "postgresql"  % postgresqlVersion
+    "org.scalikejdbc" %% "scalikejdbc" % scalikejdbcVersion,
+    "org.scalikejdbc" %% "scalikejdbc-config" % scalikejdbcVersion,
+    "com.h2database" % "h2" % h2Version,
+    "org.postgresql" % "postgresql" % postgresqlVersion
   )
 
   Project(appName, file("scalikejdbc-play-dbapi-adapter/test/zentasks"))
-  .enablePlugins(play.sbt.PlayScala)
-  .settings(
-    commonSettings,
-    libraryDependencies ++= appDependencies,
-    scala3settings,
-  ).dependsOn(scalikejdbcPlayDBApiAdapter, scalikejdbcPlayFixture)
+    .enablePlugins(play.sbt.PlayScala)
+    .settings(
+      commonSettings,
+      libraryDependencies ++= appDependencies,
+      scala3settings,
+    )
+    .dependsOn(scalikejdbcPlayDBApiAdapter, scalikejdbcPlayFixture)
 }
 
 val jdbcDriverDependenciesInTestScope = Seq(
-  "com.h2database"    % "h2"                   % h2Version         % "test",
-  "org.apache.derby"  % "derby"                % "10.10.2.+"       % "test",
-  "org.xerial"        % "sqlite-jdbc"          % "3.7.+"           % "test",
-  "org.hsqldb"        % "hsqldb"               % "2.3.+"           % "test",
-  "mysql"             % "mysql-connector-java" % "5.1.+"           % "test",
-  "org.postgresql"    % "postgresql"           % postgresqlVersion % "test"
+  "com.h2database" % "h2" % h2Version % "test",
+  "org.apache.derby" % "derby" % "10.10.2.+" % "test",
+  "org.xerial" % "sqlite-jdbc" % "3.7.+" % "test",
+  "org.hsqldb" % "hsqldb" % "2.3.+" % "test",
+  "mysql" % "mysql-connector-java" % "5.1.+" % "test",
+  "org.postgresql" % "postgresql" % postgresqlVersion % "test"
 )
 val _pomExtra = <url>http://scalikejdbc.org/</url>
     <licenses>

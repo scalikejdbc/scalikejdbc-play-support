@@ -36,7 +36,8 @@ object PlayModuleSpec extends Specification {
       "scalikejdbc.global.loggingSQLAndTime.logLevel" -> "debug",
       "scalikejdbc.global.loggingSQLAndTime.warningEnabled" -> "true",
       "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
-      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn")
+      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
+    )
     new GuiceApplicationBuilder()
       .configure(additionalConfiguration)
       .bindings(new scalikejdbc.PlayModule)
@@ -53,7 +54,8 @@ object PlayModuleSpec extends Specification {
       "db.legacydb.url" -> "jdbc:h2:mem:legacy",
       "db.legacydb.user" -> "l",
       "db.legacydb.password" -> "g",
-      "scalikejdbc.play.closeAllOnStop.enabled" -> "false")
+      "scalikejdbc.play.closeAllOnStop.enabled" -> "false"
+    )
     new GuiceApplicationBuilder()
       .configure(additionalConfiguration)
       .bindings(new scalikejdbc.PlayModule)
@@ -76,7 +78,8 @@ object PlayModuleSpec extends Specification {
       "scalikejdbc.global.loggingSQLAndTime.logLevel" -> "debug",
       "scalikejdbc.global.loggingSQLAndTime.warningEnabled" -> "true",
       "scalikejdbc.global.loggingSQLAndTime.warningThreasholdMillis" -> "1",
-      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn")
+      "scalikejdbc.global.loggingSQLAndTime.warningLogLevel" -> "warn"
+    )
     new GuiceApplicationBuilder()
       .configure(additionalConfiguration)
       .bindings(new scalikejdbc.PlayModule)
@@ -89,8 +92,12 @@ object PlayModuleSpec extends Specification {
 
       DB autoCommit { implicit s =>
         SQL("DROP TABLE " + table + " IF EXISTS").execute.apply()
-        SQL("CREATE TABLE " + table + " (ID BIGINT PRIMARY KEY NOT NULL, NAME VARCHAR(256))").execute.apply()
-        val insert = SQL("INSERT INTO " + table + " (ID, NAME) VALUES (/*'id*/123, /*'name*/'Alice')")
+        SQL(
+          "CREATE TABLE " + table + " (ID BIGINT PRIMARY KEY NOT NULL, NAME VARCHAR(256))"
+        ).execute.apply()
+        val insert = SQL(
+          "INSERT INTO " + table + " (ID, NAME) VALUES (/*'id*/123, /*'name*/'Alice')"
+        )
         insert.bindByName("id" -> 1, "name" -> "Alice").update.apply()
         insert.bindByName("id" -> 2, "name" -> "Bob").update.apply()
         insert.bindByName("id" -> 3, "name" -> "Eve").update.apply()
@@ -98,8 +105,12 @@ object PlayModuleSpec extends Specification {
 
       NamedDB("legacydb") autoCommit { implicit s =>
         SQL("DROP TABLE " + table + " IF EXISTS").execute.apply()
-        SQL("CREATE TABLE " + table + " (ID BIGINT PRIMARY KEY NOT NULL, NAME VARCHAR(256))").execute.apply()
-        val insert = SQL("INSERT INTO " + table + " (ID, NAME) VALUES (/*'id*/123, /*'name*/'Alice')")
+        SQL(
+          "CREATE TABLE " + table + " (ID BIGINT PRIMARY KEY NOT NULL, NAME VARCHAR(256))"
+        ).execute.apply()
+        val insert = SQL(
+          "INSERT INTO " + table + " (ID, NAME) VALUES (/*'id*/123, /*'name*/'Alice')"
+        )
         insert.bindByName("id" -> 1, "name" -> "Alice").update.apply()
         insert.bindByName("id" -> 2, "name" -> "Bob").update.apply()
         insert.bindByName("id" -> 3, "name" -> "Eve").update.apply()
@@ -109,12 +120,18 @@ object PlayModuleSpec extends Specification {
       case class User(id: Long, name: Option[String])
 
       val users = DB readOnly { implicit s =>
-        SQL("SELECT * FROM " + table).map(rs => User(rs.long("id"), Option(rs.string("name")))).list.apply()
+        SQL("SELECT * FROM " + table)
+          .map(rs => User(rs.long("id"), Option(rs.string("name"))))
+          .list
+          .apply()
       }
       users.size must_== (3)
 
       val usersInLegacy = NamedDB("legacydb") readOnly { implicit s =>
-        SQL("SELECT * FROM " + table).map(rs => User(rs.long("id"), Option(rs.string("name")))).list.apply()
+        SQL("SELECT * FROM " + table)
+          .map(rs => User(rs.long("id"), Option(rs.string("name"))))
+          .list
+          .apply()
       }
       usersInLegacy.size must_== (4)
 
@@ -153,7 +170,9 @@ object PlayModuleSpec extends Specification {
         // Play 2.0.4 throws Exception here
         running(fakeApp) { simpleTest("user_4") }
       } catch { case e: Exception => }
-      simpleTest("user_5") must throwA[IllegalStateException](message = "Connection pool is not yet initialized.")
+      simpleTest("user_5") must throwA[IllegalStateException](message =
+        "Connection pool is not yet initialized."
+      )
     }
 
     "skip closing connection pools after stopping Play app" in {

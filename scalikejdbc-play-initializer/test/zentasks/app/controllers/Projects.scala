@@ -20,13 +20,18 @@ class Projects @Inject() (controllerComponents: ControllerComponents)
    * Display the dashboard.
    */
   def index = IsAuthenticated { username => _ =>
-    User.findByEmail(username).map { user =>
-      Ok(
-        html.dashboard(
-          Project.findInvolving(username),
-          Task.findTodoInvolving(username),
-          user))
-    }.getOrElse(Forbidden)
+    User
+      .findByEmail(username)
+      .map { user =>
+        Ok(
+          html.dashboard(
+            Project.findInvolving(username),
+            Task.findTodoInvolving(username),
+            user
+          )
+        )
+      }
+      .getOrElse(Forbidden)
   }
 
   // -- Projects
@@ -37,11 +42,13 @@ class Projects @Inject() (controllerComponents: ControllerComponents)
   def add = IsAuthenticated { username => implicit request =>
     Form("group" -> nonEmptyText).bindFromRequest.fold(
       errors => BadRequest,
-      folder => Ok(
-        views.html.projects.item(
-          Project.create(
-            NewProject(folder, "New project"),
-            Seq(username)))))
+      folder =>
+        Ok(
+          views.html.projects.item(
+            Project.create(NewProject(folder, "New project"), Seq(username))
+          )
+        )
+    )
   }
 
   /**
@@ -61,7 +68,8 @@ class Projects @Inject() (controllerComponents: ControllerComponents)
       newName => {
         Project.rename(project, newName)
         Ok(newName)
-      })
+      }
+    )
   }
 
   // -- Project groups
@@ -87,7 +95,8 @@ class Projects @Inject() (controllerComponents: ControllerComponents)
   def renameGroup(folder: String) = IsAuthenticated { _ => implicit request =>
     Form("name" -> nonEmptyText).bindFromRequest.fold(
       errors => BadRequest,
-      newName => { Project.renameFolder(folder, newName); Ok(newName) })
+      newName => { Project.renameFolder(folder, newName); Ok(newName) }
+    )
   }
 
   // -- Members
@@ -98,7 +107,8 @@ class Projects @Inject() (controllerComponents: ControllerComponents)
   def addUser(project: Long) = IsMemberOf(project) { _ => implicit request =>
     Form("user" -> nonEmptyText).bindFromRequest.fold(
       errors => BadRequest,
-      user => { Project.addMember(project, user); Ok })
+      user => { Project.addMember(project, user); Ok }
+    )
   }
 
   /**
@@ -107,8 +117,8 @@ class Projects @Inject() (controllerComponents: ControllerComponents)
   def removeUser(project: Long) = IsMemberOf(project) { _ => implicit request =>
     Form("user" -> nonEmptyText).bindFromRequest.fold(
       errors => BadRequest,
-      user => { Project.removeMember(project, user); Ok })
+      user => { Project.removeMember(project, user); Ok }
+    )
   }
 
 }
-

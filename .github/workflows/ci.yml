@@ -28,6 +28,5 @@ jobs:
             sbt -v -J-Dfile.encoding=Windows-31J "+test"
             ;;
           *)
-            sbt -v "+test"
+            sbt -v scalafmtSbtCheck "+ scalafmtCheckAll" "+test"
         esac
-    - run: git diff --exit-code # check scalariform

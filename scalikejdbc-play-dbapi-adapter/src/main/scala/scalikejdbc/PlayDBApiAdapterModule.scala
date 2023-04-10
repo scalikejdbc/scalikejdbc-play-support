@@ -23,6 +23,6 @@ import _root_.play.api.inject._
  */
 class PlayDBApiAdapterModule extends Module {
   def bindings(env: Environment, config: Configuration) = Seq(
-    bind[PlayDBApiAdapter].toSelf.eagerly)
+    bind[PlayDBApiAdapter].toSelf.eagerly
+  )
 }
-

@@ -21,33 +21,40 @@ class Tasks @Inject() (controllerComponents: ControllerComponents)
    * Display the tasks panel for this project.
    */
   def index(project: Long) = IsMemberOf(project) { _ => implicit request =>
-    Project.findById(project).map { p =>
-      val tasks = Task.findByProject(project)
-      val team = Project.membersOf(project)
-      Ok(html.tasks.index(p, tasks, team))
-    }.getOrElse(NotFound)
+    Project
+      .findById(project)
+      .map { p =>
+        val tasks = Task.findByProject(project)
+        val team = Project.membersOf(project)
+        Ok(html.tasks.index(p, tasks, team))
+      }
+      .getOrElse(NotFound)
   }
 
   val taskForm = Form(
     tuple(
       "title" -> nonEmptyText,
       "dueDate" -> optional(date("MM/dd/yy")),
-      "assignedTo" -> optional(text)))
+      "assignedTo" -> optional(text)
+    )
+  )
 
   // -- Tasks
 
   /**
    * Create a task in this project.
    */
-  def add(project: Long, folder: String) = IsMemberOf(project) { _ => implicit request =>
-    taskForm.bindFromRequest.fold(
-      errors => BadRequest,
-      {
-        case (title, dueDate, assignedTo) =>
+  def add(project: Long, folder: String) = IsMemberOf(project) {
+    _ => implicit request =>
+      taskForm.bindFromRequest.fold(
+        errors => BadRequest,
+        { case (title, dueDate, assignedTo) =>
           val task = Task.create(
-            NewTask(folder, project, title, false, dueDate, assignedTo))
+            NewTask(folder, project, title, false, dueDate, assignedTo)
+          )
           Ok(html.tasks.item(task))
-      })
+        }
+      )
   }
 
   /**
@@ -59,7 +66,8 @@ class Tasks @Inject() (controllerComponents: ControllerComponents)
       isDone => {
         Task.markAsDone(task, isDone)
         Ok
-      })
+      }
+    )
   }
 
   /**
@@ -82,22 +90,24 @@ class Tasks @Inject() (controllerComponents: ControllerComponents)
   /**
    * Delete a full tasks folder.
    */
-  def deleteFolder(project: Long, folder: String) = IsMemberOf(project) { _ => implicit request =>
-    Task.deleteInFolder(project, folder)
-    Ok
+  def deleteFolder(project: Long, folder: String) = IsMemberOf(project) {
+    _ => implicit request =>
+      Task.deleteInFolder(project, folder)
+      Ok
   }
 
   /**
    * Rename a tasks folder.
    */
-  def renameFolder(project: Long, folder: String) = IsMemberOf(project) { _ => implicit request =>
-    Form("name" -> nonEmptyText).bindFromRequest.fold(
-      errors => BadRequest,
-      newName => {
-        Task.renameFolder(project, folder, newName)
-        Ok(newName)
-      })
+  def renameFolder(project: Long, folder: String) = IsMemberOf(project) {
+    _ => implicit request =>
+      Form("name" -> nonEmptyText).bindFromRequest.fold(
+        errors => BadRequest,
+        newName => {
+          Task.renameFolder(project, folder, newName)
+          Ok(newName)
+        }
+      )
   }
 
 }
-

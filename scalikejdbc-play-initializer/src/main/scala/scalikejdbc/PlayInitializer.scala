@@ -27,7 +27,8 @@ import scala.concurrent.Future
 @Singleton
 class PlayInitializer @Inject() (
   lifecycle: ApplicationLifecycle,
-  configuration: Configuration) {
+  configuration: Configuration
+) {
 
   import PlayInitializer._
 
@@ -46,14 +47,18 @@ class PlayInitializer @Inject() (
   /**
    * DBs with Play application configuration.
    */
-  private[this] lazy val DBs = new DBs with TypesafeConfigReader with TypesafeConfig {
+  private[this] lazy val DBs = new DBs
+    with TypesafeConfigReader
+    with TypesafeConfig {
     override val config = configuration.underlying
   }
 
   def onStart(): Unit = {
     DBs.setupAll()
     GlobalSettings.loggingSQLErrors = loggingSQLErrors
-    opt("closeAllOnStop", "enabled")(playConfig).foreach { enabled => closeAllOnStop = enabled.toBoolean }
+    opt("closeAllOnStop", "enabled")(playConfig).foreach { enabled =>
+      closeAllOnStop = enabled.toBoolean
+    }
   }
 
   def onStop(): Unit = {
@@ -70,7 +75,9 @@ class PlayInitializer @Inject() (
 }
 
 object PlayInitializer {
-  def opt(name: String, key: String)(implicit config: Configuration): Option[String] = {
+  def opt(name: String, key: String)(implicit
+    config: Configuration
+  ): Option[String] = {
     config.getOptional[String](name + "." + key)
   }
 }
