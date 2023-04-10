@@ -53,11 +53,11 @@ lazy val scala3settings = Def.settings(
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
   version := "2.8.1-scalikejdbc-4.0-SNAPSHOT",
-  publishTo := Some(
+  publishTo := (
     if (isSnapshot.value)
-      Opts.resolver.sonatypeSnapshots
+      None
     else
-      Opts.resolver.sonatypeStaging
+      Some(Opts.resolver.sonatypeStaging)
   ),
   publishMavenStyle := true,
   libraryDependencies += "org.specs2" %% "specs2-core" % "4.20.0" % "test",
