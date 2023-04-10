@@ -22,6 +22,8 @@ lazy val commonSettings = Seq(
   scalacOptions ++= Seq("-deprecation", "-unchecked")
 )
 
+commonSettings
+
 lazy val scala3settings = Def.settings(
   conflictWarning := {
     if (scalaBinaryVersion.value == "3") {
