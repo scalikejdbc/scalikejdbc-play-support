@@ -3,7 +3,7 @@
 <li data-task-id="@task.id">
     
     @if(isEditable) {
-        <input class="done" type="checkbox" @(if(task.done) "checked") />
+        <input class="done" type="checkbox" @(if(task.done) "checked" else "") />
     }
     
     <h4>@task.title</h4>
