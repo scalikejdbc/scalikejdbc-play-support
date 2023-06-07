@@ -9,7 +9,7 @@ lazy val postgresqlVersion = "42.6.0"
 
 lazy val commonSettings = Seq(
   scalaVersion := "2.13.12",
-  crossScalaVersions := Seq("2.12.18", "2.13.12", "3.3.1"),
+  crossScalaVersions := Seq("2.13.12", "3.3.1"),
   libraryDependencySchemes += "org.scala-lang.modules" %% "scala-parser-combinators" % "always",
   Test / fork := true,
   javaOptions ++= {
@@ -24,37 +24,9 @@ lazy val commonSettings = Seq(
 
 commonSettings
 
-lazy val scala3settings = Def.settings(
-  conflictWarning := {
-    if (scalaBinaryVersion.value == "3") {
-      // TODO
-      ConflictWarning("warn", Level.Warn, false)
-    } else {
-      conflictWarning.value
-    }
-  },
-  libraryDependencies := {
-    val organizations = Set(
-      "com.typesafe.play",
-      "org.specs2",
-      "org.flywaydb",
-    )
-    libraryDependencies.value.map { x =>
-      if (
-        organizations(x.organization) && x.crossVersion
-          .isInstanceOf[CrossVersion.Binary]
-      ) {
-        x cross CrossVersion.for3Use2_13
-      } else {
-        x
-      }
-    }
-  },
-)
-
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
-  version := "2.8.1-scalikejdbc-4.0-SNAPSHOT",
+  version := "2.9.0-scalikejdbc-4.0-SNAPSHOT",
   publishTo := (
     if (isSnapshot.value)
       None
@@ -86,7 +58,6 @@ lazy val scalikejdbcPlayInitializer = Project(
     "com.h2database" % "h2" % h2Version % "test",
     guice % "test"
   ),
-  scala3settings,
 )
 
 // scalikejdbc-play-dbapi-adapter
@@ -105,7 +76,6 @@ lazy val scalikejdbcPlayDBApiAdapter = Project(
     "com.h2database" % "h2" % h2Version % "test",
     guice % "test"
   ),
-  scala3settings,
 )
 
 // scalikejdbc-play-fixture
@@ -124,7 +94,6 @@ lazy val scalikejdbcPlayFixture = Project(
   ),
   Test / testOptions += Tests
     .Argument(TestFrameworks.Specs2, "sequential", "true"),
-  scala3settings,
 ).dependsOn(scalikejdbcPlayInitializer)
 
 // play plugin zentasks example
@@ -134,7 +103,7 @@ lazy val scalikejdbcPlayInitializerTestZentasks = {
   val appDependencies = Seq(
     "org.scalikejdbc" %% "scalikejdbc" % scalikejdbcVersion,
     "org.scalikejdbc" %% "scalikejdbc-config" % scalikejdbcVersion,
-    "org.flywaydb" %% "flyway-play" % "7.41.0",
+    "org.flywaydb" %% "flyway-play" % "7.41.0" cross CrossVersion.for3Use2_13 exclude ("com.typesafe.play", "*"),
     "com.h2database" % "h2" % h2Version,
     "org.postgresql" % "postgresql" % postgresqlVersion
   )
@@ -145,7 +114,6 @@ lazy val scalikejdbcPlayInitializerTestZentasks = {
     .settings(
       commonSettings,
       libraryDependencies ++= appDependencies,
-      scala3settings,
     )
     .dependsOn(scalikejdbcPlayInitializer, scalikejdbcPlayFixture)
 }
@@ -167,7 +135,6 @@ lazy val scalikejdbcPlayDBApiAdapterTestZentasks = {
     .settings(
       commonSettings,
       libraryDependencies ++= appDependencies,
-      scala3settings,
     )
     .dependsOn(scalikejdbcPlayDBApiAdapter, scalikejdbcPlayFixture)
 }
