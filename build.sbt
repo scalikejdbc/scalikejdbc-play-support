@@ -144,7 +144,7 @@ val jdbcDriverDependenciesInTestScope = Seq(
   "org.apache.derby" % "derby" % "10.10.2.+" % "test",
   "org.xerial" % "sqlite-jdbc" % "3.7.+" % "test",
   "org.hsqldb" % "hsqldb" % "2.3.+" % "test",
-  "mysql" % "mysql-connector-java" % "5.1.+" % "test",
+  "com.mysql" % "mysql-connector-j" % "8.2.0" % "test",
   "org.postgresql" % "postgresql" % postgresqlVersion % "test"
 )
 val _pomExtra = <url>http://scalikejdbc.org/</url>
