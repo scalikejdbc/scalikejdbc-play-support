@@ -51,10 +51,10 @@ lazy val scalikejdbcPlayInitializer = Project(
   libraryDependencies ++= Seq(
     "org.scalikejdbc" %% "scalikejdbc" % scalikejdbcVersion % "provided",
     "org.scalikejdbc" %% "scalikejdbc-config" % scalikejdbcVersion % "provided",
-    "com.typesafe.play" %% "play" % defaultPlayVersion % "provided",
+    "org.playframework" %% "play" % defaultPlayVersion % "provided",
     // play-jdbc is needed to test with DBApi
-    "com.typesafe.play" %% "play-jdbc" % defaultPlayVersion % "test",
-    "com.typesafe.play" %% "play-test" % defaultPlayVersion % "test",
+    "org.playframework" %% "play-jdbc" % defaultPlayVersion % "test",
+    "org.playframework" %% "play-test" % defaultPlayVersion % "test",
     "com.h2database" % "h2" % h2Version % "test",
     guice % "test"
   ),
@@ -70,9 +70,9 @@ lazy val scalikejdbcPlayDBApiAdapter = Project(
   libraryDependencies ++= Seq(
     "org.scalikejdbc" %% "scalikejdbc" % scalikejdbcVersion % "provided",
     "org.scalikejdbc" %% "scalikejdbc-config" % scalikejdbcVersion % "provided",
-    "com.typesafe.play" %% "play" % defaultPlayVersion % "provided",
-    "com.typesafe.play" %% "play-jdbc" % defaultPlayVersion % "compile",
-    "com.typesafe.play" %% "play-test" % defaultPlayVersion % "test",
+    "org.playframework" %% "play" % defaultPlayVersion % "provided",
+    "org.playframework" %% "play-jdbc" % defaultPlayVersion % "compile",
+    "org.playframework" %% "play-test" % defaultPlayVersion % "test",
     "com.h2database" % "h2" % h2Version % "test",
     guice % "test"
   ),
@@ -88,8 +88,8 @@ lazy val scalikejdbcPlayFixture = Project(
   libraryDependencies ++= Seq(
     "org.scalikejdbc" %% "scalikejdbc" % scalikejdbcVersion % "provided",
     "org.scalikejdbc" %% "scalikejdbc-config" % scalikejdbcVersion % "provided",
-    "com.typesafe.play" %% "play" % defaultPlayVersion % "provided",
-    "com.typesafe.play" %% "play-test" % defaultPlayVersion % "test",
+    "org.playframework" %% "play" % defaultPlayVersion % "provided",
+    "org.playframework" %% "play-test" % defaultPlayVersion % "test",
     "com.h2database" % "h2" % h2Version % "test"
   ),
   Test / testOptions += Tests
@@ -110,7 +110,7 @@ lazy val scalikejdbcPlayInitializerTestZentasks = {
 
   Project(appName, file("scalikejdbc-play-initializer/test/zentasks"))
     .enablePlugins(play.sbt.PlayScala, PlayNettyServer)
-    .disablePlugins(PlayAkkaHttpServer)
+    .disablePlugins(PlayPekkoHttpServer)
     .settings(
       commonSettings,
       libraryDependencies ++= appDependencies,
@@ -131,7 +131,7 @@ lazy val scalikejdbcPlayDBApiAdapterTestZentasks = {
 
   Project(appName, file("scalikejdbc-play-dbapi-adapter/test/zentasks"))
     .enablePlugins(play.sbt.PlayScala, PlayNettyServer)
-    .disablePlugins(PlayAkkaHttpServer)
+    .disablePlugins(PlayPekkoHttpServer)
     .settings(
       commonSettings,
       libraryDependencies ++= appDependencies,
