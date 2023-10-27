@@ -1,6 +1,6 @@
 # ScalikeJDBC Play Support
 
-This is a project to enable using ScalikeJDBC in Play2 apps seamlessly.
+This is a project to enable using ScalikeJDBC in playframework apps seamlessly.
 
 http://scalikejdbc.org/
 
