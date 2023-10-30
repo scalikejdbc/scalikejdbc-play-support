@@ -26,7 +26,7 @@ commonSettings
 
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
-  version := "2.9.0-scalikejdbc-4.0-SNAPSHOT",
+  version := "3.0.0-scalikejdbc-4.1-SNAPSHOT",
   publishTo := (
     if (isSnapshot.value)
       None
