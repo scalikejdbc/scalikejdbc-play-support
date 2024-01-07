@@ -2,7 +2,7 @@
 
 This is a project to enable using ScalikeJDBC in playframework apps seamlessly.
 
-http://scalikejdbc.org/
+https://scalikejdbc.org/
 
 ### Migration Guide
 

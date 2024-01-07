@@ -147,7 +147,7 @@ val jdbcDriverDependenciesInTestScope = Seq(
   "com.mysql" % "mysql-connector-j" % "8.2.0" % "test",
   "org.postgresql" % "postgresql" % postgresqlVersion % "test"
 )
-val _pomExtra = <url>http://scalikejdbc.org/</url>
+val _pomExtra = <url>https://scalikejdbc.org/</url>
     <licenses>
       <license>
         <name>Apache License, Version 2.0</name>
