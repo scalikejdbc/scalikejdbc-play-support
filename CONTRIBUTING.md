@@ -1,9 +1,9 @@
-## ScalikeJDBC Contributers' Guide
+## ScalikeJDBC Contributors' Guide
 
 ### Issues
 
 - Questions should be posted to [ScalikeJDBC Users Group](https://groups.google.com/forum/#!forum/scalikejdbc-users-group)
-- Please describe about your issue in detail (verison, situation, examples)
+- Please describe about your issue in detail (version, situation, examples)
 
 ### Pull Requests
 

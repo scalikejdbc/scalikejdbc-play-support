@@ -26,7 +26,7 @@ commonSettings
 
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
-  version := "3.0.0-scalikejdbc-4.1-SNAPSHOT",
+  version := "3.0.0-scalikejdbc-4.2",
   publishTo := (
     if (isSnapshot.value)
       None
@@ -151,7 +151,7 @@ val _pomExtra = <url>https://scalikejdbc.org/</url>
     <licenses>
       <license>
         <name>Apache License, Version 2.0</name>
-        <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        <url>https://www.apache.org/licenses/LICENSE-2.0.html</url>
         <distribution>repo</distribution>
       </license>
     </licenses>
@@ -163,7 +163,7 @@ val _pomExtra = <url>https://scalikejdbc.org/</url>
       <developer>
         <id>seratch</id>
         <name>Kazuhiro Sera</name>
-        <url>http://git.io/sera</url>
+        <url>https://github.com/seratch</url>
       </developer>
       <developer>
         <id>xuwei-k</id>

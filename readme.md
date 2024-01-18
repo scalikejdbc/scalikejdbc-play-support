@@ -1,35 +1,19 @@
 # ScalikeJDBC Play Support
 
-This is a project to enable using ScalikeJDBC in playframework apps seamlessly.
+This is a project to enable using ScalikeJDBC in Play Framework apps seamlessly.
 
 https://scalikejdbc.org/
 
-### Migration Guide
-
-Unfortunately, Play 2.4 is basically incompatible with Play plugins. Since Play 2.4, you need to switch to use Play modules instead.
-
-#### ScalikeJDBC integration with Play 2.0 - 2.3
-
-- scalikejdbc-play-plugin
-- scalikejdbc-play-dbplugin-adapter
-- scalikejdbc-play-fixture-plugin
-
-#### ScalikeJDBC integration with Play 2.4 or higher
-
-- scalikejdbc-play-initializer
-- scalikejdbc-play-dbapi-adapter
-- scalikejdbc-play-fixture
-
-### Getting Started with Play 2.8
+### Getting Started with Play 3.0
 
 #### build.sbt
 
 ```scala
 libraryDependencies ++= Seq(
-  "com.h2database"  %  "h2"                           % "1.4.200", // your jdbc driver here
-  "org.scalikejdbc" %% "scalikejdbc"                  % "4.1.0",
-  "org.scalikejdbc" %% "scalikejdbc-config"           % "4.1.0",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.8.0-scalikejdbc-4.0"
+  "com.h2database"  %  "h2"                           % "2.2.224", // your jdbc driver here
+  "org.scalikejdbc" %% "scalikejdbc"                  % "4.2.0",
+  "org.scalikejdbc" %% "scalikejdbc-config"           % "4.2.0",
+  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "3.0.0-scalikejdbc-4.2"
 )
 ```
 
@@ -93,6 +77,23 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
   }
 }
 ```
+
+### Migration Guide
+
+Unfortunately, Play 2.4 is basically incompatible with Play plugins.
+Since Play 2.4, you need to switch to use Play modules instead.
+
+#### ScalikeJDBC integration with Play 2.0 - 2.3
+
+- scalikejdbc-play-plugin
+- scalikejdbc-play-dbplugin-adapter
+- scalikejdbc-play-fixture-plugin
+
+#### ScalikeJDBC integration with Play 2.4 or higher
+
+- scalikejdbc-play-initializer
+- scalikejdbc-play-dbapi-adapter
+- scalikejdbc-play-fixture
 
 ## License
 
