@@ -1,4 +1,4 @@
-lazy val scalikejdbcVersion = "4.2.0"
+lazy val scalikejdbcVersion = "4.2.1"
 
 // published dependency version
 lazy val defaultPlayVersion = play.core.PlayVersion.current
