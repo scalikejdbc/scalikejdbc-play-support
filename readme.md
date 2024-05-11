@@ -11,9 +11,9 @@ https://scalikejdbc.org/
 ```scala
 libraryDependencies ++= Seq(
   "com.h2database"  %  "h2"                           % "2.2.224", // your jdbc driver here
-  "org.scalikejdbc" %% "scalikejdbc"                  % "4.2.0",
-  "org.scalikejdbc" %% "scalikejdbc-config"           % "4.2.0",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "3.0.0-scalikejdbc-4.2"
+  "org.scalikejdbc" %% "scalikejdbc"                  % "4.3.0",
+  "org.scalikejdbc" %% "scalikejdbc-config"           % "4.3.0",
+  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "3.0.0-scalikejdbc-4.3"
 )
 ```
 

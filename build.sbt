@@ -1,4 +1,4 @@
-lazy val scalikejdbcVersion = "4.2.1"
+lazy val scalikejdbcVersion = "4.3.0"
 
 // published dependency version
 lazy val defaultPlayVersion = play.core.PlayVersion.current
@@ -26,7 +26,7 @@ commonSettings
 
 lazy val baseSettings = commonSettings ++ Seq(
   organization := "org.scalikejdbc",
-  version := "3.0.1-scalikejdbc-4.2-SNAPSHOT",
+  version := "3.0.1-scalikejdbc-4.3",
   publishTo := (
     if (isSnapshot.value)
       None
