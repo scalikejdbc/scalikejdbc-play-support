@@ -21,10 +21,13 @@ class Application @Inject() (controllerComponents: ControllerComponents)
     tuple(
       "email" -> text,
       "password" -> text
-    ) verifying ("Invalid email or password", result =>
-      result match {
-        case (email, password) => User.authenticate(email, password).isDefined
-      })
+    ) verifying (
+      "Invalid email or password",
+      result =>
+        result match {
+          case (email, password) => User.authenticate(email, password).isDefined
+        }
+    )
   )
 
   /**
