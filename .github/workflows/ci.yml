@@ -20,6 +20,7 @@ jobs:
       with:
         java-version: 11
         distribution: temurin
+    - uses: sbt/setup-sbt@v1
     - uses: coursier/cache-action@v6
     - shell: bash
       run: |
