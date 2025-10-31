@@ -1,4 +1,4 @@
-addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.5")
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.6")
 addSbtPlugin("org.playframework" % "sbt-plugin" % "3.0.9")
 addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.3.1")
 
