@@ -62,7 +62,7 @@ trait FixtureSupport {
           List(fixturesRootPath, dbName, fixtureName).mkString("/")
         environment.resource(resourceName) match {
           case Some(resource) => Fixture(new File(resource.getPath))
-          case None =>
+          case None           =>
             throw new FixtureNotFoundException(
               "Fixture not found (%s)".format(resourceName)
             )
