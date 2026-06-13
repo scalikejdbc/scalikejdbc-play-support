@@ -9,7 +9,7 @@ lazy val postgresqlVersion = "42.7.11"
 
 lazy val commonSettings = Seq(
   scalaVersion := "2.13.18",
-  crossScalaVersions := Seq("2.13.18", "3.3.7"),
+  crossScalaVersions := Seq("2.13.18", "3.3.8"),
   libraryDependencySchemes += "org.scala-lang.modules" %% "scala-parser-combinators" % "always",
   Test / fork := true,
   javaOptions ++= {
