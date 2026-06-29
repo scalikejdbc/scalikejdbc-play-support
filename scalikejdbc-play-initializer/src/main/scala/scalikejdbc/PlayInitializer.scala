@@ -56,7 +56,7 @@ class PlayInitializer @Inject() (
   def onStart(): Unit = {
     DBs.setupAll()
     GlobalSettings.loggingSQLErrors = loggingSQLErrors
-    opt("closeAllOnStop", "enabled")(playConfig).foreach { enabled =>
+    opt("closeAllOnStop", "enabled")(using playConfig).foreach { enabled =>
       closeAllOnStop = enabled.toBoolean
     }
   }

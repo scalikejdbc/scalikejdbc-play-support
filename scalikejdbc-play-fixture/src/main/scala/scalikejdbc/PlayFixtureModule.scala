@@ -48,13 +48,13 @@ class PlayFixture @Inject() (
 
   def onStart(): Unit = {
     if (isTest || isDev) {
-      loadFixtures()(environment, configuration)
+      loadFixtures()(using environment, configuration)
     }
   }
 
   def onStop(): Unit = {
     if (isTest || isDev) {
-      cleanFixtures()(environment, configuration)
+      cleanFixtures()(using environment, configuration)
     }
   }
 
