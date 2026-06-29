@@ -20,7 +20,7 @@ class Application @Inject() (controllerComponents: ControllerComponents)
     tuple(
       "email" -> text,
       "password" -> text
-    ) verifying (
+    ).verifying(
       "Invalid email or password",
       result =>
         result match {

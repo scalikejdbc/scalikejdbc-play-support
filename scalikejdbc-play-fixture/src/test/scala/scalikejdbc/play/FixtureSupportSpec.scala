@@ -34,7 +34,7 @@ class FixtureSupportSpec extends Specification with BeforeAfterEach {
         "db.secondary.user" -> "l",
         "db.secondary.password" -> "g"
       )
-      fixtureSupport.fixtures(environment, configuration) must have size 2
+      fixtureSupport.fixtures(using environment, configuration) must have size 2
     }
 
   }
